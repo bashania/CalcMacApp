@@ -9,9 +9,41 @@ punt als duizendtalscheider).
 
 from __future__ import annotations
 
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Optional
+
+
+# ── XML-opschoning ────────────────────────────────────────────────────────────
+# XML 1.0 staat alleen toe: #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD]
+# Calc4You-bestanden kunnen soms ongeldige tekenverwij­zingen bevatten
+# (bv. &#x0; &#x1B;) doordat tekst vanuit Word of RTF is gekopieerd.
+
+_CHAR_REF = re.compile(r'&#(?:x([0-9a-fA-F]+)|([0-9]+));')
+_INVALID_RAW = re.compile(
+    r'[^\x09\x0A\x0D\x20-퟿-�\U00010000-\U0010FFFF]'
+)
+
+
+def _valid_xml_codepoint(code: int) -> bool:
+    return (
+        code in (0x9, 0xA, 0xD)
+        or 0x20 <= code <= 0xD7FF
+        or 0xE000 <= code <= 0xFFFD
+        or 0x10000 <= code <= 0x10FFFF
+    )
+
+
+def _clean_xml(text: str) -> str:
+    """Verwijder ongeldig tekens en ongeldi­ge tekenverwij­zingen uit XML."""
+    def _fix_ref(m: re.Match) -> str:
+        code = int(m.group(1), 16) if m.group(1) else int(m.group(2))
+        return m.group(0) if _valid_xml_codepoint(code) else ''
+
+    text = _CHAR_REF.sub(_fix_ref, text)
+    text = _INVALID_RAW.sub('', text)
+    return text
 
 
 # ── Getalconversie NL ↔ float ─────────────────────────────────────────────────
@@ -76,8 +108,15 @@ class C4YDocument:
     # ── Laden ────────────────────────────────────────────────────────────────
     @classmethod
     def load(cls, path: str | Path) -> "C4YDocument":
-        tree = ET.parse(str(path))
-        return cls(tree, str(path))
+        raw = Path(path).read_bytes()
+        # Probeer UTF-8; val terug op latin-1 (Windows-bestanden)
+        try:
+            text = raw.decode('utf-8')
+        except UnicodeDecodeError:
+            text = raw.decode('latin-1')
+        text = _clean_xml(text)
+        root = ET.fromstring(text)
+        return cls(ET.ElementTree(root), str(path))
 
     # ── Eigenschappen ────────────────────────────────────────────────────────
     @property
