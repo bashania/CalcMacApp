@@ -1,0 +1,62 @@
+{
+  "project": {
+    "nummer": "20261.00260",
+    "naam": "IKC de Triangel",
+    "adres": "Vlasakker 33, Zoetermeer",
+    "omschrijving": "Buitenschilderwerk"
+  },
+  "uurloon": 45,
+  "factor": 25,
+  "hoofdstukken": [
+    {
+      "code": "46",
+      "s": "1",
+      "oms": "Schilderwerk hout",
+      "segmenten": [
+        {
+          "code": "46.01",
+          "s": "2",
+          "oms": "Gevel Entree Zijde",
+          "noemers": [
+            {
+              "code": "46.01.1",
+              "oms": "Hout - Kozijn",
+              "hvh": 130.40,
+              "enh": "m1",
+              "arb": 0.14,
+              "maa": 1.81,
+              "code4": "OHD 03"
+            },
+            {
+              "code": "46.01.2",
+              "oms": "Hout - Raam",
+              "hvh": 51.20,
+              "enh": "m1",
+              "arb": 0.12,
+              "maa": 1.30,
+              "code4": "OHD 03"
+            }
+          ]
+        },
+        {
+          "code": "46.02",
+          "s": "2",
+          "oms": "Steiger voorkant",
+          "noemers": [
+            {
+              "code": "46.02.1",
+              "oms": "Montage/Demontage",
+              "hvh": 576.00,
+              "enh": "m2",
+              "arb": 0,
+              "maa": 0,
+              "ond": 9.75,
+              "code1": "DMB Steigerverhuur B.V.",
+              "code4": "Offerte 127"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
