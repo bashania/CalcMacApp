@@ -9,9 +9,17 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QAction, QBrush, QColor, QFont, QKeySequence
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import (
+    QAction,
+    QBrush,
+    QColor,
+    QFont,
+    QKeySequence,
+    QUndoStack,
+)
 from PyQt6.QtWidgets import (
+    QAbstractItemView,
     QApplication,
     QFileDialog,
     QFormLayout,
@@ -31,8 +39,15 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from app.c4y_io import C4YDocument, format_nl
+from app.c4y_io import C4YDocument, TITEL_NIVEAUS, format_nl
 from app.calc import recompute, totaal_begroting
+from app.commands import (
+    DeleteRowCommand,
+    DuplicateRowCommand,
+    InsertRowCommand,
+    MoveBlockCommand,
+    SetCellCommand,
+)
 
 
 # ── Kolomdefinitie ───────────────────────────────────────────────────────────
@@ -127,13 +142,116 @@ STYLE_DEFAULT = {'bg': None, 'fg': '#000000', 'bold': False, 'italic': False, 's
 # Inspringing omschrijving per S-niveau (visualiseert hiërarchie)
 INDENT = {'1': '', '2': '  ', '3': '    '}
 
+# Disclosure-driehoekjes voor titelrijen
+DISCLOSURE_OPEN   = '▼ '   # ▼
+DISCLOSURE_CLOSED = '▶ '   # ▶
+DISCLOSURE_CHARS  = (DISCLOSURE_OPEN.strip(), DISCLOSURE_CLOSED.strip())
+
+
+def _strip_oms_chrome(text: str) -> str:
+    """Verwijder leidende whitespace + disclosure-driehoekjes uit een
+    bewerkte oms-cel zodat alleen de schone tekst overblijft."""
+    text = text.lstrip()
+    for prefix in (DISCLOSURE_OPEN, DISCLOSURE_CLOSED):
+        if text.startswith(prefix):
+            text = text[len(prefix):]
+            break
+    return text.lstrip()
+
+
+# ── Tabel met blok-bewuste drag & drop + disclosure-klik ─────────────────────
+class DnDTableWidget(QTableWidget):
+    """QTableWidget met:
+      - Blok-bewuste drag & drop (titelrijen slepen children mee).
+      - Klik op de eerste ~18 px van de Omschrijving-cel → toggle inklap.
+    """
+
+    blockMoveRequested  = pyqtSignal(int, int, int)  # (src, count, dst)
+    disclosureClicked   = pyqtSignal(int)            # row index
+
+    DISCLOSURE_HIT_PX = 18
+
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self._block_size_for: callable | None = None
+        self._oms_col: int = 0
+        self._is_titel: callable | None = None
+        self._drag_block_count = 1
+
+    # ── Configuratie door MainWindow ─────────────────────────────────────────
+    def set_helpers(
+        self, *, block_size_for, is_titel, oms_col: int,
+    ) -> None:
+        self._block_size_for = block_size_for
+        self._is_titel = is_titel
+        self._oms_col = oms_col
+
+    # ── Klik op disclosure-driehoekje ────────────────────────────────────────
+    def mousePressEvent(self, event):
+        if event.button() == Qt.MouseButton.LeftButton and self._is_titel:
+            idx = self.indexAt(event.pos())
+            if idx.isValid() and idx.column() == self._oms_col \
+                    and self._is_titel(idx.row()):
+                cell_rect = self.visualRect(idx)
+                x_in_cell = event.pos().x() - cell_rect.x()
+                if 0 <= x_in_cell <= self.DISCLOSURE_HIT_PX:
+                    self.disclosureClicked.emit(idx.row())
+                    event.accept()
+                    return
+        # Onthouden welk blok we slepen, voordat de selectie wordt gewijzigd
+        if self._block_size_for and event.button() == Qt.MouseButton.LeftButton:
+            idx = self.indexAt(event.pos())
+            if idx.isValid():
+                self._drag_block_count = self._block_size_for(idx.row())
+        super().mousePressEvent(event)
+
+    # ── Drop: bereken (src, count, dst) en signal ────────────────────────────
+    def dropEvent(self, event):
+        if event.source() is not self:
+            event.ignore()
+            return
+        src = self.currentRow()
+        if src < 0:
+            event.ignore()
+            return
+        count = self._drag_block_count or 1
+
+        dst_idx = self.indexAt(event.pos())
+        if not dst_idx.isValid():
+            dst = self.rowCount() - count
+        else:
+            dst = dst_idx.row()
+            # Bereken doelpositie ná verwijdering van het blok:
+            if dst > src:
+                dst -= count
+                if dst < 0:
+                    dst = 0
+        # Drop binnen het bron-blok zelf wordt genegeerd
+        if src <= dst < src + count:
+            event.ignore()
+            return
+        if dst == src:
+            event.ignore()
+            return
+
+        self.blockMoveRequested.emit(src, count, dst)
+        event.accept()
+
 
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
         self.doc: C4YDocument | None = None
-        self._dirty = False
         self._base_font_size: int = QApplication.font().pointSize()
+
+        # Undo-stack: bron van waarheid voor dirty-state
+        self.undo_stack = QUndoStack(self)
+        self.undo_stack.setUndoLimit(200)
+        self.undo_stack.cleanChanged.connect(self._on_clean_changed)
+
+        # Per-sessie state voor in/uitklap (stabiel onder rij-renummering)
+        import xml.etree.ElementTree as _ET
+        self._collapsed: set[_ET.Element] = set()
 
         self._build_actions()
         self._build_ui()
@@ -169,6 +287,48 @@ class MainWindow(QMainWindow):
             'Afsluiten', self, shortcut=QKeySequence.StandardKey.Quit,
         )
         self.act_quit.triggered.connect(self.close)
+
+        # Undo / Redo via QUndoStack
+        self.act_undo = self.undo_stack.createUndoAction(self, 'Ongedaan maken')
+        self.act_undo.setShortcut(QKeySequence.StandardKey.Undo)
+        self.act_redo = self.undo_stack.createRedoAction(self, 'Opnieuw')
+        self.act_redo.setShortcut(QKeySequence.StandardKey.Redo)
+
+        # Rijbewerkingen
+        self.act_row_add_below = QAction('Rij toevoegen', self,
+                                         shortcut=Qt.Key.Key_F9)
+        self.act_row_add_below.triggered.connect(self.on_row_add_below)
+
+        self.act_row_add_above = QAction('Rij toevoegen boven', self,
+                                         shortcut='Shift+F9')
+        self.act_row_add_above.triggered.connect(self.on_row_add_above)
+
+        self.act_row_delete = QAction(
+            sp.standardIcon(QStyle.StandardPixmap.SP_TrashIcon),
+            'Rij verwijderen', self, shortcut=Qt.Key.Key_F11,
+        )
+        self.act_row_delete.triggered.connect(self.on_row_delete)
+
+        self.act_row_dup = QAction('Rij kopiëren onder', self,
+                                   shortcut='Shift+F4')
+        self.act_row_dup.triggered.connect(self.on_row_duplicate)
+
+        self.act_cell_dup_above = QAction(
+            'Cel uit rij erboven kopiëren', self, shortcut=Qt.Key.Key_F4,
+        )
+        self.act_cell_dup_above.triggered.connect(self.on_cell_dup_above)
+
+        # In/uitklap
+        self.act_collapse = QAction('Niveau in/uitklappen', self,
+                                    shortcut=Qt.Key.Key_F8)
+        self.act_collapse.triggered.connect(self.on_toggle_collapse)
+
+        self.act_collapse_level = QAction(
+            'Alle van dit niveau in/uitklappen', self, shortcut='Shift+F8',
+        )
+        self.act_collapse_level.triggered.connect(
+            self.on_toggle_collapse_level
+        )
 
     # ── UI opbouw ────────────────────────────────────────────────────────────
     def _build_ui(self) -> None:
@@ -208,8 +368,8 @@ class MainWindow(QMainWindow):
         form_row.addLayout(right_form, 2)
         root.addLayout(form_row)
 
-        # Begrotingstabel
-        self.table = QTableWidget(0, len(COLUMNS))
+        # Begrotingstabel met drag & drop en disclosure-klik
+        self.table = DnDTableWidget(0, len(COLUMNS))
         self.table.setHorizontalHeaderLabels([c[1] for c in COLUMNS])
         for i, (_, _, w, _) in enumerate(COLUMNS):
             self.table.setColumnWidth(i, w)
@@ -221,21 +381,55 @@ class MainWindow(QMainWindow):
         self.table.setShowGrid(True)
         self.table.setGridStyle(Qt.PenStyle.SolidLine)
         self.table.setSelectionBehavior(
-            QTableWidget.SelectionBehavior.SelectRows
+            QAbstractItemView.SelectionBehavior.SelectRows
         )
-        self.table.setAlternatingRowColors(False)  # eigen kleuren per rij
+        self.table.setSelectionMode(
+            QAbstractItemView.SelectionMode.SingleSelection
+        )
+        self.table.setAlternatingRowColors(False)
+
+        # Drag & drop
+        self.table.setDragEnabled(True)
+        self.table.setAcceptDrops(True)
+        self.table.setDropIndicatorShown(True)
+        self.table.setDragDropMode(
+            QAbstractItemView.DragDropMode.InternalMove
+        )
+        self.table.setDefaultDropAction(Qt.DropAction.MoveAction)
+
+        self.table.set_helpers(
+            block_size_for=self._safe_block_size,
+            is_titel=self._row_is_titel,
+            oms_col=COL_OMS,
+        )
+        self.table.blockMoveRequested.connect(self._on_block_move)
+        self.table.disclosureClicked.connect(self._on_disclosure_clicked)
         self.table.itemChanged.connect(self._on_cell_changed)
         root.addWidget(self.table)
 
         self.setCentralWidget(central)
 
     def _build_menu(self) -> None:
-        f = self.menuBar().addMenu('&Bestand')
+        m = self.menuBar()
+        f = m.addMenu('&Bestand')
         f.addAction(self.act_open)
         f.addAction(self.act_save)
         f.addAction(self.act_save_as)
         f.addSeparator()
         f.addAction(self.act_quit)
+
+        b = m.addMenu('Be&werken')
+        b.addAction(self.act_undo)
+        b.addAction(self.act_redo)
+        b.addSeparator()
+        b.addAction(self.act_row_add_below)
+        b.addAction(self.act_row_add_above)
+        b.addAction(self.act_row_delete)
+        b.addAction(self.act_row_dup)
+        b.addAction(self.act_cell_dup_above)
+        b.addSeparator()
+        b.addAction(self.act_collapse)
+        b.addAction(self.act_collapse_level)
 
     def _build_toolbar(self) -> None:
         bar = QToolBar('Hoofd', self)
@@ -245,6 +439,12 @@ class MainWindow(QMainWindow):
         bar.addAction(self.act_open)
         bar.addAction(self.act_save)
         bar.addAction(self.act_save_as)
+        bar.addSeparator()
+        bar.addAction(self.act_undo)
+        bar.addAction(self.act_redo)
+        bar.addSeparator()
+        bar.addAction(self.act_row_add_below)
+        bar.addAction(self.act_row_delete)
         self.addToolBar(bar)
 
     def _build_statusbar(self) -> None:
@@ -254,6 +454,10 @@ class MainWindow(QMainWindow):
         sb.addPermanentWidget(self._lbl_totaal)
 
     # ── Titelstatus + actie-enabled ───────────────────────────────────────────
+    @property
+    def _dirty(self) -> bool:
+        return not self.undo_stack.isClean()
+
     def _update_title(self) -> None:
         base = 'CalcMacApp'
         if self.doc and self.doc.path:
@@ -266,9 +470,16 @@ class MainWindow(QMainWindow):
         has_doc = self.doc is not None
         self.act_save.setEnabled(has_doc and self._dirty)
         self.act_save_as.setEnabled(has_doc)
+        # Rij-acties alleen bij geopend document
+        for a in (
+            self.act_row_add_below, self.act_row_add_above,
+            self.act_row_delete,    self.act_row_dup,
+            self.act_cell_dup_above,
+            self.act_collapse,      self.act_collapse_level,
+        ):
+            a.setEnabled(has_doc)
 
-    def _set_dirty(self, dirty: bool = True) -> None:
-        self._dirty = dirty
+    def _on_clean_changed(self, _is_clean: bool) -> None:
         self._update_title()
         self._update_action_state()
 
@@ -285,8 +496,12 @@ class MainWindow(QMainWindow):
         except Exception as exc:
             QMessageBox.critical(self, 'Fout bij openen', str(exc))
             return
+        self.undo_stack.clear()
+        self._collapsed.clear()
         self._populate_ui()
-        self._set_dirty(False)
+        self.undo_stack.setClean()
+        self._update_title()
+        self._update_action_state()
 
     def on_save(self) -> None:
         if not self.doc:
@@ -296,7 +511,7 @@ class MainWindow(QMainWindow):
             return
         try:
             self.doc.save()
-            self._set_dirty(False)
+            self.undo_stack.setClean()
             self.statusBar().showMessage(
                 f'Opgeslagen: {Path(self.doc.path).name}', 3000
             )
@@ -316,7 +531,7 @@ class MainWindow(QMainWindow):
             path += '.c4y'
         try:
             self.doc.save(path)
-            self._set_dirty(False)
+            self.undo_stack.setClean()
             self.statusBar().showMessage(
                 f'Opgeslagen: {Path(self.doc.path).name}', 3000
             )
@@ -361,6 +576,7 @@ class MainWindow(QMainWindow):
             self.table.blockSignals(False)
 
         self._recompute_and_refresh()
+        self._apply_visibility()
 
     # ── Rijstyling ────────────────────────────────────────────────────────────
     def _apply_row_style(self, row: int, s_code: str) -> None:
@@ -396,11 +612,18 @@ class MainWindow(QMainWindow):
             item.setForeground(fg_brush)
             item.setFont(font)
 
-        # Inspringing in de omschrijving voor titelniveaus
+        # Inspringing en disclosure-driehoekje voor titelniveaus
         oms_item = self.table.item(row, COL_OMS)
-        if oms_item is not None and s_code in INDENT:
-            raw_oms = self.doc.get_row_field(row, 'oms') if self.doc else ''
-            oms_item.setText(INDENT[s_code] + raw_oms)
+        if oms_item is not None and self.doc is not None:
+            raw_oms = self.doc.get_row_field(row, 'oms')
+            if s_code in INDENT:
+                disclosure = (
+                    DISCLOSURE_CLOSED if self._row_is_collapsed(row)
+                    else DISCLOSURE_OPEN
+                )
+                oms_item.setText(INDENT[s_code] + disclosure + raw_oms)
+            else:
+                oms_item.setText(raw_oms)
 
     # ── Herberekening ─────────────────────────────────────────────────────────
     def _recompute_and_refresh(self) -> None:
@@ -453,24 +676,214 @@ class MainWindow(QMainWindow):
         if tag.startswith('_'):
             return
 
-        # Omschrijving: strip inspringing voor opslag in XML
-        value = item.text()
+        # Strip cosmetische prefixen voor de XML-opslag
+        new_value = item.text()
         if tag == 'oms':
-            value = value.lstrip()
+            new_value = _strip_oms_chrome(new_value)
 
-        self.doc.set_row_field(item.row(), tag, value)
-        self._set_dirty(True)
+        old_value = self.doc.get_row_field(item.row(), tag)
+        if old_value == new_value:
+            return  # geen echte wijziging — geen undo-entry
 
-        if item.column() == COL_S:
-            s_code = item.text().strip()
-            self.table.blockSignals(True)
-            try:
-                self._apply_row_style(item.row(), s_code)
-            finally:
-                self.table.blockSignals(False)
+        self.undo_stack.push(SetCellCommand(
+            self, item.row(), tag, old_value, new_value,
+        ))
 
-        if tag in ('s', 'hvh', 'arb', 'maa', 'mee', 'ond', 'uurloon', 'productie'):
-            self._recompute_and_refresh()
+    # ── Helpers voor commando's en DnDTableWidget ────────────────────────────
+    def _safe_block_size(self, idx: int) -> int:
+        if not self.doc:
+            return 1
+        try:
+            return self.doc.block_size(idx) or 1
+        except Exception:
+            return 1
+
+    def _row_is_titel(self, idx: int) -> bool:
+        if not self.doc or not 0 <= idx < self.doc.row_count():
+            return False
+        return self.doc.get_row_field(idx, 's').strip() in TITEL_NIVEAUS
+
+    def _row_element(self, idx: int):
+        if self.doc is None or not 0 <= idx < self.doc.row_count():
+            return None
+        return self.doc.begrotingen[idx]
+
+    def _row_is_collapsed(self, idx: int) -> bool:
+        el = self._row_element(idx)
+        return el is not None and el in self._collapsed
+
+    def _current_row(self) -> int:
+        r = self.table.currentRow()
+        return r if r >= 0 else 0
+
+    # Hooks die QUndoCommands aanroepen via het _Host-protocol
+    def refresh(self) -> None:
+        """Volledige rerender van de tabel zonder undo-stack te raken."""
+        self._populate_ui()
+
+    def select_row(self, idx: int) -> None:
+        if 0 <= idx < self.table.rowCount():
+            self.table.setCurrentCell(idx, max(COL_OMS, 0))
+
+    # ── Rij-acties ───────────────────────────────────────────────────────────
+    def _new_row_defaults(self) -> dict[str, str]:
+        if not self.doc:
+            return {}
+        # Uurloon overnemen uit alginfo/<ul> als die bestaat
+        ul = self.doc.get_project_field('ul').strip()
+        defaults: dict[str, str] = {}
+        if ul:
+            defaults['uurloon'] = ul
+        defaults.setdefault('productie', '25,00')
+        return defaults
+
+    def on_row_add_below(self) -> None:
+        if not self.doc:
+            return
+        idx = self._current_row() + 1 if self.doc.row_count() else 0
+        self.undo_stack.push(InsertRowCommand(
+            self, idx, self._new_row_defaults(),
+        ))
+
+    def on_row_add_above(self) -> None:
+        if not self.doc:
+            return
+        idx = self._current_row() if self.doc.row_count() else 0
+        self.undo_stack.push(InsertRowCommand(
+            self, idx, self._new_row_defaults(),
+            text='Rij toevoegen boven',
+        ))
+
+    def on_row_delete(self) -> None:
+        if not self.doc or self.doc.row_count() == 0:
+            return
+        idx = self._current_row()
+        # Bevestig als rij data heeft
+        oms = self.doc.get_row_field(idx, 'oms').strip()
+        if oms:
+            reply = QMessageBox.question(
+                self, 'Rij verwijderen',
+                f'Verwijder rij {idx + 1}: "{oms[:60]}"?',
+                QMessageBox.StandardButton.Yes
+                | QMessageBox.StandardButton.No,
+                QMessageBox.StandardButton.No,
+            )
+            if reply != QMessageBox.StandardButton.Yes:
+                return
+        self.undo_stack.push(DeleteRowCommand(self, idx))
+
+    def on_row_duplicate(self) -> None:
+        if not self.doc or self.doc.row_count() == 0:
+            return
+        self.undo_stack.push(DuplicateRowCommand(self, self._current_row()))
+
+    def on_cell_dup_above(self) -> None:
+        """Kopieer de waarde van de cel direct erboven naar de actieve cel."""
+        if not self.doc:
+            return
+        row = self.table.currentRow()
+        col = self.table.currentColumn()
+        if row <= 0 or col < 0:
+            return
+        tag = COLUMNS[col][0]
+        if tag.startswith('_'):
+            return  # berekende kolom
+        old = self.doc.get_row_field(row, tag)
+        new = self.doc.get_row_field(row - 1, tag)
+        if old == new:
+            return
+        self.undo_stack.push(SetCellCommand(self, row, tag, old, new))
+
+    # ── Drag & drop signal-handler ────────────────────────────────────────────
+    def _on_block_move(self, src: int, count: int, dst: int) -> None:
+        if not self.doc or count < 1:
+            return
+        self.undo_stack.push(MoveBlockCommand(self, src, count, dst))
+
+    # ── Disclosure / inklap ──────────────────────────────────────────────────
+    def _on_disclosure_clicked(self, row: int) -> None:
+        self._toggle_collapse(row)
+
+    def on_toggle_collapse(self) -> None:
+        self._toggle_collapse(self._current_row())
+
+    def on_toggle_collapse_level(self) -> None:
+        """Toggle in/uitklap voor alle titels op het niveau van de huidige rij."""
+        if not self.doc:
+            return
+        row = self._current_row()
+        s = self.doc.get_row_field(row, 's').strip()
+        if s not in TITEL_NIVEAUS:
+            return
+        # Bepaal of we gaan inklappen of uitklappen: als minstens één titel
+        # van dit niveau uitgeklapt is → klap allemaal in. Anders → uitklap.
+        same_level: list[int] = []
+        for i in range(self.doc.row_count()):
+            if self.doc.get_row_field(i, 's').strip() == s:
+                same_level.append(i)
+        any_open = any(not self._row_is_collapsed(i) for i in same_level)
+        target_collapsed = any_open
+        for i in same_level:
+            el = self._row_element(i)
+            if el is None:
+                continue
+            if target_collapsed:
+                self._collapsed.add(el)
+            else:
+                self._collapsed.discard(el)
+        self._refresh_oms_prefix()
+        self._apply_visibility()
+
+    def _toggle_collapse(self, row: int) -> None:
+        el = self._row_element(row)
+        if el is None or not self._row_is_titel(row):
+            return
+        if el in self._collapsed:
+            self._collapsed.discard(el)
+        else:
+            self._collapsed.add(el)
+        self._refresh_oms_prefix()
+        self._apply_visibility()
+
+    def _refresh_oms_prefix(self) -> None:
+        """Werk alleen de oms-cellen van titelrijen bij (driehoekje)."""
+        if not self.doc:
+            return
+        self.table.blockSignals(True)
+        try:
+            for i in range(self.doc.row_count()):
+                if self._row_is_titel(i):
+                    s_code = self.doc.get_row_field(i, 's').strip()
+                    self._apply_row_style(i, s_code)
+        finally:
+            self.table.blockSignals(False)
+
+    def _apply_visibility(self) -> None:
+        """Verberg rijen onder ingeklapte titels.
+
+        Als een titel zelf onder een ingeklapte ouder zit, wordt die ook
+        verborgen — geneste inklap werkt natuurlijk.
+        """
+        if not self.doc:
+            return
+        n = self.doc.row_count()
+        # Bouw eerst een lijst van 'verberg-tot-en-met' grenzen.
+        hidden = [False] * n
+        i = 0
+        while i < n:
+            if self._row_is_titel(i) and self._row_is_collapsed(i):
+                size = self.doc.block_size(i)
+                # Verberg children (niet de titel zelf)
+                for j in range(i + 1, i + size):
+                    hidden[j] = True
+                i += size
+            else:
+                i += 1
+        # Cleanup van stale ingeklap-elementen (verwijderd uit document)
+        live_elements = set(self.doc.begrotingen)
+        self._collapsed &= live_elements
+        for r in range(n):
+            self.table.setRowHidden(r, hidden[r])
 
     # ── Sluiten ──────────────────────────────────────────────────────────────
     def closeEvent(self, event) -> None:
