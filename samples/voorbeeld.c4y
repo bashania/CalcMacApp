@@ -1,0 +1,301 @@
+<?xml version="1.0" standalone="yes"?>
+<calc4you>
+  <alginfo>
+    <type>E</type>
+    <kop>20261.00260</kop>
+    <r1>IKC de Triangel</r1>
+    <r2>Vlasakker 33, Zoetermeer</r2>
+    <r3 />
+    <r4>Buitenschilderwerk</r4>
+    <r5 />
+    <arbeid />
+    <materiaal />
+    <materieel />
+    <onderaan />
+    <totaal />
+    <datum1 /><datum2 /><bv /><bo /><to /><bg /><ng />
+    <an>Everts Onderhoud &amp; Renovatie</an>
+    <ac /><cs /><og /><ad /><ih /><uren />
+    <logo>C:\Users\bas\OneDrive - Everts Groep\Management Team - Logo's Everts\_Logo als JPG of PNG\240311 EVE logo 5 cm.jpg</logo>
+    <ul>45,00</ul>
+    <pb /><rg>-1</rg><ms>0</ms><calculator />
+    <versie>v1</versie><gecontroleerd /><overig />
+    <rawraw /><rawfco /><rawmax /><rawver /><rawloc />
+    <rawin1 /><rawin2 /><rawin3 />
+    <deelbest /><deelcalc />
+    <mjob>False</mjob>
+  </alginfo>
+  <begroting>
+    <nr>00001</nr>
+    <code>46</code>
+    <s>1</s>
+    <oms>Schilderwerk hout</oms>
+    <hvh>1</hvh>
+    <enh></enh>
+    <arb></arb>
+    <maa></maa>
+    <mee />
+    <ond></ond>
+    <totaal />
+    <toturen />
+    <prijspe />
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1></code1>
+    <code2></code2>
+    <code3></code3>
+    <code4></code4>
+    <uurloon></uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie></productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00002</nr>
+    <code>46.01</code>
+    <s>2</s>
+    <oms>Gevel Entree Zijde</oms>
+    <hvh>1</hvh>
+    <enh></enh>
+    <arb></arb>
+    <maa></maa>
+    <mee />
+    <ond></ond>
+    <totaal />
+    <toturen />
+    <prijspe />
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1></code1>
+    <code2></code2>
+    <code3></code3>
+    <code4></code4>
+    <uurloon></uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie></productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00003</nr>
+    <code>46.01.1</code>
+    <s />
+    <oms>Hout - Kozijn</oms>
+    <hvh>130,40</hvh>
+    <enh>m1</enh>
+    <arb>0,14</arb>
+    <maa>1,81</maa>
+    <mee />
+    <ond></ond>
+    <totaal />
+    <toturen />
+    <prijspe />
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1></code1>
+    <code2></code2>
+    <code3></code3>
+    <code4>OHD 03</code4>
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie>25,00</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00004</nr>
+    <code>46.01.2</code>
+    <s />
+    <oms>Hout - Raam</oms>
+    <hvh>51,20</hvh>
+    <enh>m1</enh>
+    <arb>0,12</arb>
+    <maa>1,30</maa>
+    <mee />
+    <ond></ond>
+    <totaal />
+    <toturen />
+    <prijspe />
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1></code1>
+    <code2></code2>
+    <code3></code3>
+    <code4>OHD 03</code4>
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie>25,00</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00005</nr>
+    <code>46.02</code>
+    <s>2</s>
+    <oms>Steiger voorkant</oms>
+    <hvh>1</hvh>
+    <enh></enh>
+    <arb></arb>
+    <maa></maa>
+    <mee />
+    <ond></ond>
+    <totaal />
+    <toturen />
+    <prijspe />
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1></code1>
+    <code2></code2>
+    <code3></code3>
+    <code4></code4>
+    <uurloon></uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie></productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00006</nr>
+    <code>46.02.1</code>
+    <s />
+    <oms>Montage/Demontage</oms>
+    <hvh>576</hvh>
+    <enh>m2</enh>
+    <arb></arb>
+    <maa></maa>
+    <mee />
+    <ond>9,75</ond>
+    <totaal />
+    <toturen />
+    <prijspe />
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1>DMB Steigerverhuur B.V.</code1>
+    <code2></code2>
+    <code3></code3>
+    <code4>Offerte 127</code4>
+    <uurloon></uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie></productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <versie>
+    <nummer>66</nummer>
+    <assembly>6.6.0.10</assembly>
+  </versie>
+  <toelichting>
+    <tekst>{\rtf1\ansi\ansicpg1252\deff0\deflang1043{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red14\green14\blue14;}
+\viewkind4\uc1\pard\cf1\f0\fs17\par
+}
+</tekst>
+  </toelichting>
+  <offerte>
+    <aan /><adres /><plaats /><offertedatum /><offerteeinddatum />
+    <offertenummer /><email /><telefoon /><btw /><brief />
+  </offerte>
+</calc4you>
