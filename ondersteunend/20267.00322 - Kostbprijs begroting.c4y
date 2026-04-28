@@ -1,0 +1,3092 @@
+<?xml version="1.0" standalone="yes"?>
+<calc4you>
+  <alginfo>
+    <type>E</type>
+    <kop />
+    <r1 />
+    <r2 />
+    <r3 />
+    <r4 />
+    <r5 />
+    <arbeid>15.069,60</arbeid>
+    <materiaal>18.628,89</materiaal>
+    <materieel />
+    <onderaan />
+    <totaal>33.698,49</totaal>
+    <datum1 />
+    <datum2 />
+    <bv />
+    <bo />
+    <to />
+    <bg />
+    <ng />
+    <an>Everts Onderhoud &amp; Renovatie</an>
+    <ac />
+    <cs />
+    <og />
+    <ad />
+    <ih />
+    <uren />
+    <logo>C:\Users\bas\OneDrive - Everts Groep\Management Team - Logo's Everts\_Logo als JPG of PNG\240311 EVE logo 5 cm.jpg</logo>
+    <ul>45</ul>
+    <pb />
+    <rg>-1</rg>
+    <ms>0</ms>
+    <calculator />
+    <versie>v1</versie>
+    <gecontroleerd />
+    <overig />
+    <rawraw />
+    <rawfco />
+    <rawmax />
+    <rawver />
+    <rawloc />
+    <rawin1 />
+    <rawin2 />
+    <rawin3 />
+    <deelbest />
+    <deelcalc />
+    <mjob>False</mjob>
+  </alginfo>
+  <begroting>
+    <nr>00001</nr>
+    <code />
+    <s>1</s>
+    <oms />
+    <hvh>1</hvh>
+    <enh />
+    <arb>52,00</arb>
+    <maa>5.178,00</maa>
+    <mee />
+    <ond />
+    <totaal>9.773,40</totaal>
+    <toturen>52,00</toturen>
+    <prijspe>9.773,40</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>3.042,00</totarbeid>
+    <totuur>52,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00002</nr>
+    <code />
+    <s>2</s>
+    <oms>Gevelkozijn vervangen tpv keuken</oms>
+    <hvh>2</hvh>
+    <enh>stuks</enh>
+    <arb>20,00</arb>
+    <maa>2.994,00</maa>
+    <mee />
+    <ond />
+    <totaal>5.062,20</totaal>
+    <toturen>40,00</toturen>
+    <prijspe>2.531,10</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>1.170,00</totarbeid>
+    <totuur>20,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00003</nr>
+    <code />
+    <s />
+    <oms>Slopen via steiger en afvoeren naar container</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>4</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>234,00</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>234,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>180,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00004</nr>
+    <code />
+    <s />
+    <oms>Inkoop kozijn (totaal oppervlakte 5.2 m2 van 2 kozijnen)</oms>
+    <hvh>1</hvh>
+    <enh>stuks</enh>
+    <arb />
+    <maa>1.407,00</maa>
+    <mee />
+    <ond />
+    <totaal>1.829,10</totaal>
+    <toturen>0</toturen>
+    <prijspe>1.829,10</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>1.407,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00005</nr>
+    <code />
+    <s />
+    <oms>Plaatsen</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>4</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>234,00</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>234,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>180,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00006</nr>
+    <code />
+    <s />
+    <oms>Afwerken</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>2</arb>
+    <maa>90,00</maa>
+    <mee />
+    <ond />
+    <totaal>234,00</totaal>
+    <toturen>2,00</toturen>
+    <prijspe>234,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>117,00</totarbeid>
+    <totuur>2,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>180,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00007</nr>
+    <code />
+    <s>2</s>
+    <oms>Ramen dakkapel</oms>
+    <hvh>4</hvh>
+    <enh>stuks</enh>
+    <arb>32,00</arb>
+    <maa>2.184,00</maa>
+    <mee />
+    <ond />
+    <totaal>4.711,20</totaal>
+    <toturen>128,00</toturen>
+    <prijspe>1.177,80</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>1.872,00</totarbeid>
+    <totuur>32,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00008</nr>
+    <code />
+    <s />
+    <oms>Slopen via steiger en afvoeren naar container</oms>
+    <hvh>1</hvh>
+    <enh>kozijn</enh>
+    <arb>4</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>234,00</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>234,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>180,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00009</nr>
+    <code />
+    <s />
+    <oms>Inkoop kozijn (totaal oppervlakte 4.3 m2)</oms>
+    <hvh>1</hvh>
+    <enh>stuks</enh>
+    <arb />
+    <maa>491,00</maa>
+    <mee />
+    <ond />
+    <totaal>638,30</totaal>
+    <toturen>0</toturen>
+    <prijspe>638,30</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>491,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00010</nr>
+    <code />
+    <s />
+    <oms>Plaatsen</oms>
+    <hvh>1</hvh>
+    <enh>kozijn</enh>
+    <arb>2</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>117,00</totaal>
+    <toturen>2,00</toturen>
+    <prijspe>117,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>117,00</totarbeid>
+    <totuur>2,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>90,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00011</nr>
+    <code />
+    <s />
+    <oms>Afwerken</oms>
+    <hvh>1</hvh>
+    <enh>kozijn</enh>
+    <arb>2</arb>
+    <maa>55,00</maa>
+    <mee />
+    <ond />
+    <totaal>188,50</totaal>
+    <toturen>2,00</toturen>
+    <prijspe>188,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>117,00</totarbeid>
+    <totuur>2,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>145,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00012</nr>
+    <code />
+    <s>1</s>
+    <oms>Algemeen</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00013</nr>
+    <code />
+    <s>2</s>
+    <oms>Bouwplaatskosten</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond>1.415,00</ond>
+    <totaal>1.839,50</totaal>
+    <toturen>0</toturen>
+    <prijspe>1.839,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00014</nr>
+    <code />
+    <s />
+    <oms>Bouwplaatskosten. Incl. toilet, schaftgelegenheid en opslagcontainer.</oms>
+    <hvh>2</hvh>
+    <enh>weken</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond>245,00</ond>
+    <totaal>637,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>318,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>490,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00015</nr>
+    <code />
+    <s />
+    <oms>10m3 bouw- &amp; sloopafval incl Milieutoeslag</oms>
+    <hvh>1</hvh>
+    <enh>stuks</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond>425,00</ond>
+    <totaal>552,50</totaal>
+    <toturen>0</toturen>
+    <prijspe>552,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>425,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00016</nr>
+    <code />
+    <s />
+    <oms>Parkeer geld gerekend met 2 bussen</oms>
+    <hvh>1</hvh>
+    <enh>post</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond>500,00</ond>
+    <totaal>650,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>650,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>500,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00017</nr>
+    <code />
+    <s>2</s>
+    <oms>Steiger</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond>2.258,00</ond>
+    <totaal>2.935,40</totaal>
+    <toturen>0</toturen>
+    <prijspe>2.935,40</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00018</nr>
+    <code />
+    <s />
+    <oms>In verband met lastig bereikbaarheid is er gekozen voor een vast steiger. Kosten voor de montage, demontage en transport.</oms>
+    <hvh>55</hvh>
+    <enh>m2</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond>35,00</ond>
+    <totaal>2.502,50</totaal>
+    <toturen>0</toturen>
+    <prijspe>45,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>1.925,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00019</nr>
+    <code />
+    <s />
+    <oms>Verhuur kosten steigermateriaal bedraag per week.</oms>
+    <hvh>2</hvh>
+    <enh>week</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond>125,00</ond>
+    <totaal>325,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>162,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>250,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00020</nr>
+    <code />
+    <s />
+    <oms>Wind-reducerend gaas t.b.v. afgeschermd werken, kosten voor montage en demontage bedraag</oms>
+    <hvh>1</hvh>
+    <enh>post</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond>83,00</ond>
+    <totaal>107,90</totaal>
+    <toturen>0</toturen>
+    <prijspe>107,90</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>83,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00021</nr>
+    <code />
+    <s>1</s>
+    <oms>Werkzaamheden</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>205,60</arb>
+    <maa>9.567,30</maa>
+    <mee />
+    <ond />
+    <totaal>23.925,09</totaal>
+    <toturen>205,60</toturen>
+    <prijspe>23.925,09</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>12.027,60</totarbeid>
+    <totuur>205,60</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00022</nr>
+    <code />
+    <s>2</s>
+    <oms>Sloopwerkzaamheden</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>24,80</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>1.450,80</totaal>
+    <toturen>24,80</toturen>
+    <prijspe>1.450,80</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>1.450,80</totarbeid>
+    <totuur>24,80</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00023</nr>
+    <code />
+    <s />
+    <oms>Tijdelijk dakpannen opzij leggen en lood voorzichtig om hoog zetten.</oms>
+    <hvh>1</hvh>
+    <enh>post</enh>
+    <arb>8</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>468,00</totaal>
+    <toturen>8,00</toturen>
+    <prijspe>468,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>468,00</totarbeid>
+    <totuur>8,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>360,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00024</nr>
+    <code />
+    <s />
+    <oms>Het voorzichtig verwijderen van de bestaande gevelafwerking met de zijwangen  inclusief isolatie zal plaatsvinden met als uitgangspunt dat het bestaande grondhout van de kapel vrij is van gebreken</oms>
+    <hvh>12</hvh>
+    <enh>m2</enh>
+    <arb>1,4</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>982,80</totaal>
+    <toturen>16,80</toturen>
+    <prijspe>81,90</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>982,80</totarbeid>
+    <totuur>16,80</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>756,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>12,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00025</nr>
+    <code />
+    <s>,</s>
+    <oms>We gaan er van uit dat het boeiboord kan blijven zitten.</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00026</nr>
+    <code />
+    <s>,</s>
+    <oms>Wij gaan ervan uit dat het bestaande lood gehandhaafd kan blijven en dat er geen gebreken aanwezig zijn die aanleiding geven tot vervanging</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00027</nr>
+    <code />
+    <s>,</s>
+    <oms>Wij gaan ervan uit dat de aanwezige dampremmende folie in goede staat verkeert.</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00028</nr>
+    <code />
+    <s>2</s>
+    <oms>Dakbedekking</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00029</nr>
+    <code />
+    <s>,</s>
+    <oms>In de aanvraag wordt het vervangen en isoleren van de dakbedekking vermeld. Deze werkzaamheden zijn niet opgenomen, aangezien de dakbedekking volgens de bewoners in goede staat verkeert en dit geen onderdeel vormt van de uitvraag.</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00030</nr>
+    <code />
+    <s>2</s>
+    <oms>Isoleren en gevelwerkzaamheden</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>118,80</arb>
+    <maa>2.589,30</maa>
+    <mee />
+    <ond />
+    <totaal>10.315,89</totaal>
+    <toturen>118,80</toturen>
+    <prijspe>10.315,89</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>6.949,80</totarbeid>
+    <totuur>118,80</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00031</nr>
+    <code />
+    <s>,</s>
+    <oms>Voor het isoleren en afwerken gaan we uit van het volgende: de wanddikte van een dakkapel, oftewel de dikte van de zijwangen, is afhankelijk van de constructieve opbouw en de vereiste isolatiewaarde en bedraagt circa 10 tot 15 centimeter.</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00032</nr>
+    <code />
+    <s />
+    <oms>Voor dat we gaan isoleren gaan we dakkapel eerst kierafdichting uitvoeren.</oms>
+    <hvh>1</hvh>
+    <enh>post</enh>
+    <arb>8</arb>
+    <maa>250,00</maa>
+    <mee />
+    <ond />
+    <totaal>793,00</totaal>
+    <toturen>8,00</toturen>
+    <prijspe>793,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>468,00</totarbeid>
+    <totuur>8,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>610,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00033</nr>
+    <code />
+    <s />
+    <oms>Leveren en aanbrengen van isolatie. Wij hebben gekozen voor een PIR dikte van 120 mm wat een RC waarde geeft van 5.4. Renovatie (praktijk / subsidie vaak): Rc ≥ 3,5, deze dikte van de isolatie heeft ook te maken dat Keralit moet kunnen ventileren.</oms>
+    <hvh>8,9</hvh>
+    <enh>m2</enh>
+    <arb>4</arb>
+    <maa>103,00</maa>
+    <mee />
+    <ond />
+    <totaal>3.274,31</totaal>
+    <toturen>35,60</toturen>
+    <prijspe>367,90</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>2.082,60</totarbeid>
+    <totuur>35,60</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>2.518,70</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>8,90</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00034</nr>
+    <code />
+    <s />
+    <oms>Leveren en aanbrengen van onderhoudsvriendlijke gevelafwerking Keralit gevelpanelen, kleur ntb. incl. alle hulp onderdelen.</oms>
+    <hvh>8,9</hvh>
+    <enh>m2</enh>
+    <arb>8</arb>
+    <maa>154,00</maa>
+    <mee />
+    <ond />
+    <totaal>5.946,98</totaal>
+    <toturen>71,20</toturen>
+    <prijspe>668,20</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>4.165,20</totarbeid>
+    <totuur>71,20</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>4.574,60</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>8,90</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00035</nr>
+    <code />
+    <s />
+    <oms>Afkitten van diverse onderdelen</oms>
+    <hvh>1</hvh>
+    <enh>post</enh>
+    <arb>4</arb>
+    <maa>52,00</maa>
+    <mee />
+    <ond />
+    <totaal>301,60</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>301,60</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>232,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00036</nr>
+    <code />
+    <s>2</s>
+    <oms>Kozijnen</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>62,00</arb>
+    <maa>6.978,00</maa>
+    <mee />
+    <ond />
+    <totaal>12.158,40</totaal>
+    <toturen>62,00</toturen>
+    <prijspe>12.158,40</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>3.627,00</totarbeid>
+    <totuur>62,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>1,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00037</nr>
+    <code />
+    <s>,</s>
+    <oms>Opmerkingen:
+De houten kozijnen, met name die van de dakkapel, mogen geen dragende functie hebben.
+Bij de keuken bevindt zich momenteel een koof. Er wordt van uitgegaan dat deze volledig intact kan blijven tijdens de (de)montage.
+Tijdens het demonteren van de bestaande kozijnen kan schade ontstaan aan het stucwerk of de afwerking. Het herstel hiervan is voor rekening van de bewoner.
+In verband met de koof zal er na plaatsing van de nieuwe kozijnen een kalf met dicht paneel aan de bovenzijde moeten worden aangebracht.
+De nieuwe draaikiepramen draaien naar binnen. De positie van de kraan bepaalt daarom de locatie van het vaste deel van het raam.
+Voor het demonteren en plaatsen van de nieuwe kozijnen dient voldoende werkruimte aanwezig te zijn. Dit betekent dat eventuele obstakels, zoals door de bewoner geplaatste vensterbanken of andere objecten in de nabijheid van de bestaande kozijnen – waaronder de natuurstenen afwerking in de keuken van huisnummer 74 – vooraf door de bewoner verwijderd dienen te worden.</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00038</nr>
+    <code />
+    <s>,</s>
+    <oms>Er is geen aparte asbestinventarisatie opgesteld. Deze is op dit moment nog niet in het bezit van de aanbestedende aannemer, graag zo spoedig 
+mogelijk verstrekken door de opdrachtgever. Bouw van de woningen voor 1985.
+Tot die tijd wordt als uitgangspunt gehanteerd dat er geen asbesthoudende materialen aanwezig zijn.</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00039</nr>
+    <code />
+    <s>,</s>
+    <oms>Vergunningen zijn niet opgenomen.</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00040</nr>
+    <code />
+    <s />
+    <oms>Maken van inmeet- en montage afspraken met de bewoners</oms>
+    <hvh>2</hvh>
+    <enh>won</enh>
+    <arb>1</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>117,00</totaal>
+    <toturen>2,00</toturen>
+    <prijspe>58,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>117,00</totarbeid>
+    <totuur>2,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>90,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00041</nr>
+    <code />
+    <s>3</s>
+    <oms>Gevelkozijn vervangen tpv keuken</oms>
+    <hvh>2</hvh>
+    <enh>stuks</enh>
+    <arb>24,00</arb>
+    <maa>3.594,00</maa>
+    <mee />
+    <ond />
+    <totaal>5.896,20</totaal>
+    <toturen>48,00</toturen>
+    <prijspe>2.948,10</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>1.404,00</totarbeid>
+    <totuur>24,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00042</nr>
+    <code />
+    <s />
+    <oms>Slopen via steiger en afvoeren naar container</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>4</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>234,00</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>234,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>180,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00043</nr>
+    <code />
+    <s />
+    <oms>Inkoop kozijn (totaal oppervlakte 5.2 m2 van 2 kozijnen)</oms>
+    <hvh>1</hvh>
+    <enh>stuks</enh>
+    <arb />
+    <maa>1.407,00</maa>
+    <mee />
+    <ond />
+    <totaal>1.829,10</totaal>
+    <toturen>0</toturen>
+    <prijspe>1.829,10</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>1.407,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00044</nr>
+    <code />
+    <s />
+    <oms>Plaatsen</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>4</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>234,00</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>234,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>180,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00045</nr>
+    <code />
+    <s />
+    <oms>Afwerken</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb>4</arb>
+    <maa>90,00</maa>
+    <mee />
+    <ond />
+    <totaal>351,00</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>351,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>270,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00046</nr>
+    <code />
+    <s />
+    <oms>Horizontale en verticale vracht- en transportkosten</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb />
+    <maa>125,00</maa>
+    <mee />
+    <ond />
+    <totaal>125,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>125,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>125,00</aard>
+    <productie />
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00047</nr>
+    <code />
+    <s />
+    <oms>Inmeten op locatie, vervaardigen definitieve werktekeningen ter controle, werkvoorbereiding en algehele projectbegeleiding</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb />
+    <maa>175,00</maa>
+    <mee />
+    <ond />
+    <totaal>175,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>175,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>175,00</aard>
+    <productie />
+    <ouder />
+    <althv>2,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00048</nr>
+    <code />
+    <s>3</s>
+    <oms>Ramen dakkapel</oms>
+    <hvh>4</hvh>
+    <enh>stuks</enh>
+    <arb>36,00</arb>
+    <maa>3.384,00</maa>
+    <mee />
+    <ond />
+    <totaal>6.145,20</totaal>
+    <toturen>144,00</toturen>
+    <prijspe>1.536,30</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>2.106,00</totarbeid>
+    <totuur>36,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder>*</ouder>
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00049</nr>
+    <code />
+    <s />
+    <oms>Slopen via steiger en afvoeren naar container</oms>
+    <hvh>1</hvh>
+    <enh>kozijn</enh>
+    <arb>4</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>234,00</totaal>
+    <toturen>4,00</toturen>
+    <prijspe>234,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>234,00</totarbeid>
+    <totuur>4,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>180,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00050</nr>
+    <code />
+    <s />
+    <oms>Inkoop kozijn (totaal oppervlakte 4.3 m2)</oms>
+    <hvh>1</hvh>
+    <enh>stuks</enh>
+    <arb />
+    <maa>491,00</maa>
+    <mee />
+    <ond />
+    <totaal>638,30</totaal>
+    <toturen>0</toturen>
+    <prijspe>638,30</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>491,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00051</nr>
+    <code />
+    <s />
+    <oms>Plaatsen</oms>
+    <hvh>1</hvh>
+    <enh>kozijn</enh>
+    <arb>3</arb>
+    <maa />
+    <mee />
+    <ond />
+    <totaal>175,50</totaal>
+    <toturen>3,00</toturen>
+    <prijspe>175,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>175,50</totarbeid>
+    <totuur>3,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>135,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00052</nr>
+    <code />
+    <s />
+    <oms>Afwerken</oms>
+    <hvh>1</hvh>
+    <enh>kozijn</enh>
+    <arb>2</arb>
+    <maa>55,00</maa>
+    <mee />
+    <ond />
+    <totaal>188,50</totaal>
+    <toturen>2,00</toturen>
+    <prijspe>188,50</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>117,00</totarbeid>
+    <totuur>2,00</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon>45,00</uurloon>
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>145,00</aard>
+    <productie>30,000</productie>
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00053</nr>
+    <code />
+    <s />
+    <oms>horizontale en verticale vracht- en transportkosten</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb />
+    <maa>125,00</maa>
+    <mee />
+    <ond />
+    <totaal>125,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>125,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>125,00</aard>
+    <productie />
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00054</nr>
+    <code />
+    <s />
+    <oms>inmeten op locatie, vervaardigen definitieve werktekeningen ter controle, werkvoorbereiding en algehele projectbegeleiding</oms>
+    <hvh>1</hvh>
+    <enh />
+    <arb />
+    <maa>175,00</maa>
+    <mee />
+    <ond />
+    <totaal>175,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>175,00</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard>175,00</aard>
+    <productie />
+    <ouder />
+    <althv>4,00</althv>
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00055</nr>
+    <code />
+    <s>/</s>
+    <oms>Totaal exclusief BTW</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa>18.628,89</maa>
+    <mee />
+    <ond />
+    <totaal>33.698,49</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>15.069,60</totarbeid>
+    <totuur>257,60</totuur>
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie>30,000</productie>
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00056</nr>
+    <code />
+    <s>%</s>
+    <oms>Onvoorzien</oms>
+    <hvh>5</hvh>
+    <enh>%</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal>1.684,92</totaal>
+    <toturen>0</toturen>
+    <prijspe>336,98</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00057</nr>
+    <code />
+    <s>=</s>
+    <oms>Subtotaal 1</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa>19.560,33</maa>
+    <mee />
+    <ond />
+    <totaal>35.383,41</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>15.823,08</totarbeid>
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00058</nr>
+    <code />
+    <s>%</s>
+    <oms>Algemene kosten</oms>
+    <hvh>25</hvh>
+    <enh>%</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal>8.845,85</totaal>
+    <toturen>0</toturen>
+    <prijspe>353,83</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00059</nr>
+    <code />
+    <s>%</s>
+    <oms>Winst &amp; Risico</oms>
+    <hvh>5</hvh>
+    <enh>%</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal>1.769,17</totaal>
+    <toturen>0</toturen>
+    <prijspe>353,83</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00060</nr>
+    <code />
+    <s>=</s>
+    <oms>Subtotaal 2</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa>25.428,43</maa>
+    <mee />
+    <ond />
+    <totaal>45.998,43</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>20.570,00</totarbeid>
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00061</nr>
+    <code />
+    <s>X</s>
+    <oms>Buiten directe kosten: 0,00</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00062</nr>
+    <code />
+    <s>=</s>
+    <oms>Totaal exlcusief BTW</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa>25.428,43</maa>
+    <mee />
+    <ond />
+    <totaal>45.998,43</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>20.570,00</totarbeid>
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00063</nr>
+    <code />
+    <s>a</s>
+    <oms>Hoog ex btw: 45.998,44</oms>
+    <hvh>21</hvh>
+    <enh>%</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal>9.659,67</totaal>
+    <toturen>0</toturen>
+    <prijspe>459,98</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00064</nr>
+    <code />
+    <s>b</s>
+    <oms>Laag ex btw: 0,00</oms>
+    <hvh>9</hvh>
+    <enh>%</enh>
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw>L</btw>
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00065</nr>
+    <code />
+    <s>=</s>
+    <oms>Totaal inclusief BTW</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa>25.428,43</maa>
+    <mee />
+    <ond />
+    <totaal>55.658,10</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>20.570,00</totarbeid>
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00066</nr>
+    <code />
+    <s>S</s>
+    <oms>Stelposten</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal>0,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00067</nr>
+    <code />
+    <s>V</s>
+    <oms>Verrekenbare posten</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal>0,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00068</nr>
+    <code />
+    <s>G</s>
+    <oms>Geschatte posten</oms>
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal>0,00</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00069</nr>
+    <code />
+    <s>=</s>
+    <oms />
+    <hvh />
+    <enh />
+    <arb />
+    <maa>25.428,43</maa>
+    <mee />
+    <ond />
+    <totaal>55.658,10</totaal>
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid>20.570,00</totarbeid>
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <begroting>
+    <nr>00070</nr>
+    <code />
+    <s />
+    <oms />
+    <hvh />
+    <enh />
+    <arb />
+    <maa />
+    <mee />
+    <ond />
+    <totaal />
+    <toturen>0</toturen>
+    <prijspe>0</prijspe>
+    <bestekc />
+    <admi />
+    <admi_ar />
+    <admi_ma />
+    <admi_me />
+    <admi_oa>0</admi_oa>
+    <meet />
+    <totarbeid />
+    <totuur />
+    <code1 />
+    <code2 />
+    <code3 />
+    <code4 />
+    <uurloon />
+    <mnr />
+    <btw />
+    <rsu />
+    <aard />
+    <productie />
+    <ouder />
+    <althv />
+    <startjr />
+    <cyclus />
+    <stopjr />
+    <prioriteit />
+    <dccode />
+    <dcbedrag />
+    <link />
+  </begroting>
+  <versie>
+    <nummer>671</nummer>
+    <assembly>6.71.0.0</assembly>
+  </versie>
+  <toelichting>
+    <tekst>{\rtf1\ansi\ansicpg1252\deff0\deflang1043{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red14\green14\blue14;}
+\viewkind4\uc1\pard\cf1\f0\fs17\par
+}
+&#x0;</tekst>
+  </toelichting>
+  <offerte>
+    <aan />
+    <adres />
+    <plaats />
+    <offertedatum>11-11-2025</offertedatum>
+    <offerteeinddatum>11-11-2025</offerteeinddatum>
+    <offertenummer />
+    <email />
+    <telefoon />
+    <btw />
+    <brief />
+  </offerte>
+</calc4you>
