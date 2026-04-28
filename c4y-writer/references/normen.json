@@ -1,0 +1,7042 @@
+{
+  "P2": {
+    "code": "P2",
+    "systeem": "HR",
+    "oms": "Afdichten van verbindingen 12 x 1  x 1",
+    "arb": 0.42,
+    "maa": 5.11,
+    "enh": "stuk"
+  },
+  "P3": {
+    "code": "P3",
+    "systeem": "HR",
+    "oms": "Afdichten van verbindingen neut 12 x 1  x 1",
+    "arb": 0.44,
+    "maa": 5.11,
+    "enh": "stuk"
+  },
+  "P5": {
+    "code": "P5",
+    "systeem": "HR",
+    "oms": "Herstellen van noesten / kwasten 2 x 2 cm",
+    "arb": 0.35,
+    "maa": 2.8,
+    "enh": "stuk"
+  },
+  "P10": {
+    "code": "P10",
+    "systeem": "HR",
+    "oms": "Afdichten verbinding binnenzijde 12 x 1  x 1",
+    "arb": 0.43,
+    "maa": 5.11,
+    "enh": "stuk"
+  },
+  "P4/25": {
+    "code": "P4/25",
+    "systeem": "HR",
+    "oms": "Herstellen van scheuren 25 cm",
+    "arb": 0.48,
+    "maa": 7.66,
+    "enh": "stuk"
+  },
+  "P4/50": {
+    "code": "P4/50",
+    "systeem": "HR",
+    "oms": "Herstellen van scheuren 50 cm",
+    "arb": 0.73,
+    "maa": 14.56,
+    "enh": "stuk"
+  },
+  "P4/100": {
+    "code": "P4/100",
+    "systeem": "HR",
+    "oms": "Herstellen van scheuren 100 cm",
+    "arb": 0.94,
+    "maa": 30.16,
+    "enh": "stuk"
+  },
+  "P4/200": {
+    "code": "P4/200",
+    "systeem": "HR",
+    "oms": "Herstellen van scheuren 200 cm",
+    "arb": 1.27,
+    "maa": 60.32,
+    "enh": "stuk"
+  },
+  "P4/300": {
+    "code": "P4/300",
+    "systeem": "HR",
+    "oms": "Herstellen van scheuren 300 cm",
+    "arb": 1.23,
+    "maa": 90.98,
+    "enh": "stuk"
+  },
+  "C1/5": {
+    "code": "C1/5",
+    "systeem": "HR",
+    "oms": "Repareren van een houtaantasting (5x5x3)/2",
+    "arb": 0.75,
+    "maa": 9.34,
+    "enh": "stuk"
+  },
+  "C1/10": {
+    "code": "C1/10",
+    "systeem": "HR",
+    "oms": "Repareren van een houtaantasting (10x5x4)/2",
+    "arb": 1.2,
+    "maa": 21.87,
+    "enh": "stuk"
+  },
+  "C1/15": {
+    "code": "C1/15",
+    "systeem": "HR",
+    "oms": "Repareren van een houtaantasting (15x5x5)/2",
+    "arb": 1.6,
+    "maa": 39.91,
+    "enh": "stuk"
+  },
+  "C2/25": {
+    "code": "C2/25",
+    "systeem": "HR",
+    "oms": "Lamineren met delen hout 25 cm",
+    "arb": 0.92,
+    "maa": 53.46,
+    "enh": "stuk"
+  },
+  "C2/50": {
+    "code": "C2/50",
+    "systeem": "HR",
+    "oms": "Lamineren met delen hout 50 cm",
+    "arb": 1.11,
+    "maa": 96.76,
+    "enh": "stuk"
+  },
+  "C2/100": {
+    "code": "C2/100",
+    "systeem": "HR",
+    "oms": "Lamineren met delen hout 100 cm",
+    "arb": 1.39,
+    "maa": 183.37,
+    "enh": "stuk"
+  },
+  "C2/200": {
+    "code": "C2/200",
+    "systeem": "HR",
+    "oms": "Lamineren met delen hout 200 cm",
+    "arb": 2.06,
+    "maa": 356.58,
+    "enh": "stuk"
+  },
+  "C2/300": {
+    "code": "C2/300",
+    "systeem": "HR",
+    "oms": "Lamineren met delen hout 300 cm",
+    "arb": 2.65,
+    "maa": 529.79,
+    "enh": "stuk"
+  },
+  "C4/25": {
+    "code": "C4/25",
+    "systeem": "HR",
+    "oms": "Deelvervanging 25 cm",
+    "arb": 0.85,
+    "maa": 71.24,
+    "enh": "stuk"
+  },
+  "C4/50": {
+    "code": "C4/50",
+    "systeem": "HR",
+    "oms": "Deelvervanging 50 cm",
+    "arb": 0.92,
+    "maa": 82.24,
+    "enh": "stuk"
+  },
+  "C4/100": {
+    "code": "C4/100",
+    "systeem": "HR",
+    "oms": "Deelvervanging 100 cm",
+    "arb": 0.99,
+    "maa": 104.24,
+    "enh": "stuk"
+  },
+  "C4/200": {
+    "code": "C4/200",
+    "systeem": "HR",
+    "oms": "Deelvervanging 200 cm",
+    "arb": 1.54,
+    "maa": 178.38,
+    "enh": "stuk"
+  },
+  "C4/300": {
+    "code": "C4/300",
+    "systeem": "HR",
+    "oms": "Deelvervanging 300 cm",
+    "arb": 1.97,
+    "maa": 252.49,
+    "enh": "stuk"
+  },
+  "CS4/25": {
+    "code": "CS4/25",
+    "systeem": "HR",
+    "oms": "Deelvervanging stijlstuk 25 cm",
+    "arb": 0.85,
+    "maa": 71.24,
+    "enh": "stuk"
+  },
+  "OMR": {
+    "code": "OMR",
+    "systeem": "HR",
+    "oms": "Omtrekspeling Raam, niet uitnemen",
+    "arb": 0.25,
+    "maa": null,
+    "enh": "stuk"
+  },
+  "OMRU": {
+    "code": "OMRU",
+    "systeem": "HR",
+    "oms": "Omtrekspeling Raam, uitnemen",
+    "arb": 0.5,
+    "maa": null,
+    "enh": "stuk"
+  },
+  "OMRS": {
+    "code": "OMRS",
+    "systeem": "HR",
+    "oms": "Omtrekspeling Raam, incl. scharnierzijde",
+    "arb": 0.75,
+    "maa": 16.0,
+    "enh": "stuk"
+  },
+  "OMD": {
+    "code": "OMD",
+    "systeem": "HR",
+    "oms": "Omtrekspeling Deur, niet uitnemen",
+    "arb": 0.42,
+    "maa": null,
+    "enh": "stuk"
+  },
+  "OMDU": {
+    "code": "OMDU",
+    "systeem": "HR",
+    "oms": "Omtrekspeling Deur, uitnemen",
+    "arb": 0.75,
+    "maa": null,
+    "enh": "stuk"
+  },
+  "OMDS": {
+    "code": "OMDS",
+    "systeem": "HR",
+    "oms": "Omtrekspeling Deur, incl. scharnierzijde",
+    "arb": 1.17,
+    "maa": 32.0,
+    "enh": "stuk"
+  },
+  "KIT": {
+    "code": "KIT",
+    "systeem": "HR",
+    "oms": "Beglazingskit vervangen min. 1 m1",
+    "arb": 0.1,
+    "maa": 1.0,
+    "enh": "m1"
+  },
+  "NL": {
+    "code": "NL",
+    "systeem": "HR",
+    "oms": "Neuslat vervangen min. 1 m1",
+    "arb": 0.33,
+    "maa": 11.0,
+    "enh": "m1"
+  },
+  "GL": {
+    "code": "GL",
+    "systeem": "HR",
+    "oms": "Glaslat vervangen min. 1 m1",
+    "arb": 0.25,
+    "maa": 2.5,
+    "enh": "m1"
+  },
+  "SP": {
+    "code": "SP",
+    "systeem": "HR",
+    "oms": "Stopverf vervangen 100 x(17x17/2) cm",
+    "arb": 0.29,
+    "maa": 13.0,
+    "enh": "m1"
+  },
+  "DRSTPL": {
+    "code": "DRSTPL",
+    "systeem": "HR",
+    "oms": "Stapeldorpeldeur vervangen Vervangen stapeldorpeldeur incl. HR++-glas, 4 scharnieren, meerpuntsluiting en SKG** beslag. Max. afmeting 930 × 2115 mm.",
+    "arb": 6.0,
+    "maa": 847.0,
+    "enh": "stuk"
+  },
+  "DRVLK": {
+    "code": "DRVLK",
+    "systeem": "HR",
+    "oms": "Vlakke deur vervangen Vervangen vlakke deur 40 mm alustabiel WBP, incl. 4 scharnieren, meerpuntsluiting en SKG** beslag. Max. afmeting 930 × 2115 mm.",
+    "arb": 6.0,
+    "maa": 697.0,
+    "enh": "stuk"
+  },
+  "RMVV": {
+    "code": "RMVV",
+    "systeem": "HR",
+    "oms": "Draairaam vervangen max. 1 m2",
+    "arb": 4.0,
+    "maa": 350.0,
+    "enh": "stuk"
+  },
+  "KRVV": {
+    "code": "KRVV",
+    "systeem": "HR",
+    "oms": "Klepraam vervangen max. 0,5m2",
+    "arb": 3.0,
+    "maa": 180.0,
+    "enh": "stuk"
+  },
+  "DMHM": {
+    "code": "DMHM",
+    "systeem": "HR",
+    "oms": "De/hermonteren t.b.v. herstelwerk max. 24kg",
+    "arb": 1.5,
+    "maa": null,
+    "enh": "post"
+  },
+  "OHD01-dhg-m²": {
+    "code": "OHD01-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - deuren hout glas",
+    "arb": 0.33,
+    "maa": 3.46,
+    "enh": "m²"
+  },
+  "OHD01-dhpr-m²": {
+    "code": "OHD01-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - deuren hout geprofileerd",
+    "arb": 0.34,
+    "maa": 3.47,
+    "enh": "m²"
+  },
+  "OHD01-dhv-m²": {
+    "code": "OHD01-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - deuren hout vlak",
+    "arb": 0.23,
+    "maa": 3.81,
+    "enh": "m²"
+  },
+  "OHD01-gl-m²": {
+    "code": "OHD01-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - goot- en lijstwerk",
+    "arb": 0.53,
+    "maa": 4.08,
+    "enh": "m²"
+  },
+  "OHD01-glb-m²": {
+    "code": "OHD01-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - gootlijst boeiboord",
+    "arb": 0.42,
+    "maa": 4.08,
+    "enh": "m²"
+  },
+  "OHD01-glgk-st.": {
+    "code": "OHD01-glgk-st.",
+    "systeem": "OH",
+    "oms": "OHD 01 - goot- en lijstwerk gootklos",
+    "arb": 0.08,
+    "maa": 0.38,
+    "enh": "stuk(s)"
+  },
+  "OHD01-glpr-m²": {
+    "code": "OHD01-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - goot- en lijstwerk geprofileerd",
+    "arb": 0.57,
+    "maa": 4.08,
+    "enh": "m²"
+  },
+  "OHD01-ho-m²": {
+    "code": "OHD01-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - houten oppervlakken",
+    "arb": 0.27,
+    "maa": 2.71,
+    "enh": "m²"
+  },
+  "OHD01-hobe-m²": {
+    "code": "OHD01-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - houten betimmeringen",
+    "arb": 0.44,
+    "maa": 2.78,
+    "enh": "m²"
+  },
+  "OHD01-khn-m¹": {
+    "code": "OHD01-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 01 - kozijnen hout normaal profiel",
+    "arb": 0.12,
+    "maa": 0.72,
+    "enh": "m¹"
+  },
+  "OHD01-khz-m¹": {
+    "code": "OHD01-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 01 - kozijnen hout zwaar profiel",
+    "arb": 0.14,
+    "maa": 0.67,
+    "enh": "m¹"
+  },
+  "OHD01-phg-m²": {
+    "code": "OHD01-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - panelen hout groef",
+    "arb": 0.49,
+    "maa": 2.77,
+    "enh": "m²"
+  },
+  "OHD01-phv-m²": {
+    "code": "OHD01-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 01 - panelen hout vlak",
+    "arb": 0.33,
+    "maa": 2.5,
+    "enh": "m²"
+  },
+  "OHD01-rh-m¹": {
+    "code": "OHD01-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 01 - ramen hout",
+    "arb": 0.06,
+    "maa": 0.51,
+    "enh": "m¹"
+  },
+  "OHD01-roede-m¹": {
+    "code": "OHD01-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 01 - roede",
+    "arb": 0.04,
+    "maa": 0.33,
+    "enh": "m¹"
+  },
+  "OHD02-dhA": {
+    "code": "OHD02-dhA",
+    "systeem": "OH",
+    "oms": "OHD 02 - deuren hout vlak",
+    "arb": 0.32,
+    "maa": 6.29,
+    "enh": "m²"
+  },
+  "OHD02-dhB": {
+    "code": "OHD02-dhB",
+    "systeem": "OH",
+    "oms": "OHD 02 - deuren met één ruit",
+    "arb": 0.38,
+    "maa": 6.29,
+    "enh": "m²"
+  },
+  "OHD02-dhg-m²": {
+    "code": "OHD02-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - deuren hout glas",
+    "arb": 0.51,
+    "maa": 5.61,
+    "enh": "m²"
+  },
+  "OHD02-dhpr-m²": {
+    "code": "OHD02-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - deuren hout geprofileerd",
+    "arb": 0.68,
+    "maa": 7.39,
+    "enh": "m²"
+  },
+  "OHD02-dhv-m²": {
+    "code": "OHD02-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - deuren hout vlak",
+    "arb": 0.37,
+    "maa": 6.29,
+    "enh": "m²"
+  },
+  "OHD02-gl-m²": {
+    "code": "OHD02-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - goot- en lijstwerk",
+    "arb": 0.82,
+    "maa": 6.74,
+    "enh": "m²"
+  },
+  "OHD02-glb-m²": {
+    "code": "OHD02-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - gootlijst boeiboord",
+    "arb": 0.66,
+    "maa": 6.74,
+    "enh": "m²"
+  },
+  "OHD02-glgk-st.": {
+    "code": "OHD02-glgk-st.",
+    "systeem": "OH",
+    "oms": "OHD 02 - goot- en lijstwerk gootklos",
+    "arb": 0.15,
+    "maa": 0.66,
+    "enh": "stuk(s)"
+  },
+  "OHD02-glpr-m²": {
+    "code": "OHD02-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - goot- en lijstwerk geprofileerd",
+    "arb": 0.88,
+    "maa": 6.74,
+    "enh": "m²"
+  },
+  "OHD02-ho-m²": {
+    "code": "OHD02-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - houten oppervlakken",
+    "arb": 0.52,
+    "maa": 6.03,
+    "enh": "m²"
+  },
+  "OHD02-hobe-m²": {
+    "code": "OHD02-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - houten betimmeringen",
+    "arb": 0.86,
+    "maa": 6.74,
+    "enh": "m²"
+  },
+  "OHD02-khB": {
+    "code": "OHD02-khB",
+    "systeem": "OH",
+    "oms": "OHD 02 - kozijnen 10-20cm",
+    "arb": 0.12,
+    "maa": 1.06,
+    "enh": "m¹"
+  },
+  "OHD02-khn-m¹": {
+    "code": "OHD02-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 02 - kozijnen hout normaal profiel",
+    "arb": 0.12,
+    "maa": 1.06,
+    "enh": "m¹"
+  },
+  "OHD02-khz-m¹": {
+    "code": "OHD02-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 02 - kozijnen hout zwaar profiel",
+    "arb": 0.15,
+    "maa": 0.91,
+    "enh": "m¹"
+  },
+  "OHD02-phC": {
+    "code": "OHD02-phC",
+    "systeem": "OH",
+    "oms": "OHD 02 - Hout beplating 20-30cm",
+    "arb": 0.12,
+    "maa": 1.06,
+    "enh": "m¹"
+  },
+  "OHD02-phg-m²": {
+    "code": "OHD02-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - panelen hout groef",
+    "arb": 0.84,
+    "maa": 6.31,
+    "enh": "m²"
+  },
+  "OHD02-phv-m²": {
+    "code": "OHD02-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 02 - panelen hout vlak",
+    "arb": 0.56,
+    "maa": 6.03,
+    "enh": "m²"
+  },
+  "OHD02-rh-m¹": {
+    "code": "OHD02-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 02 - ramen hout",
+    "arb": 0.09,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OHD02-rhB": {
+    "code": "OHD02-rhB",
+    "systeem": "OH",
+    "oms": "OHD 02 - ramen hout 10-20cm",
+    "arb": 0.13,
+    "maa": 0.57,
+    "enh": "m¹"
+  },
+  "OHD02-rhl-m¹": {
+    "code": "OHD02-rhl-m¹",
+    "systeem": "OH",
+    "oms": "OHD 02 - ramen hout",
+    "arb": 0.07,
+    "maa": 0.57,
+    "enh": "m¹"
+  },
+  "OHD02-roede-m¹": {
+    "code": "OHD02-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 02 - roede",
+    "arb": 0.1,
+    "maa": 0.37,
+    "enh": "m¹"
+  },
+  "OHD03-dhA": {
+    "code": "OHD03-dhA",
+    "systeem": "OH",
+    "oms": "OHD 03 - deuren hout vlak",
+    "arb": 0.46,
+    "maa": 10.13,
+    "enh": "m²"
+  },
+  "OHD03-dhB": {
+    "code": "OHD03-dhB",
+    "systeem": "OH",
+    "oms": "OHD 03 - deur met een ruit",
+    "arb": 0.52,
+    "maa": 9.07,
+    "enh": "m²"
+  },
+  "OHD03-dhC": {
+    "code": "OHD03-dhC",
+    "systeem": "OH",
+    "oms": "OHD 03 - deur met twee ruiten",
+    "arb": 0.71,
+    "maa": 9.07,
+    "enh": "m²"
+  },
+  "OHD03-dhD": {
+    "code": "OHD03-dhD",
+    "systeem": "OH",
+    "oms": "OHD 03 - deur met zes ruiten",
+    "arb": 0.87,
+    "maa": 9.07,
+    "enh": "m²"
+  },
+  "OHD03-dhE": {
+    "code": "OHD03-dhE",
+    "systeem": "OH",
+    "oms": "OHD 03 - deur met meerdere ruiten",
+    "arb": 0.91,
+    "maa": 9.07,
+    "enh": "m²"
+  },
+  "OHD03-dhF": {
+    "code": "OHD03-dhF",
+    "systeem": "OH",
+    "oms": "OHD 03 - deuren kanteldeur/schrootjes",
+    "arb": 0.73,
+    "maa": 13.33,
+    "enh": "m²"
+  },
+  "OHD03-dhg-m²": {
+    "code": "OHD03-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - deuren hout glas",
+    "arb": 0.66,
+    "maa": 9.07,
+    "enh": "m²"
+  },
+  "OHD03-dhpr-m²": {
+    "code": "OHD03-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - deuren hout geprofileerd",
+    "arb": 0.92,
+    "maa": 13.33,
+    "enh": "m²"
+  },
+  "OHD03-dhv-m²": {
+    "code": "OHD03-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - deuren hout vlak",
+    "arb": 0.51,
+    "maa": 10.13,
+    "enh": "m²"
+  },
+  "OHD03-ghA": {
+    "code": "OHD03-ghA",
+    "systeem": "OH",
+    "oms": "OHD 03 - gootlijst boeiboord en luifels",
+    "arb": 0.41,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-ghB": {
+    "code": "OHD03-ghB",
+    "systeem": "OH",
+    "oms": "OHD 03 - goten zonder klossen",
+    "arb": 0.52,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-ghC": {
+    "code": "OHD03-ghC",
+    "systeem": "OH",
+    "oms": "OHD 03 - goten met klossen",
+    "arb": 0.59,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-ghD": {
+    "code": "OHD03-ghD",
+    "systeem": "OH",
+    "oms": "OHD 03 - geprofileerde gootlijsten",
+    "arb": 0.61,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-ghF": {
+    "code": "OHD03-ghF",
+    "systeem": "OH",
+    "oms": "OHD 03 - Hout boeiboord",
+    "arb": 0.16,
+    "maa": 1.77,
+    "enh": "m¹"
+  },
+  "OHD03-gl-m²": {
+    "code": "OHD03-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - goot- en lijstwerk",
+    "arb": 1.07,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-glb-m²": {
+    "code": "OHD03-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - gootlijst boeiboord",
+    "arb": 0.86,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-glgk-st.": {
+    "code": "OHD03-glgk-st.",
+    "systeem": "OH",
+    "oms": "OHD 03 - goot- en lijstwerk gootklos",
+    "arb": 0.21,
+    "maa": 1.0,
+    "enh": "stuk(s)"
+  },
+  "OHD03-glpr-m²": {
+    "code": "OHD03-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - goot- en lijstwerk geprofileerd",
+    "arb": 1.16,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-ho-m²": {
+    "code": "OHD03-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - houten oppervlakken",
+    "arb": 0.72,
+    "maa": 10.44,
+    "enh": "m²"
+  },
+  "OHD03-hobe-m²": {
+    "code": "OHD03-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - houten betimmeringen",
+    "arb": 1.18,
+    "maa": 10.58,
+    "enh": "m²"
+  },
+  "OHD03-khA": {
+    "code": "OHD03-khA",
+    "systeem": "OH",
+    "oms": "OHD 03 - kozijnen <10 cm",
+    "arb": 0.14,
+    "maa": 1.77,
+    "enh": "m¹"
+  },
+  "OHD03-khB": {
+    "code": "OHD03-khB",
+    "systeem": "OH",
+    "oms": "OHD 03 - kozijnen 10-20 cm",
+    "arb": 0.14,
+    "maa": 1.81,
+    "enh": "m¹"
+  },
+  "OHD03-khC": {
+    "code": "OHD03-khC",
+    "systeem": "OH",
+    "oms": "OHD 03 - kozijnen 20-30 cm",
+    "arb": 0.15,
+    "maa": 2.39,
+    "enh": "m¹"
+  },
+  "OHD03-khD": {
+    "code": "OHD03-khD",
+    "systeem": "OH",
+    "oms": "OHD 03 - kozijnen 30 cm",
+    "arb": 0.36,
+    "maa": 10.99,
+    "enh": "m²"
+  },
+  "OHD03-khn-m¹": {
+    "code": "OHD03-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 03 - kozijnen hout normaal profiel",
+    "arb": 0.17,
+    "maa": 1.64,
+    "enh": "m¹"
+  },
+  "OHD03-khz-m¹": {
+    "code": "OHD03-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 03 - kozijnen hout zwaar profiel",
+    "arb": 0.27,
+    "maa": 1.56,
+    "enh": "m¹"
+  },
+  "OHD03-phA": {
+    "code": "OHD03-phA",
+    "systeem": "OH",
+    "oms": "OHD 03 - beplating <10 cm",
+    "arb": 0.11,
+    "maa": 1.77,
+    "enh": "m¹"
+  },
+  "OHD03-phB": {
+    "code": "OHD03-phB",
+    "systeem": "OH",
+    "oms": "OHD 03 - beplating 10-20 cm",
+    "arb": 0.13,
+    "maa": 1.77,
+    "enh": "m¹"
+  },
+  "OHD03-phC": {
+    "code": "OHD03-phC",
+    "systeem": "OH",
+    "oms": "OHD 03 - beplating 20-30 cm",
+    "arb": 0.16,
+    "maa": 1.77,
+    "enh": "m¹"
+  },
+  "OHD03-phD": {
+    "code": "OHD03-phD",
+    "systeem": "OH",
+    "oms": "OHD 03 - panelen > 30 cm",
+    "arb": 0.33,
+    "maa": 10.02,
+    "enh": "m²"
+  },
+  "OHD03-phE": {
+    "code": "OHD03-phE",
+    "systeem": "OH",
+    "oms": "OHD 03 - panelen rabatdelen/schrootjes",
+    "arb": 0.46,
+    "maa": 10.29,
+    "enh": "m²"
+  },
+  "OHD03-phg-m²": {
+    "code": "OHD03-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - panelen hout groef",
+    "arb": 1.08,
+    "maa": 10.29,
+    "enh": "m²"
+  },
+  "OHD03-phv-m²": {
+    "code": "OHD03-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 03 - panelen hout vlak",
+    "arb": 0.74,
+    "maa": 10.02,
+    "enh": "m²"
+  },
+  "OHD03-rh-m¹": {
+    "code": "OHD03-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen hout",
+    "arb": 0.12,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhA": {
+    "code": "OHD03-rhA",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen < 10 cm",
+    "arb": 0.14,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhB": {
+    "code": "OHD03-rhB",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen vast 10-20 cm",
+    "arb": 0.15,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhC": {
+    "code": "OHD03-rhC",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen < 10cm met 3 dikte kanten",
+    "arb": 0.14,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhD": {
+    "code": "OHD03-rhD",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen 10-20 cm met 3 dikte kanten",
+    "arb": 0.16,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhE": {
+    "code": "OHD03-rhE",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen < 10 cm met 1 dikte kant",
+    "arb": 0.14,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhF": {
+    "code": "OHD03-rhF",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen 10-20 cm met 1 dikte kant",
+    "arb": 0.16,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhG": {
+    "code": "OHD03-rhG",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen schuif < 10 cm",
+    "arb": 0.14,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhH": {
+    "code": "OHD03-rhH",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen schuif 10-20 cm",
+    "arb": 0.16,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhI": {
+    "code": "OHD03-rhI",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen tuimel-/taats < 10 cm",
+    "arb": 0.14,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhJ": {
+    "code": "OHD03-rhJ",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen tuimel-/taats 10-20 cm",
+    "arb": 0.16,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OHD03-rhK": {
+    "code": "OHD03-rhK",
+    "systeem": "OH",
+    "oms": "OHD 03 - ramen glasroeden",
+    "arb": 0.16,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD03-roede-m¹": {
+    "code": "OHD03-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 03 - roede",
+    "arb": 0.14,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD04-dhg-m²": {
+    "code": "OHD04-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - deuren hout glas",
+    "arb": 0.88,
+    "maa": 11.98,
+    "enh": "m²"
+  },
+  "OHD04-dhpr-m²": {
+    "code": "OHD04-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - deuren hout geprofileerd",
+    "arb": 1.23,
+    "maa": 18.13,
+    "enh": "m²"
+  },
+  "OHD04-dhv-m²": {
+    "code": "OHD04-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - deuren hout vlak",
+    "arb": 0.62,
+    "maa": 13.97,
+    "enh": "m²"
+  },
+  "OHD04-gl-m²": {
+    "code": "OHD04-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - goot- en lijstwerk",
+    "arb": 1.45,
+    "maa": 14.42,
+    "enh": "m²"
+  },
+  "OHD04-glb-m²": {
+    "code": "OHD04-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - gootlijst boeiboord",
+    "arb": 1.18,
+    "maa": 14.42,
+    "enh": "m²"
+  },
+  "OHD04-glgk-st.": {
+    "code": "OHD04-glgk-st.",
+    "systeem": "OH",
+    "oms": "OHD 04 - goot- en lijstwerk gootklos",
+    "arb": 0.3,
+    "maa": 1.24,
+    "enh": "stuk(s)"
+  },
+  "OHD04-ho-m²": {
+    "code": "OHD04-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - houten oppervlakken",
+    "arb": 0.98,
+    "maa": 13.71,
+    "enh": "m²"
+  },
+  "OHD04-hobe-m²": {
+    "code": "OHD04-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - houten betimmeringen",
+    "arb": 1.57,
+    "maa": 14.42,
+    "enh": "m²"
+  },
+  "OHD04-khn-m¹": {
+    "code": "OHD04-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 04 - kozijnen hout normaal profiel",
+    "arb": 0.23,
+    "maa": 2.12,
+    "enh": "m¹"
+  },
+  "OHD04-khz-m¹": {
+    "code": "OHD04-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 04 - kozijnen hout zwaar profiel",
+    "arb": 0.28,
+    "maa": 1.96,
+    "enh": "m¹"
+  },
+  "OHD04-phg-m²": {
+    "code": "OHD04-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - panelen hout groef",
+    "arb": 1.36,
+    "maa": 14.13,
+    "enh": "m²"
+  },
+  "OHD04-phv-m²": {
+    "code": "OHD04-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 04 - panelen hout vlak",
+    "arb": 0.9,
+    "maa": 13.86,
+    "enh": "m²"
+  },
+  "OHD04-rh-m¹": {
+    "code": "OHD04-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 04 - ramen hout",
+    "arb": 0.17,
+    "maa": 1.58,
+    "enh": "m¹"
+  },
+  "OHD04-roede-m¹": {
+    "code": "OHD04-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 04 - roede",
+    "arb": 0.17,
+    "maa": 0.76,
+    "enh": "m¹"
+  },
+  "OHD05-dhA": {
+    "code": "OHD05-dhA",
+    "systeem": "OH",
+    "oms": "OHD 05 - deuren hout vlak",
+    "arb": 0.32,
+    "maa": 6.0,
+    "enh": "m²"
+  },
+  "OHD05-dhB": {
+    "code": "OHD05-dhB",
+    "systeem": "OH",
+    "oms": "OHD 05 - deuren hout met één ruit",
+    "arb": 0.41,
+    "maa": 6.0,
+    "enh": "m²"
+  },
+  "OHD05-dhC": {
+    "code": "OHD05-dhC",
+    "systeem": "OH",
+    "oms": "OHD 05 - deuren hout met twee ruiten",
+    "arb": 0.5,
+    "maa": 6.0,
+    "enh": "m²"
+  },
+  "OHD05-dhE": {
+    "code": "OHD05-dhE",
+    "systeem": "OH",
+    "oms": "OHD 05 - deuren hout met meerdere ruiten",
+    "arb": 0.59,
+    "maa": 6.0,
+    "enh": "m²"
+  },
+  "OHD05-dhg-m²": {
+    "code": "OHD05-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - deuren hout glas",
+    "arb": 0.53,
+    "maa": 6.0,
+    "enh": "m²"
+  },
+  "OHD05-dhpr-m²": {
+    "code": "OHD05-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - deuren hout geprofileerd",
+    "arb": 0.71,
+    "maa": 9.01,
+    "enh": "m²"
+  },
+  "OHD05-dhv-m²": {
+    "code": "OHD05-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - deuren hout vlak",
+    "arb": 0.39,
+    "maa": 6.68,
+    "enh": "m²"
+  },
+  "OHD05-gl-m²": {
+    "code": "OHD05-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - goot- en lijstwerk",
+    "arb": 0.86,
+    "maa": 7.22,
+    "enh": "m²"
+  },
+  "OHD05-glb-m²": {
+    "code": "OHD05-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - gootlijst boeiboord",
+    "arb": 0.68,
+    "maa": 7.22,
+    "enh": "m²"
+  },
+  "OHD05-glgk-st.": {
+    "code": "OHD05-glgk-st.",
+    "systeem": "OH",
+    "oms": "OHD 05 - goot- en lijstwerk gootklos",
+    "arb": 0.16,
+    "maa": 0.85,
+    "enh": "stuk(s)"
+  },
+  "OHD05-glpr-m²": {
+    "code": "OHD05-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - goot- en lijstwerk geprofileerd",
+    "arb": 0.92,
+    "maa": 7.22,
+    "enh": "m²"
+  },
+  "OHD05-ho-m²": {
+    "code": "OHD05-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - houten oppervlakken",
+    "arb": 0.56,
+    "maa": 6.51,
+    "enh": "m²"
+  },
+  "OHD05-hobe-m²": {
+    "code": "OHD05-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - houten betimmeringen",
+    "arb": 0.89,
+    "maa": 7.22,
+    "enh": "m²"
+  },
+  "OHD05-khA": {
+    "code": "OHD05-khA",
+    "systeem": "OH",
+    "oms": "OHD 05 - Kozijnen hout <10 cm",
+    "arb": 0.1,
+    "maa": 1.21,
+    "enh": "m¹"
+  },
+  "OHD05-khB": {
+    "code": "OHD05-khB",
+    "systeem": "OH",
+    "oms": "OHD 05 - Kozijnen hout 10-20cm",
+    "arb": 0.12,
+    "maa": 1.21,
+    "enh": "m¹"
+  },
+  "OHD05-khD": {
+    "code": "OHD05-khD",
+    "systeem": "OH",
+    "oms": "OHD 05 - Kozijnen > 30cm",
+    "arb": 0.33,
+    "maa": 7.08,
+    "enh": "m²"
+  },
+  "OHD05-khn-m¹": {
+    "code": "OHD05-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 05 - kozijnen hout normaal profiel",
+    "arb": 0.16,
+    "maa": 1.05,
+    "enh": "m¹"
+  },
+  "OHD05-khz-m¹": {
+    "code": "OHD05-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 05 - kozijnen hout zwaar profiel",
+    "arb": 0.18,
+    "maa": 1.05,
+    "enh": "m¹"
+  },
+  "OHD05-phA": {
+    "code": "OHD05-phA",
+    "systeem": "OH",
+    "oms": "OHD 05 - Panelen hout <10cm",
+    "arb": 0.1,
+    "maa": 1.21,
+    "enh": "m¹"
+  },
+  "OHD05-phB": {
+    "code": "OHD05-phB",
+    "systeem": "OH",
+    "oms": "OHD 05 - Panelen hout 10-20 cm",
+    "arb": 0.13,
+    "maa": 1.21,
+    "enh": "m¹"
+  },
+  "OHD05-phC": {
+    "code": "OHD05-phC",
+    "systeem": "OH",
+    "oms": "OHD 05 - Panelen hout 20-30 cm",
+    "arb": 0.16,
+    "maa": 1.21,
+    "enh": "m¹"
+  },
+  "OHD05-phD": {
+    "code": "OHD05-phD",
+    "systeem": "OH",
+    "oms": "OHD 05 - panelen hout vlak",
+    "arb": 0.31,
+    "maa": 6.66,
+    "enh": "m²"
+  },
+  "OHD05-phg-m²": {
+    "code": "OHD05-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - panelen hout groef",
+    "arb": 0.9,
+    "maa": 7.17,
+    "enh": "m²"
+  },
+  "OHD05-phv-m²": {
+    "code": "OHD05-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 05 - panelen hout vlak",
+    "arb": 0.59,
+    "maa": 6.66,
+    "enh": "m²"
+  },
+  "OHD05-rh-m¹": {
+    "code": "OHD05-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 05 - ramen hout",
+    "arb": 0.1,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD05-rhC": {
+    "code": "OHD05-rhC",
+    "systeem": "OH",
+    "oms": "OHD 05 - ramen hout <10 cm met 3 dikte kan",
+    "arb": 0.12,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD05-rhD": {
+    "code": "OHD05-rhD",
+    "systeem": "OH",
+    "oms": "OHD 05 - ramen hout 10-20 cm met 3 dikte kan",
+    "arb": 0.14,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD05-rhE": {
+    "code": "OHD05-rhE",
+    "systeem": "OH",
+    "oms": "OHD 05 - ramen hout <10 cm met 3 dikte kanten",
+    "arb": 0.12,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD05-rhF": {
+    "code": "OHD05-rhF",
+    "systeem": "OH",
+    "oms": "OHD 05 - ramen hout 10-20cm met 3 dikte kanten",
+    "arb": 0.14,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD05-roede-m¹": {
+    "code": "OHD05-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 05 - roede",
+    "arb": 0.1,
+    "maa": 0.48,
+    "enh": "m¹"
+  },
+  "OHD06-dhg-m²": {
+    "code": "OHD06-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - deuren hout glas",
+    "arb": 0.72,
+    "maa": 9.0,
+    "enh": "m²"
+  },
+  "OHD06-dhpr-m²": {
+    "code": "OHD06-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - deuren hout geprofileerd",
+    "arb": 1.02,
+    "maa": 13.81,
+    "enh": "m²"
+  },
+  "OHD06-dhv-m²": {
+    "code": "OHD06-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - deuren hout vlak",
+    "arb": 0.56,
+    "maa": 10.52,
+    "enh": "m²"
+  },
+  "OHD06-gl-m²": {
+    "code": "OHD06-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - goot- en lijstwerk",
+    "arb": 1.21,
+    "maa": 11.06,
+    "enh": "m²"
+  },
+  "OHD06-glb-m²": {
+    "code": "OHD06-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - gootlijst boeiboord",
+    "arb": 0.96,
+    "maa": 11.06,
+    "enh": "m²"
+  },
+  "OHD06-glpr-m²": {
+    "code": "OHD06-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - goot- en lijstwerk geprofileerd",
+    "arb": 1.28,
+    "maa": 11.06,
+    "enh": "m²"
+  },
+  "OHD06-ho-m²": {
+    "code": "OHD06-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - houten oppervlakken",
+    "arb": 0.82,
+    "maa": 10.92,
+    "enh": "m²"
+  },
+  "OHD06-hobe-m²": {
+    "code": "OHD06-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - houten betimmeringen",
+    "arb": 1.26,
+    "maa": 11.06,
+    "enh": "m²"
+  },
+  "OHD06-khn-m¹": {
+    "code": "OHD06-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 06 - kozijnen hout normaal profiel",
+    "arb": 0.2,
+    "maa": 1.53,
+    "enh": "m¹"
+  },
+  "OHD06-khz-m¹": {
+    "code": "OHD06-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 06 - kozijnen hout zwaar profiel",
+    "arb": 0.25,
+    "maa": 1.53,
+    "enh": "m¹"
+  },
+  "OHD06-phg-m²": {
+    "code": "OHD06-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - panelen hout groef",
+    "arb": 1.24,
+    "maa": 11.01,
+    "enh": "m²"
+  },
+  "OHD06-phv-m²": {
+    "code": "OHD06-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 06 - panelen hout vlak",
+    "arb": 0.81,
+    "maa": 10.5,
+    "enh": "m²"
+  },
+  "OHD06-rh-m¹": {
+    "code": "OHD06-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 06 - ramen hout",
+    "arb": 0.15,
+    "maa": 1.19,
+    "enh": "m¹"
+  },
+  "OHD06-roede-m¹": {
+    "code": "OHD06-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 06 - roede",
+    "arb": 0.15,
+    "maa": 0.61,
+    "enh": "m¹"
+  },
+  "OHD07-dhg-m²": {
+    "code": "OHD07-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - deuren hout glas",
+    "arb": 0.72,
+    "maa": 7.67,
+    "enh": "m²"
+  },
+  "OHD07-dhpr-m²": {
+    "code": "OHD07-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - deuren hout geprofileerd",
+    "arb": 1.02,
+    "maa": 13.25,
+    "enh": "m²"
+  },
+  "OHD07-dhv-m²": {
+    "code": "OHD07-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - deuren hout vlak",
+    "arb": 0.56,
+    "maa": 10.07,
+    "enh": "m²"
+  },
+  "OHD07-gl-m²": {
+    "code": "OHD07-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - goot- en lijstwerk",
+    "arb": 1.21,
+    "maa": 10.42,
+    "enh": "m²"
+  },
+  "OHD07-glb-m²": {
+    "code": "OHD07-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - gootlijst boeiboord",
+    "arb": 0.96,
+    "maa": 10.42,
+    "enh": "m²"
+  },
+  "OHD07-glpr-m²": {
+    "code": "OHD07-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - goot- en lijstwerk geprofileerd",
+    "arb": 1.28,
+    "maa": 10.42,
+    "enh": "m²"
+  },
+  "OHD07-ho-m²": {
+    "code": "OHD07-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - houten oppervlakken",
+    "arb": 0.96,
+    "maa": 10.15,
+    "enh": "m²"
+  },
+  "OHD07-hobe-m²": {
+    "code": "OHD07-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - houten betimmeringen",
+    "arb": 1.26,
+    "maa": 10.42,
+    "enh": "m²"
+  },
+  "OHD07-khn-m¹": {
+    "code": "OHD07-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 07 - kozijnen hout normaal profiel",
+    "arb": 0.23,
+    "maa": 1.44,
+    "enh": "m¹"
+  },
+  "OHD07-khz-m¹": {
+    "code": "OHD07-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 07 - kozijnen hout zwaar profiel",
+    "arb": 0.3,
+    "maa": 1.43,
+    "enh": "m¹"
+  },
+  "OHD07-phg-m²": {
+    "code": "OHD07-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - panelen hout groef",
+    "arb": 1.24,
+    "maa": 10.85,
+    "enh": "m²"
+  },
+  "OHD07-phv-m²": {
+    "code": "OHD07-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 07 - panelen hout vlak",
+    "arb": 0.81,
+    "maa": 9.86,
+    "enh": "m²"
+  },
+  "OHD07-rh-m¹": {
+    "code": "OHD07-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 07 - ramen hout",
+    "arb": 0.15,
+    "maa": 1.18,
+    "enh": "m¹"
+  },
+  "OHD07-roede-m¹": {
+    "code": "OHD07-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 07 - roede",
+    "arb": 0.13,
+    "maa": 0.55,
+    "enh": "m¹"
+  },
+  "OHD08-dhA": {
+    "code": "OHD08-dhA",
+    "systeem": "OH",
+    "oms": "OHD 08 - deuren hout vlak",
+    "arb": 0.92,
+    "maa": 15.94,
+    "enh": "m²"
+  },
+  "OHD08-dhB": {
+    "code": "OHD08-dhB",
+    "systeem": "OH",
+    "oms": "OHD 08 - deuren hout met één ruit",
+    "arb": 0.91,
+    "maa": 15.94,
+    "enh": "m²"
+  },
+  "OHD08-dhg-m²": {
+    "code": "OHD08-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - deuren hout glas",
+    "arb": 0.97,
+    "maa": 13.46,
+    "enh": "m²"
+  },
+  "OHD08-dhpr-m²": {
+    "code": "OHD08-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - deuren hout geprofileerd",
+    "arb": 1.6,
+    "maa": 20.24,
+    "enh": "m²"
+  },
+  "OHD08-dhv-m²": {
+    "code": "OHD08-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - deuren hout vlak",
+    "arb": 0.75,
+    "maa": 15.94,
+    "enh": "m²"
+  },
+  "OHD08-ghC": {
+    "code": "OHD08-ghC",
+    "systeem": "OH",
+    "oms": "OHD 08 - Goten met klossen",
+    "arb": 1.23,
+    "maa": 15.9,
+    "enh": "m²"
+  },
+  "OHD08-gl-m²": {
+    "code": "OHD08-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - goot- en lijstwerk",
+    "arb": 1.72,
+    "maa": 16.54,
+    "enh": "m²"
+  },
+  "OHD08-glA": {
+    "code": "OHD08-glA",
+    "systeem": "OH",
+    "oms": "OHD 08 - boeiboorden en luifels",
+    "arb": 1.12,
+    "maa": 16.3,
+    "enh": "m²"
+  },
+  "OHD08-glb-m²": {
+    "code": "OHD08-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - gootlijst boeiboord",
+    "arb": 1.44,
+    "maa": 16.3,
+    "enh": "m²"
+  },
+  "OHD08-glgk-st.": {
+    "code": "OHD08-glgk-st.",
+    "systeem": "OH",
+    "oms": "OHD 08 - goot- en lijstwerk gootklos",
+    "arb": 0.41,
+    "maa": 1.3,
+    "enh": "stuk(s)"
+  },
+  "OHD08-glpr-m²": {
+    "code": "OHD08-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - goot- en lijstwerk geprofileerd",
+    "arb": 2.03,
+    "maa": 16.54,
+    "enh": "m²"
+  },
+  "OHD08-ho-m²": {
+    "code": "OHD08-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - houten oppervlakken",
+    "arb": 1.24,
+    "maa": 15.59,
+    "enh": "m²"
+  },
+  "OHD08-hobe-m²": {
+    "code": "OHD08-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - houten betimmeringen",
+    "arb": 1.84,
+    "maa": 16.54,
+    "enh": "m²"
+  },
+  "OHD08-khB": {
+    "code": "OHD08-khB",
+    "systeem": "OH",
+    "oms": "OHD 08 - kozijnen 10-20 cm",
+    "arb": 0.3,
+    "maa": 2.35,
+    "enh": "m¹"
+  },
+  "OHD08-khn-m¹": {
+    "code": "OHD08-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 08 - kozijnen hout normaal profiel",
+    "arb": 0.27,
+    "maa": 2.19,
+    "enh": "m¹"
+  },
+  "OHD08-khz-m¹": {
+    "code": "OHD08-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 08 - kozijnen hout zwaar profiel",
+    "arb": 0.37,
+    "maa": 2.18,
+    "enh": "m¹"
+  },
+  "OHD08-phC": {
+    "code": "OHD08-phC",
+    "systeem": "OH",
+    "oms": "OHD 08 - panelen 20-30 cm",
+    "arb": 0.44,
+    "maa": 2.35,
+    "enh": "m¹"
+  },
+  "OHD08-phg-m²": {
+    "code": "OHD08-phg-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - panelen hout groef",
+    "arb": 1.81,
+    "maa": 16.19,
+    "enh": "m²"
+  },
+  "OHD08-phv-m²": {
+    "code": "OHD08-phv-m²",
+    "systeem": "OH",
+    "oms": "OHD 08 - panelen hout vlak",
+    "arb": 1.15,
+    "maa": 15.73,
+    "enh": "m²"
+  },
+  "OHD08-rh-m¹": {
+    "code": "OHD08-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 08 - ramen hout",
+    "arb": 0.2,
+    "maa": 1.79,
+    "enh": "m¹"
+  },
+  "OHD08-rhB": {
+    "code": "OHD08-rhB",
+    "systeem": "OH",
+    "oms": "OHD 08 - ramen vast",
+    "arb": 0.29,
+    "maa": 1.93,
+    "enh": "m¹"
+  },
+  "OHD08-rhD": {
+    "code": "OHD08-rhD",
+    "systeem": "OH",
+    "oms": "OHD 08 - Ramen met 3 diktekanten 10-20 cm",
+    "arb": 0.29,
+    "maa": 1.93,
+    "enh": "m¹"
+  },
+  "OHD08-rhH": {
+    "code": "OHD08-rhH",
+    "systeem": "OH",
+    "oms": "OHD 08 - ramen schuif 10-20 cm",
+    "arb": 0.33,
+    "maa": 1.93,
+    "enh": "m¹"
+  },
+  "OHD08-roede-m¹": {
+    "code": "OHD08-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 08 - roede",
+    "arb": 0.18,
+    "maa": 0.83,
+    "enh": "m¹"
+  },
+  "OHD09-dhg-m²": {
+    "code": "OHD09-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - deuren hout glas",
+    "arb": 1.25,
+    "maa": 16.82,
+    "enh": "m²"
+  },
+  "OHD09-dhpr-m²": {
+    "code": "OHD09-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - deuren hout geprofileerd",
+    "arb": 1.99,
+    "maa": 23.91,
+    "enh": "m²"
+  },
+  "OHD09-dhv-m²": {
+    "code": "OHD09-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - deuren hout vlak",
+    "arb": 0.96,
+    "maa": 19.78,
+    "enh": "m²"
+  },
+  "OHD09-gl-m²": {
+    "code": "OHD09-gl-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - goot- en lijstwerk",
+    "arb": 2.07,
+    "maa": 20.38,
+    "enh": "m²"
+  },
+  "OHD09-glb-m²": {
+    "code": "OHD09-glb-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - gootlijst boeiboord",
+    "arb": 1.72,
+    "maa": 20.14,
+    "enh": "m²"
+  },
+  "OHD09-glgk-st.": {
+    "code": "OHD09-glgk-st.",
+    "systeem": "OH",
+    "oms": "OHD 09 - goot- en lijstwerk gootklos",
+    "arb": 0.49,
+    "maa": 1.48,
+    "enh": "stuk(s)"
+  },
+  "OHD09-glpr-m²": {
+    "code": "OHD09-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - goot- en lijstwerk geprofileerd",
+    "arb": 2.39,
+    "maa": 20.38,
+    "enh": "m²"
+  },
+  "OHD09-ho-m²": {
+    "code": "OHD09-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - houten oppervlakken",
+    "arb": 1.52,
+    "maa": 20.0,
+    "enh": "m²"
+  },
+  "OHD09-hobe-m²": {
+    "code": "OHD09-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHD 09 - houten betimmeringen",
+    "arb": 2.21,
+    "maa": 20.38,
+    "enh": "m²"
+  },
+  "OHD09-khC": {
+    "code": "OHD09-khC",
+    "systeem": "OH",
+    "oms": "OHD 09 - kozijnen 20-30 cm",
+    "arb": 0.4,
+    "maa": 2.78,
+    "enh": "m¹"
+  },
+  "OHD09-khn-m¹": {
+    "code": "OHD09-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 09 - kozijnen hout normaal profiel",
+    "arb": 0.33,
+    "maa": 2.72,
+    "enh": "m¹"
+  },
+  "OHD09-khz-m¹": {
+    "code": "OHD09-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 09 - kozijnen hout zwaar profiel",
+    "arb": 0.43,
+    "maa": 2.71,
+    "enh": "m¹"
+  },
+  "OHD09-rh-m¹": {
+    "code": "OHD09-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 09 - ramen hout",
+    "arb": 0.25,
+    "maa": 2.22,
+    "enh": "m¹"
+  },
+  "OHD09-roede-m¹": {
+    "code": "OHD09-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHD 09 - roede",
+    "arb": 0.23,
+    "maa": 1.02,
+    "enh": "m¹"
+  },
+  "OHD50-dhg-m²": {
+    "code": "OHD50-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 50 - deuren hout glas",
+    "arb": 0.53,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD50-dhpr-m²": {
+    "code": "OHD50-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 50 - deuren hout geprofileerd",
+    "arb": 0.78,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD50-dhv-m²": {
+    "code": "OHD50-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 50 - deuren hout vlak",
+    "arb": 0.53,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD50-hdag-m²": {
+    "code": "OHD50-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 50 - houtwerk dagkanten",
+    "arb": 0.89,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD50-ho-m²": {
+    "code": "OHD50-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 50 - houten oppervlakken",
+    "arb": 0.58,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD50-ho-m¹": {
+    "code": "OHD50-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 50 - houten oppervlakken",
+    "arb": 0.19,
+    "maa": 2.85,
+    "enh": "m¹"
+  },
+  "OHD50-hop-m¹": {
+    "code": "OHD50-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 50 - houten oppervlak plint",
+    "arb": 0.13,
+    "maa": 0.81,
+    "enh": "m¹"
+  },
+  "OHD50-khn-m¹": {
+    "code": "OHD50-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 50 - kozijnen hout normaal profiel",
+    "arb": 0.16,
+    "maa": 1.6,
+    "enh": "m¹"
+  },
+  "OHD50-khz-m¹": {
+    "code": "OHD50-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 50 - kozijnen hout zwaar profiel",
+    "arb": 0.2,
+    "maa": 1.83,
+    "enh": "m¹"
+  },
+  "OHD50-rh-m¹": {
+    "code": "OHD50-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 50 - ramen hout",
+    "arb": 0.12,
+    "maa": 1.07,
+    "enh": "m¹"
+  },
+  "OHD50-trap-m²": {
+    "code": "OHD50-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 50 - trap",
+    "arb": 0.89,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD51-dhg-m²": {
+    "code": "OHD51-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 51 - deuren hout glas",
+    "arb": 0.57,
+    "maa": 7.53,
+    "enh": "m²"
+  },
+  "OHD51-dhpr-m²": {
+    "code": "OHD51-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 51 - deuren hout geprofileerd",
+    "arb": 0.7,
+    "maa": 7.53,
+    "enh": "m²"
+  },
+  "OHD51-dhv-m²": {
+    "code": "OHD51-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 51 - deuren hout vlak",
+    "arb": 0.49,
+    "maa": 7.53,
+    "enh": "m²"
+  },
+  "OHD51-hdag-m²": {
+    "code": "OHD51-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 51 - houtwerk dagkanten",
+    "arb": 0.86,
+    "maa": 7.53,
+    "enh": "m²"
+  },
+  "OHD51-ho-m²": {
+    "code": "OHD51-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 51 - houten oppervlakken",
+    "arb": 0.57,
+    "maa": 7.53,
+    "enh": "m²"
+  },
+  "OHD51-ho-m¹": {
+    "code": "OHD51-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 51 - houten oppervlakken",
+    "arb": 0.17,
+    "maa": 2.75,
+    "enh": "m¹"
+  },
+  "OHD51-hop-m¹": {
+    "code": "OHD51-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 51 - houten oppervlak plint",
+    "arb": 0.11,
+    "maa": 0.72,
+    "enh": "m¹"
+  },
+  "OHD51-khn-m¹": {
+    "code": "OHD51-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 51 - kozijnen hout normaal profiel",
+    "arb": 0.14,
+    "maa": 1.5,
+    "enh": "m¹"
+  },
+  "OHD51-khz-m¹": {
+    "code": "OHD51-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 51 - kozijnen hout zwaar profiel",
+    "arb": 0.19,
+    "maa": 1.73,
+    "enh": "m¹"
+  },
+  "OHD51-rh-m¹": {
+    "code": "OHD51-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 51 - ramen hout",
+    "arb": 0.11,
+    "maa": 0.92,
+    "enh": "m¹"
+  },
+  "OHD51-trap-m²": {
+    "code": "OHD51-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 51 - trap",
+    "arb": 0.84,
+    "maa": 7.53,
+    "enh": "m²"
+  },
+  "OHD52-dhA": {
+    "code": "OHD52-dhA",
+    "systeem": "OH",
+    "oms": "OHD 52 - deuren hout vlak",
+    "arb": 0.31,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OHD52-dhB": {
+    "code": "OHD52-dhB",
+    "systeem": "OH",
+    "oms": "OHD 52 - deuren met ruit",
+    "arb": 0.39,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OHD52-dhD": {
+    "code": "OHD52-dhD",
+    "systeem": "OH",
+    "oms": "OHD 52 - deuren hout met 6 ruiten",
+    "arb": 0.56,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OHD52-dhg-m²": {
+    "code": "OHD52-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 52 - deuren hout glas",
+    "arb": 0.58,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OHD52-dhpr-m²": {
+    "code": "OHD52-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 52 - deuren hout geprofileerd",
+    "arb": 0.63,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OHD52-dhv-m²": {
+    "code": "OHD52-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 52 - deuren hout vlak",
+    "arb": 0.45,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD52-hdag-m²": {
+    "code": "OHD52-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 52 - houtwerk dagkanten",
+    "arb": 0.6,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OHD52-ho-m²": {
+    "code": "OHD52-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 52 - houten oppervlakken",
+    "arb": 0.75,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD52-ho-m¹": {
+    "code": "OHD52-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 52 - houten oppervlakken",
+    "arb": 0.25,
+    "maa": 2.85,
+    "enh": "m¹"
+  },
+  "OHD52-hop-m¹": {
+    "code": "OHD52-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 52 - houten oppervlak plint",
+    "arb": 0.15,
+    "maa": 0.81,
+    "enh": "m¹"
+  },
+  "OHD52-khB": {
+    "code": "OHD52-khB",
+    "systeem": "OH",
+    "oms": "OHD 52 - kozijnen hout 10-20cm",
+    "arb": 0.12,
+    "maa": 1.6,
+    "enh": "m¹"
+  },
+  "OHD52-khn-m¹": {
+    "code": "OHD52-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 52 - kozijnen hout normaal profiel",
+    "arb": 0.17,
+    "maa": 1.6,
+    "enh": "m¹"
+  },
+  "OHD52-khz-m¹": {
+    "code": "OHD52-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 52 - kozijnen hout zwaar profiel",
+    "arb": 0.23,
+    "maa": 1.83,
+    "enh": "m¹"
+  },
+  "OHD52-phB": {
+    "code": "OHD52-phB",
+    "systeem": "OH",
+    "oms": "OHD 52 - panelen hout 10-20cm",
+    "arb": 0.13,
+    "maa": 2.85,
+    "enh": "m¹"
+  },
+  "OHD52-rh-m¹": {
+    "code": "OHD52-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 52 - ramen hout",
+    "arb": 0.12,
+    "maa": 0.97,
+    "enh": "m¹"
+  },
+  "OHD52-trap-m²": {
+    "code": "OHD52-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 52 - trap",
+    "arb": 1.02,
+    "maa": 8.01,
+    "enh": "m²"
+  },
+  "OHD53-dhA": {
+    "code": "OHD53-dhA",
+    "systeem": "OH",
+    "oms": "OHD 53 - deuren hout vlak",
+    "arb": 0.37,
+    "maa": null,
+    "enh": "m²"
+  },
+  "OHD53-dhB": {
+    "code": "OHD53-dhB",
+    "systeem": "OH",
+    "oms": "OHD 53 - deuren met 1 ruit",
+    "arb": 0.52,
+    "maa": 11.4,
+    "enh": "m²"
+  },
+  "OHD53-dhC": {
+    "code": "OHD53-dhC",
+    "systeem": "OH",
+    "oms": "OHD 53 - deuren met 2 ruiten",
+    "arb": 0.53,
+    "maa": 11.4,
+    "enh": "m²"
+  },
+  "OHD53-dhg-m²": {
+    "code": "OHD53-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 53 - deuren hout glas",
+    "arb": 1.03,
+    "maa": 11.4,
+    "enh": "m²"
+  },
+  "OHD53-dhpr-m²": {
+    "code": "OHD53-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 53 - deuren hout geprofileerd",
+    "arb": 1.28,
+    "maa": 14.76,
+    "enh": "m²"
+  },
+  "OHD53-dhv-m²": {
+    "code": "OHD53-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 53 - deuren hout vlak",
+    "arb": 0.8,
+    "maa": 11.4,
+    "enh": "m²"
+  },
+  "OHD53-hdag-m²": {
+    "code": "OHD53-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 53 - houtwerk dagkanten",
+    "arb": 1.36,
+    "maa": 11.43,
+    "enh": "m²"
+  },
+  "OHD53-ho-m²": {
+    "code": "OHD53-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 53 - houten oppervlakken",
+    "arb": 0.98,
+    "maa": 11.4,
+    "enh": "m²"
+  },
+  "OHD53-ho-m¹": {
+    "code": "OHD53-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 53 - houten oppervlakken",
+    "arb": 0.32,
+    "maa": 4.16,
+    "enh": "m¹"
+  },
+  "OHD53-hop-m¹": {
+    "code": "OHD53-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 53 - houten oppervlak plint",
+    "arb": 0.18,
+    "maa": 0.95,
+    "enh": "m¹"
+  },
+  "OHD53-khB": {
+    "code": "OHD53-khB",
+    "systeem": "OH",
+    "oms": "OHD 53 - kozijnen 10-20 cm",
+    "arb": 0.15,
+    "maa": null,
+    "enh": "m¹"
+  },
+  "OHD53-khn-m¹": {
+    "code": "OHD53-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 53 - kozijnen hout normaal profiel",
+    "arb": 0.23,
+    "maa": 2.18,
+    "enh": "m¹"
+  },
+  "OHD53-khz-m¹": {
+    "code": "OHD53-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 53 - kozijnen hout zwaar profiel",
+    "arb": 0.28,
+    "maa": 123.93,
+    "enh": "m¹"
+  },
+  "OHD53-phB": {
+    "code": "OHD53-phB",
+    "systeem": "OH",
+    "oms": "OHD 53 - Hout panelen 10-20 cm",
+    "arb": 0.37,
+    "maa": 2.18,
+    "enh": "m¹"
+  },
+  "OHD53-phD": {
+    "code": "OHD53-phD",
+    "systeem": "OH",
+    "oms": "OHD 53 - Hout panelen >30cm",
+    "arb": 0.38,
+    "maa": 11.4,
+    "enh": "m²"
+  },
+  "OHD53-rh-m¹": {
+    "code": "OHD53-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 53 - ramen hout",
+    "arb": 0.18,
+    "maa": 1.7,
+    "enh": "m¹"
+  },
+  "OHD53-rhC": {
+    "code": "OHD53-rhC",
+    "systeem": "OH",
+    "oms": "OHD 53 - ramen hout <10 cm met 3 diktekanten",
+    "arb": 0.15,
+    "maa": 1.7,
+    "enh": "m¹"
+  },
+  "OHD53-trap-m²": {
+    "code": "OHD53-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 53 - trap",
+    "arb": 1.36,
+    "maa": 14.79,
+    "enh": "m²"
+  },
+  "OHD54-dhg-m²": {
+    "code": "OHD54-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 54 - deuren hout glas",
+    "arb": 1.09,
+    "maa": 13.65,
+    "enh": "m²"
+  },
+  "OHD54-dhpr-m²": {
+    "code": "OHD54-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 54 - deuren hout geprofileerd",
+    "arb": 1.23,
+    "maa": 13.65,
+    "enh": "m²"
+  },
+  "OHD54-dhv-m²": {
+    "code": "OHD54-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 54 - deuren hout vlak",
+    "arb": 0.87,
+    "maa": 13.65,
+    "enh": "m²"
+  },
+  "OHD54-hdag-m²": {
+    "code": "OHD54-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 54 - houtwerk dagkanten",
+    "arb": 1.46,
+    "maa": 13.68,
+    "enh": "m²"
+  },
+  "OHD54-ho-m²": {
+    "code": "OHD54-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 54 - houten oppervlakken",
+    "arb": 1.08,
+    "maa": 13.65,
+    "enh": "m²"
+  },
+  "OHD54-ho-m¹": {
+    "code": "OHD54-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 54 - houten oppervlakken",
+    "arb": 0.33,
+    "maa": 4.41,
+    "enh": "m¹"
+  },
+  "OHD54-hop-m¹": {
+    "code": "OHD54-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 54 - houten oppervlak plint",
+    "arb": 0.2,
+    "maa": 1.1,
+    "enh": "m¹"
+  },
+  "OHD54-khn-m¹": {
+    "code": "OHD54-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 54 - kozijnen hout normaal profiel",
+    "arb": 0.24,
+    "maa": 3.17,
+    "enh": "m¹"
+  },
+  "OHD54-khz-m¹": {
+    "code": "OHD54-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 54 - kozijnen hout zwaar profiel",
+    "arb": 0.29,
+    "maa": 3.17,
+    "enh": "m¹"
+  },
+  "OHD54-rh-m¹": {
+    "code": "OHD54-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 54 - ramen hout",
+    "arb": 0.26,
+    "maa": 3.17,
+    "enh": "m¹"
+  },
+  "OHD54-trap-m²": {
+    "code": "OHD54-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 54 - trap",
+    "arb": 1.24,
+    "maa": 13.68,
+    "enh": "m²"
+  },
+  "OHD55-dhg-m²": {
+    "code": "OHD55-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 55 - deuren hout glas",
+    "arb": 1.31,
+    "maa": 17.4,
+    "enh": "m²"
+  },
+  "OHD55-dhpr-m²": {
+    "code": "OHD55-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 55 - deuren hout geprofileerd",
+    "arb": 1.44,
+    "maa": 17.4,
+    "enh": "m²"
+  },
+  "OHD55-dhv-m²": {
+    "code": "OHD55-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 55 - deuren hout vlak",
+    "arb": 0.98,
+    "maa": 17.4,
+    "enh": "m²"
+  },
+  "OHD55-hdag-m²": {
+    "code": "OHD55-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 55 - houtwerk dagkanten",
+    "arb": 1.54,
+    "maa": 17.43,
+    "enh": "m²"
+  },
+  "OHD55-ho-m²": {
+    "code": "OHD55-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 55 - houten oppervlakken",
+    "arb": 1.18,
+    "maa": 17.4,
+    "enh": "m²"
+  },
+  "OHD55-ho-m¹": {
+    "code": "OHD55-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 55 - houten oppervlakken",
+    "arb": 0.38,
+    "maa": 5.16,
+    "enh": "m¹"
+  },
+  "OHD55-hop-m¹": {
+    "code": "OHD55-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 55 - houten oppervlak plint",
+    "arb": 0.25,
+    "maa": 1.35,
+    "enh": "m¹"
+  },
+  "OHD55-khn-m¹": {
+    "code": "OHD55-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 55 - kozijnen hout normaal profiel",
+    "arb": 0.29,
+    "maa": 3.77,
+    "enh": "m¹"
+  },
+  "OHD55-khz-m¹": {
+    "code": "OHD55-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 55 - kozijnen hout zwaar profiel",
+    "arb": 0.35,
+    "maa": 4.07,
+    "enh": "m¹"
+  },
+  "OHD55-rh-m¹": {
+    "code": "OHD55-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 55 - ramen hout",
+    "arb": 0.29,
+    "maa": 3.77,
+    "enh": "m¹"
+  },
+  "OHD55-trap-m²": {
+    "code": "OHD55-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 55 - trap",
+    "arb": 1.41,
+    "maa": 17.43,
+    "enh": "m²"
+  },
+  "OHD56-dhg-m²": {
+    "code": "OHD56-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 56 - deuren hout glas",
+    "arb": 1.8,
+    "maa": 24.59,
+    "enh": "m²"
+  },
+  "OHD56-dhpr-m²": {
+    "code": "OHD56-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 56 - deuren hout geprofileerd",
+    "arb": 1.96,
+    "maa": 21.44,
+    "enh": "m²"
+  },
+  "OHD56-dhv-m²": {
+    "code": "OHD56-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 56 - deuren hout vlak",
+    "arb": 1.54,
+    "maa": 24.59,
+    "enh": "m²"
+  },
+  "OHD56-hdag-m²": {
+    "code": "OHD56-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 56 - houtwerk dagkanten",
+    "arb": 2.04,
+    "maa": 21.44,
+    "enh": "m²"
+  },
+  "OHD56-ho-m²": {
+    "code": "OHD56-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 56 - houten oppervlakken",
+    "arb": 1.56,
+    "maa": 20.84,
+    "enh": "m²"
+  },
+  "OHD56-ho-m¹": {
+    "code": "OHD56-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 56 - houten oppervlakken",
+    "arb": 0.42,
+    "maa": 6.58,
+    "enh": "m¹"
+  },
+  "OHD56-hop-m¹": {
+    "code": "OHD56-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 56 - houten oppervlak plint",
+    "arb": 0.32,
+    "maa": 1.74,
+    "enh": "m¹"
+  },
+  "OHD56-khn-m¹": {
+    "code": "OHD56-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 56 - kozijnen hout normaal profiel",
+    "arb": 0.37,
+    "maa": 5.07,
+    "enh": "m¹"
+  },
+  "OHD56-khz-m¹": {
+    "code": "OHD56-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 56 - kozijnen hout zwaar profiel",
+    "arb": 0.47,
+    "maa": 5.4,
+    "enh": "m¹"
+  },
+  "OHD56-rh-m¹": {
+    "code": "OHD56-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 56 - ramen hout",
+    "arb": 0.28,
+    "maa": 2.77,
+    "enh": "m¹"
+  },
+  "OHD56-trap-m²": {
+    "code": "OHD56-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 56 - trap",
+    "arb": 1.9,
+    "maa": 21.44,
+    "enh": "m²"
+  },
+  "OHD57-dhg-m²": {
+    "code": "OHD57-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHD 57 - deuren hout glas",
+    "arb": 1.95,
+    "maa": 32.27,
+    "enh": "m²"
+  },
+  "OHD57-dhpr-m²": {
+    "code": "OHD57-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHD 57 - deuren hout geprofileerd",
+    "arb": 2.22,
+    "maa": 29.12,
+    "enh": "m²"
+  },
+  "OHD57-dhv-m²": {
+    "code": "OHD57-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHD 57 - deuren hout vlak",
+    "arb": 1.67,
+    "maa": 32.27,
+    "enh": "m²"
+  },
+  "OHD57-hdag-m²": {
+    "code": "OHD57-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHD 57 - houtwerk dagkanten",
+    "arb": 2.09,
+    "maa": 29.12,
+    "enh": "m²"
+  },
+  "OHD57-ho-m²": {
+    "code": "OHD57-ho-m²",
+    "systeem": "OH",
+    "oms": "OHD 57 - houten oppervlakken",
+    "arb": 1.69,
+    "maa": 28.52,
+    "enh": "m²"
+  },
+  "OHD57-ho-m¹": {
+    "code": "OHD57-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHD 57 - houten oppervlakken",
+    "arb": 0.46,
+    "maa": 9.46,
+    "enh": "m¹"
+  },
+  "OHD57-hop-m¹": {
+    "code": "OHD57-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHD 57 - houten oppervlak plint",
+    "arb": 0.36,
+    "maa": 2.32,
+    "enh": "m¹"
+  },
+  "OHD57-khn-m¹": {
+    "code": "OHD57-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHD 57 - kozijnen hout normaal profiel",
+    "arb": 0.43,
+    "maa": 6.51,
+    "enh": "m¹"
+  },
+  "OHD57-khz-m¹": {
+    "code": "OHD57-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHD 57 - kozijnen hout zwaar profiel",
+    "arb": 0.53,
+    "maa": 7.13,
+    "enh": "m¹"
+  },
+  "OHD57-rh-m¹": {
+    "code": "OHD57-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHD 57 - ramen hout",
+    "arb": 0.34,
+    "maa": 3.63,
+    "enh": "m¹"
+  },
+  "OHD57-trap-m²": {
+    "code": "OHD57-trap-m²",
+    "systeem": "OH",
+    "oms": "OHD 57 - trap",
+    "arb": 2.08,
+    "maa": 29.12,
+    "enh": "m²"
+  },
+  "OHT01-dhg-m²": {
+    "code": "OHT01-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - deuren hout glas",
+    "arb": 0.46,
+    "maa": 2.25,
+    "enh": "m²"
+  },
+  "OHT01-dhpr-m²": {
+    "code": "OHT01-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - deuren hout geprofileerd",
+    "arb": 0.63,
+    "maa": 4.21,
+    "enh": "m²"
+  },
+  "OHT01-dhv-m²": {
+    "code": "OHT01-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - deuren hout vlak",
+    "arb": 0.37,
+    "maa": 2.97,
+    "enh": "m²"
+  },
+  "OHT01-gl-m²": {
+    "code": "OHT01-gl-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - goot- en lijstwerk",
+    "arb": 0.75,
+    "maa": 3.78,
+    "enh": "m²"
+  },
+  "OHT01-glb-m²": {
+    "code": "OHT01-glb-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - gootlijst boeiboord",
+    "arb": 0.65,
+    "maa": 3.78,
+    "enh": "m²"
+  },
+  "OHT01-glpr-m²": {
+    "code": "OHT01-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - goot- en lijstwerk geprofileerd",
+    "arb": 0.9,
+    "maa": 3.41,
+    "enh": "m²"
+  },
+  "OHT01-ho-m²": {
+    "code": "OHT01-ho-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - houten oppervlakken",
+    "arb": 0.51,
+    "maa": 3.27,
+    "enh": "m²"
+  },
+  "OHT01-hobe-m²": {
+    "code": "OHT01-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - houten betimmeringen",
+    "arb": 0.77,
+    "maa": 3.78,
+    "enh": "m²"
+  },
+  "OHT01-khn-m¹": {
+    "code": "OHT01-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHT 01 - kozijnen hout normaal profiel",
+    "arb": 0.11,
+    "maa": 0.47,
+    "enh": "m¹"
+  },
+  "OHT01-khz-m¹": {
+    "code": "OHT01-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHT 01 - kozijnen hout zwaar profiel",
+    "arb": 0.16,
+    "maa": 0.47,
+    "enh": "m¹"
+  },
+  "OHT01-phg-m²": {
+    "code": "OHT01-phg-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - panelen hout groef",
+    "arb": 0.74,
+    "maa": 3.25,
+    "enh": "m²"
+  },
+  "OHT01-phv-m²": {
+    "code": "OHT01-phv-m²",
+    "systeem": "OH",
+    "oms": "OHT 01 - panelen hout vlak",
+    "arb": 0.49,
+    "maa": 2.85,
+    "enh": "m²"
+  },
+  "OHT01-rh-m¹": {
+    "code": "OHT01-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHT 01 - ramen hout",
+    "arb": 0.08,
+    "maa": 0.35,
+    "enh": "m¹"
+  },
+  "OHT01-roede-m¹": {
+    "code": "OHT01-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHT 01 - roede",
+    "arb": 0.09,
+    "maa": 0.24,
+    "enh": "m¹"
+  },
+  "OHT02-dhg-m²": {
+    "code": "OHT02-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - deuren hout glas",
+    "arb": 0.61,
+    "maa": 4.1,
+    "enh": "m²"
+  },
+  "OHT02-dhpr-m²": {
+    "code": "OHT02-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - deuren hout geprofileerd",
+    "arb": 0.87,
+    "maa": 6.8,
+    "enh": "m²"
+  },
+  "OHT02-dhv-m²": {
+    "code": "OHT02-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - deuren hout vlak",
+    "arb": 0.51,
+    "maa": 5.19,
+    "enh": "m²"
+  },
+  "OHT02-gl-m²": {
+    "code": "OHT02-gl-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - goot- en lijstwerk",
+    "arb": 0.95,
+    "maa": 5.63,
+    "enh": "m²"
+  },
+  "OHT02-glb-m²": {
+    "code": "OHT02-glb-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - gootlijst boeiboord",
+    "arb": 0.85,
+    "maa": 5.63,
+    "enh": "m²"
+  },
+  "OHT02-glpr-m²": {
+    "code": "OHT02-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - goot- en lijstwerk geprofileerd",
+    "arb": 1.18,
+    "maa": 5.63,
+    "enh": "m²"
+  },
+  "OHT02-ho-m²": {
+    "code": "OHT02-ho-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - houten oppervlakken",
+    "arb": 0.71,
+    "maa": 5.49,
+    "enh": "m²"
+  },
+  "OHT02-hobe-m²": {
+    "code": "OHT02-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - houten betimmeringen",
+    "arb": 0.97,
+    "maa": 5.63,
+    "enh": "m²"
+  },
+  "OHT02-khB": {
+    "code": "OHT02-khB",
+    "systeem": "OH",
+    "oms": "OHT 02 - Hout kozijnen 10-20cm",
+    "arb": 0.12,
+    "maa": 0.96,
+    "enh": "m¹"
+  },
+  "OHT02-khn-m¹": {
+    "code": "OHT02-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHT 02 - kozijnen hout normaal profiel",
+    "arb": 0.15,
+    "maa": 0.8,
+    "enh": "m¹"
+  },
+  "OHT02-khz-m¹": {
+    "code": "OHT02-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHT 02 - kozijnen hout zwaar profiel",
+    "arb": 0.21,
+    "maa": 0.8,
+    "enh": "m¹"
+  },
+  "OHT02-phE": {
+    "code": "OHT02-phE",
+    "systeem": "OH",
+    "oms": "OHT 02 - panelen hout rabatdelen/schrootjes",
+    "arb": 0.39,
+    "maa": 5.28,
+    "enh": "m²"
+  },
+  "OHT02-phg-m²": {
+    "code": "OHT02-phg-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - panelen hout groef",
+    "arb": 0.7,
+    "maa": 5.28,
+    "enh": "m²"
+  },
+  "OHT02-phv-m²": {
+    "code": "OHT02-phv-m²",
+    "systeem": "OH",
+    "oms": "OHT 02 - panelen hout vlak",
+    "arb": 0.59,
+    "maa": 5.07,
+    "enh": "m²"
+  },
+  "OHT02-rh-m¹": {
+    "code": "OHT02-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHT 02 - ramen hout",
+    "arb": 0.11,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OHT02-rhD": {
+    "code": "OHT02-rhD",
+    "systeem": "OH",
+    "oms": "OHT 02 - raamhout 10-20cm met 3 dikte kanten",
+    "arb": 0.13,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OHT02-roede-m¹": {
+    "code": "OHT02-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHT 02 - roede",
+    "arb": 0.13,
+    "maa": 0.39,
+    "enh": "m¹"
+  },
+  "OHT03-dhB": {
+    "code": "OHT03-dhB",
+    "systeem": "OH",
+    "oms": "OHT 03 - Deur met ruit",
+    "arb": 0.36,
+    "maa": null,
+    "enh": "m²"
+  },
+  "OHT03-glb-m²": {
+    "code": "OHT03-glb-m²",
+    "systeem": "OH",
+    "oms": "OHT 03 - gootlijst boeiboord",
+    "arb": 0.67,
+    "maa": 4.15,
+    "enh": "m²"
+  },
+  "OHT03-hobe-m²": {
+    "code": "OHT03-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHT 03 - houten betimmeringen",
+    "arb": 0.8,
+    "maa": 4.15,
+    "enh": "m²"
+  },
+  "OHT03-rhC": {
+    "code": "OHT03-rhC",
+    "systeem": "OH",
+    "oms": "OHT 03 - Ramen <10 cm met 3 dikte kanten",
+    "arb": 0.1,
+    "maa": null,
+    "enh": "m¹"
+  },
+  "OHT04-dhg-m²": {
+    "code": "OHT04-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - deuren hout glas",
+    "arb": 0.63,
+    "maa": 2.54,
+    "enh": "m²"
+  },
+  "OHT04-dhpr-m²": {
+    "code": "OHT04-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - deuren hout geprofileerd",
+    "arb": 1.53,
+    "maa": 4.58,
+    "enh": "m²"
+  },
+  "OHT04-dhv-m²": {
+    "code": "OHT04-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - deuren hout vlak",
+    "arb": 0.69,
+    "maa": 3.42,
+    "enh": "m²"
+  },
+  "OHT04-gl-m²": {
+    "code": "OHT04-gl-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - goot- en lijstwerk",
+    "arb": 0.83,
+    "maa": 4.15,
+    "enh": "m²"
+  },
+  "OHT04-glpr-m²": {
+    "code": "OHT04-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - goot- en lijstwerk geprofileerd",
+    "arb": 0.97,
+    "maa": 3.78,
+    "enh": "m²"
+  },
+  "OHT04-ho-m²": {
+    "code": "OHT04-ho-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - houten oppervlakken",
+    "arb": 0.34,
+    "maa": 3.64,
+    "enh": "m²"
+  },
+  "OHT04-khn-m¹": {
+    "code": "OHT04-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHT 04 - kozijnen hout normaal profiel",
+    "arb": 0.2,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT04-khz-m¹": {
+    "code": "OHT04-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHT 04 - kozijnen hout zwaar profiel",
+    "arb": 0.24,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT04-phg-m²": {
+    "code": "OHT04-phg-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - panelen hout groef",
+    "arb": 1.15,
+    "maa": 3.62,
+    "enh": "m²"
+  },
+  "OHT04-rh-m¹": {
+    "code": "OHT04-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHT 04 - ramen hout",
+    "arb": 0.24,
+    "maa": 0.39,
+    "enh": "m¹"
+  },
+  "OHT04-roede-m¹": {
+    "code": "OHT04-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHT 04 - roede",
+    "arb": 0.23,
+    "maa": 0.28,
+    "enh": "m¹"
+  },
+  "OHT04phv-m²": {
+    "code": "OHT04phv-m²",
+    "systeem": "OH",
+    "oms": "OHT 04 - panelen hout vlak",
+    "arb": 0.71,
+    "maa": 3.22,
+    "enh": "m²"
+  },
+  "OHT05-dhF": {
+    "code": "OHT05-dhF",
+    "systeem": "OH",
+    "oms": "OHT 05 - deuren kanteldeur/schrootjes",
+    "arb": 1.46,
+    "maa": 4.58,
+    "enh": "m²"
+  },
+  "OHT05-dhg-m²": {
+    "code": "OHT05-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - deuren hout glas",
+    "arb": 0.76,
+    "maa": 2.54,
+    "enh": "m²"
+  },
+  "OHT05-dhpr-m²": {
+    "code": "OHT05-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - deuren hout geprofileerd",
+    "arb": 1.72,
+    "maa": 4.58,
+    "enh": "m²"
+  },
+  "OHT05-dhv-m²": {
+    "code": "OHT05-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - deuren hout vlak",
+    "arb": 0.78,
+    "maa": 3.42,
+    "enh": "m²"
+  },
+  "OHT05-gl-m²": {
+    "code": "OHT05-gl-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - goot- en lijstwerk",
+    "arb": 0.94,
+    "maa": 4.15,
+    "enh": "m²"
+  },
+  "OHT05-glpr-m²": {
+    "code": "OHT05-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - goot- en lijstwerk geprofileerd",
+    "arb": 1.08,
+    "maa": 3.78,
+    "enh": "m²"
+  },
+  "OHT05-ho-m²": {
+    "code": "OHT05-ho-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - houten oppervlakken",
+    "arb": 0.43,
+    "maa": 10.21,
+    "enh": "m²"
+  },
+  "OHT05-khn-m¹": {
+    "code": "OHT05-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHT 05 - kozijnen hout normaal profiel",
+    "arb": 0.23,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT05-khz-m¹": {
+    "code": "OHT05-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHT 05 - kozijnen hout zwaar profiel",
+    "arb": 0.29,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT05-phg-m²": {
+    "code": "OHT05-phg-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - panelen hout groef",
+    "arb": 1.27,
+    "maa": 3.62,
+    "enh": "m²"
+  },
+  "OHT05-rh-m¹": {
+    "code": "OHT05-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHT 05 - ramen hout",
+    "arb": 0.28,
+    "maa": 0.39,
+    "enh": "m¹"
+  },
+  "OHT05-roede-m¹": {
+    "code": "OHT05-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHT 05 - roede",
+    "arb": 0.28,
+    "maa": 0.28,
+    "enh": "m¹"
+  },
+  "OHT05phv-m²": {
+    "code": "OHT05phv-m²",
+    "systeem": "OH",
+    "oms": "OHT 05 - panelen hout vlak",
+    "arb": 0.8,
+    "maa": 3.22,
+    "enh": "m²"
+  },
+  "OHT50-dhE": {
+    "code": "OHT50-dhE",
+    "systeem": "OH",
+    "oms": "OHT 50 - deuren hout met meerder ruiten",
+    "arb": 0.57,
+    "maa": 4.45,
+    "enh": "m²"
+  },
+  "OHT50-dhg-m²": {
+    "code": "OHT50-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHT 50 - deuren hout glas",
+    "arb": 0.61,
+    "maa": 4.45,
+    "enh": "m²"
+  },
+  "OHT50-dhpr-m²": {
+    "code": "OHT50-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 50 - deuren hout geprofileerd",
+    "arb": 0.87,
+    "maa": 5.66,
+    "enh": "m²"
+  },
+  "OHT50-dhv-m²": {
+    "code": "OHT50-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHT 50 - deuren hout vlak",
+    "arb": 0.51,
+    "maa": 4.84,
+    "enh": "m²"
+  },
+  "OHT50-ho-m²": {
+    "code": "OHT50-ho-m²",
+    "systeem": "OH",
+    "oms": "OHT 50 - houten oppervlakken",
+    "arb": 0.71,
+    "maa": 4.92,
+    "enh": "m²"
+  },
+  "OHT50-hobe-m²": {
+    "code": "OHT50-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHT 50 - houten betimmeringen",
+    "arb": 0.97,
+    "maa": 4.92,
+    "enh": "m²"
+  },
+  "OHT50-khn-m¹": {
+    "code": "OHT50-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHT 50 - kozijnen hout normaal profiel",
+    "arb": 0.15,
+    "maa": 0.8,
+    "enh": "m¹"
+  },
+  "OHT50-khz-m¹": {
+    "code": "OHT50-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHT 50 - kozijnen hout zwaar profiel",
+    "arb": 0.21,
+    "maa": 0.8,
+    "enh": "m¹"
+  },
+  "OHT50-phB": {
+    "code": "OHT50-phB",
+    "systeem": "OH",
+    "oms": "OHT 50 - ramen hout",
+    "arb": 0.13,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OHT50-phg-m²": {
+    "code": "OHT50-phg-m²",
+    "systeem": "OH",
+    "oms": "OHT 50 - panelen hout groef",
+    "arb": 0.7,
+    "maa": 5.14,
+    "enh": "m²"
+  },
+  "OHT50-phv-m²": {
+    "code": "OHT50-phv-m²",
+    "systeem": "OH",
+    "oms": "OHT 50 - panelen hout vlak",
+    "arb": 0.59,
+    "maa": 4.92,
+    "enh": "m²"
+  },
+  "OHT50-rh-m¹": {
+    "code": "OHT50-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHT 50 - ramen hout",
+    "arb": 0.11,
+    "maa": 0.61,
+    "enh": "m¹"
+  },
+  "OHT50-roede-m¹": {
+    "code": "OHT50-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHT 50 - roede",
+    "arb": 0.13,
+    "maa": 0.39,
+    "enh": "m¹"
+  },
+  "OHT51-dhg-m²": {
+    "code": "OHT51-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHT 51 - deuren hout glas",
+    "arb": 0.63,
+    "maa": 2.54,
+    "enh": "m²"
+  },
+  "OHT51-dhpr-m²": {
+    "code": "OHT51-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 51 - deuren hout geprofileerd",
+    "arb": 1.53,
+    "maa": 3.44,
+    "enh": "m²"
+  },
+  "OHT51-dhv-m²": {
+    "code": "OHT51-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHT 51 - deuren hout vlak",
+    "arb": 0.69,
+    "maa": 3.06,
+    "enh": "m²"
+  },
+  "OHT51-ho-m²": {
+    "code": "OHT51-ho-m²",
+    "systeem": "OH",
+    "oms": "OHT 51 - houten oppervlakken",
+    "arb": 0.34,
+    "maa": 3.07,
+    "enh": "m²"
+  },
+  "OHT51-khn-m¹": {
+    "code": "OHT51-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHT 51 - kozijnen hout normaal profiel",
+    "arb": 0.2,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT51-khz-m¹": {
+    "code": "OHT51-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHT 51 - kozijnen hout zwaar profiel",
+    "arb": 0.24,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT51-phg-m²": {
+    "code": "OHT51-phg-m²",
+    "systeem": "OH",
+    "oms": "OHT 51 - panelen hout groef",
+    "arb": 1.15,
+    "maa": 3.48,
+    "enh": "m²"
+  },
+  "OHT51-rh-m¹": {
+    "code": "OHT51-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHT 51 - ramen hout",
+    "arb": 0.24,
+    "maa": 0.39,
+    "enh": "m¹"
+  },
+  "OHT51-roede-m¹": {
+    "code": "OHT51-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHT 51 - roede",
+    "arb": 0.23,
+    "maa": 0.28,
+    "enh": "m¹"
+  },
+  "OHT51phv-m²": {
+    "code": "OHT51phv-m²",
+    "systeem": "OH",
+    "oms": "OHT 51 - panelen hout vlak",
+    "arb": 0.71,
+    "maa": 3.07,
+    "enh": "m²"
+  },
+  "OHT52-dhg-m²": {
+    "code": "OHT52-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHT 52 - deuren hout glas",
+    "arb": 0.76,
+    "maa": 2.54,
+    "enh": "m²"
+  },
+  "OHT52-dhpr-m²": {
+    "code": "OHT52-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHT 52 - deuren hout geprofileerd",
+    "arb": 1.72,
+    "maa": 3.44,
+    "enh": "m²"
+  },
+  "OHT52-dhv-m²": {
+    "code": "OHT52-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHT 52 - deuren hout vlak",
+    "arb": 0.78,
+    "maa": 3.06,
+    "enh": "m²"
+  },
+  "OHT52-ho-m²": {
+    "code": "OHT52-ho-m²",
+    "systeem": "OH",
+    "oms": "OHT 52 - houten oppervlakken",
+    "arb": 0.43,
+    "maa": 9.64,
+    "enh": "m²"
+  },
+  "OHT52-khn-m¹": {
+    "code": "OHT52-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHT 52 - kozijnen hout normaal profiel",
+    "arb": 0.23,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT52-khz-m¹": {
+    "code": "OHT52-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHT 52 - kozijnen hout zwaar profiel",
+    "arb": 0.29,
+    "maa": 0.54,
+    "enh": "m¹"
+  },
+  "OHT52-phg-m²": {
+    "code": "OHT52-phg-m²",
+    "systeem": "OH",
+    "oms": "OHT 52 - panelen hout groef",
+    "arb": 1.27,
+    "maa": 3.48,
+    "enh": "m²"
+  },
+  "OHT52-rh-m¹": {
+    "code": "OHT52-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHT 52 - ramen hout",
+    "arb": 0.28,
+    "maa": 0.39,
+    "enh": "m¹"
+  },
+  "OHT52-roede-m¹": {
+    "code": "OHT52-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHT 52 - roede",
+    "arb": 0.28,
+    "maa": 0.28,
+    "enh": "m¹"
+  },
+  "OHT52phv-m²": {
+    "code": "OHT52phv-m²",
+    "systeem": "OH",
+    "oms": "OHT 52 - panelen hout vlak",
+    "arb": 0.8,
+    "maa": 3.07,
+    "enh": "m²"
+  },
+  "OHV01-dhg-m²": {
+    "code": "OHV01-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - deuren hout glas",
+    "arb": 0.73,
+    "maa": 5.28,
+    "enh": "m²"
+  },
+  "OHV01-dhpr-m²": {
+    "code": "OHV01-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - deuren hout geprofileerd",
+    "arb": 0.71,
+    "maa": 5.05,
+    "enh": "m²"
+  },
+  "OHV01-dhv-m²": {
+    "code": "OHV01-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - deuren hout vlak",
+    "arb": 0.62,
+    "maa": 6.4,
+    "enh": "m²"
+  },
+  "OHV01-gl-m²": {
+    "code": "OHV01-gl-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - goot- en lijstwerk",
+    "arb": 1.09,
+    "maa": 6.9,
+    "enh": "m²"
+  },
+  "OHV01-glb-m²": {
+    "code": "OHV01-glb-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - gootlijst boeiboord",
+    "arb": 0.97,
+    "maa": 6.9,
+    "enh": "m²"
+  },
+  "OHV01-glpr-m²": {
+    "code": "OHV01-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - goot- en lijstwerk geprofileerd",
+    "arb": 1.32,
+    "maa": 6.9,
+    "enh": "m²"
+  },
+  "OHV01-ho-m²": {
+    "code": "OHV01-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - houten oppervlakken",
+    "arb": 0.6,
+    "maa": 4.1,
+    "enh": "m²"
+  },
+  "OHV01-hobe-m²": {
+    "code": "OHV01-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - houten betimmeringen",
+    "arb": 0.86,
+    "maa": 4.24,
+    "enh": "m²"
+  },
+  "OHV01-khn-m¹": {
+    "code": "OHV01-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 01 - kozijnen hout normaal profiel",
+    "arb": 0.14,
+    "maa": 0.65,
+    "enh": "m¹"
+  },
+  "OHV01-khz-m¹": {
+    "code": "OHV01-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 01 - kozijnen hout zwaar profiel",
+    "arb": 0.21,
+    "maa": 0.68,
+    "enh": "m¹"
+  },
+  "OHV01-phg-m²": {
+    "code": "OHV01-phg-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - panelen hout groef",
+    "arb": 1.04,
+    "maa": 6.75,
+    "enh": "m²"
+  },
+  "OHV01-phv-m²": {
+    "code": "OHV01-phv-m²",
+    "systeem": "OH",
+    "oms": "OHV 01 - panelen hout vlak",
+    "arb": 0.61,
+    "maa": 3.68,
+    "enh": "m²"
+  },
+  "OHV01-rh-m¹": {
+    "code": "OHV01-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 01 - ramen hout",
+    "arb": 0.1,
+    "maa": 0.49,
+    "enh": "m¹"
+  },
+  "OHV01-roede-m¹": {
+    "code": "OHV01-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHV 01 - roede",
+    "arb": 0.1,
+    "maa": 0.38,
+    "enh": "m¹"
+  },
+  "OHV02-dhg-m²": {
+    "code": "OHV02-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - deuren hout glas",
+    "arb": 1.02,
+    "maa": 9.34,
+    "enh": "m²"
+  },
+  "OHV02-dhpr-m²": {
+    "code": "OHV02-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - deuren hout geprofileerd",
+    "arb": 1.7,
+    "maa": 14.62,
+    "enh": "m²"
+  },
+  "OHV02-dhv-m²": {
+    "code": "OHV02-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - deuren hout vlak",
+    "arb": 0.95,
+    "maa": 11.31,
+    "enh": "m²"
+  },
+  "OHV02-gl-m²": {
+    "code": "OHV02-gl-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - goot- en lijstwerk",
+    "arb": 1.58,
+    "maa": 11.91,
+    "enh": "m²"
+  },
+  "OHV02-glb-m²": {
+    "code": "OHV02-glb-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - gootlijst boeiboord",
+    "arb": 1.51,
+    "maa": 11.67,
+    "enh": "m²"
+  },
+  "OHV02-glpr-m²": {
+    "code": "OHV02-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - goot- en lijstwerk geprofileerd",
+    "arb": 2.08,
+    "maa": 11.91,
+    "enh": "m²"
+  },
+  "OHV02-ho-m²": {
+    "code": "OHV02-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - houten oppervlakken",
+    "arb": 1.34,
+    "maa": 11.53,
+    "enh": "m²"
+  },
+  "OHV02-hobe-m²": {
+    "code": "OHV02-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - houten betimmeringen",
+    "arb": 1.66,
+    "maa": 11.91,
+    "enh": "m²"
+  },
+  "OHV02-khn-m¹": {
+    "code": "OHV02-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 02 - kozijnen hout normaal profiel",
+    "arb": 0.25,
+    "maa": 1.54,
+    "enh": "m¹"
+  },
+  "OHV02-khz-m¹": {
+    "code": "OHV02-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 02 - kozijnen hout zwaar profiel",
+    "arb": 0.4,
+    "maa": 1.63,
+    "enh": "m¹"
+  },
+  "OHV02-phg-m²": {
+    "code": "OHV02-phg-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - panelen hout groef",
+    "arb": 1.68,
+    "maa": 11.71,
+    "enh": "m²"
+  },
+  "OHV02-phv-m²": {
+    "code": "OHV02-phv-m²",
+    "systeem": "OH",
+    "oms": "OHV 02 - panelen hout vlak",
+    "arb": 1.08,
+    "maa": 11.1,
+    "enh": "m²"
+  },
+  "OHV02-rh-m¹": {
+    "code": "OHV02-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 02 - ramen hout",
+    "arb": 0.18,
+    "maa": 1.23,
+    "enh": "m¹"
+  },
+  "OHV02-roede-m¹": {
+    "code": "OHV02-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHV 02 - roede",
+    "arb": 0.18,
+    "maa": 0.74,
+    "enh": "m¹"
+  },
+  "OHV03-dhg-m²": {
+    "code": "OHV03-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - deuren hout glas",
+    "arb": 1.02,
+    "maa": 9.34,
+    "enh": "m²"
+  },
+  "OHV03-dhpr-m²": {
+    "code": "OHV03-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - deuren hout geprofileerd",
+    "arb": 1.7,
+    "maa": 14.62,
+    "enh": "m²"
+  },
+  "OHV03-dhv-m²": {
+    "code": "OHV03-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - deuren hout vlak",
+    "arb": 0.95,
+    "maa": 11.31,
+    "enh": "m²"
+  },
+  "OHV03-gl-m²": {
+    "code": "OHV03-gl-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - goot- en lijstwerk",
+    "arb": 1.58,
+    "maa": 11.91,
+    "enh": "m²"
+  },
+  "OHV03-glb-m²": {
+    "code": "OHV03-glb-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - gootlijst boeiboord",
+    "arb": 1.51,
+    "maa": 11.67,
+    "enh": "m²"
+  },
+  "OHV03-glpr-m²": {
+    "code": "OHV03-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - goot- en lijstwerk geprofileerd",
+    "arb": 2.08,
+    "maa": 11.91,
+    "enh": "m²"
+  },
+  "OHV03-ho-m²": {
+    "code": "OHV03-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - houten oppervlakken",
+    "arb": 1.34,
+    "maa": 11.53,
+    "enh": "m²"
+  },
+  "OHV03-hobe-m²": {
+    "code": "OHV03-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - houten betimmeringen",
+    "arb": 1.66,
+    "maa": 11.91,
+    "enh": "m²"
+  },
+  "OHV03-khn-m¹": {
+    "code": "OHV03-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 03 - kozijnen hout normaal profiel",
+    "arb": 0.25,
+    "maa": 1.54,
+    "enh": "m¹"
+  },
+  "OHV03-khz-m¹": {
+    "code": "OHV03-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 03 - kozijnen hout zwaar profiel",
+    "arb": 0.4,
+    "maa": 1.63,
+    "enh": "m¹"
+  },
+  "OHV03-phg-m²": {
+    "code": "OHV03-phg-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - panelen hout groef",
+    "arb": 1.68,
+    "maa": 11.71,
+    "enh": "m²"
+  },
+  "OHV03-phv-m²": {
+    "code": "OHV03-phv-m²",
+    "systeem": "OH",
+    "oms": "OHV 03 - panelen hout vlak",
+    "arb": 1.08,
+    "maa": 11.1,
+    "enh": "m²"
+  },
+  "OHV03-rh-m¹": {
+    "code": "OHV03-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 03 - ramen hout",
+    "arb": 0.18,
+    "maa": 1.23,
+    "enh": "m¹"
+  },
+  "OHV03-roede-m¹": {
+    "code": "OHV03-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHV 03 - roede",
+    "arb": 0.18,
+    "maa": 0.74,
+    "enh": "m¹"
+  },
+  "OHV04-dhg-m²": {
+    "code": "OHV04-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - deuren hout glas",
+    "arb": 1.07,
+    "maa": 10.8,
+    "enh": "m²"
+  },
+  "OHV04-dhpr-m²": {
+    "code": "OHV04-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - deuren hout geprofileerd",
+    "arb": 1.77,
+    "maa": 16.08,
+    "enh": "m²"
+  },
+  "OHV04-dhv-m²": {
+    "code": "OHV04-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - deuren hout vlak",
+    "arb": 1.0,
+    "maa": 12.78,
+    "enh": "m²"
+  },
+  "OHV04-gl-m²": {
+    "code": "OHV04-gl-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - goot- en lijstwerk",
+    "arb": 1.62,
+    "maa": 13.38,
+    "enh": "m²"
+  },
+  "OHV04-glb-m²": {
+    "code": "OHV04-glb-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - gootlijst boeiboord",
+    "arb": 1.55,
+    "maa": 13.14,
+    "enh": "m²"
+  },
+  "OHV04-glpr-m²": {
+    "code": "OHV04-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - goot- en lijstwerk geprofileerd",
+    "arb": 2.15,
+    "maa": 13.38,
+    "enh": "m²"
+  },
+  "OHV04-ho-m²": {
+    "code": "OHV04-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - houten oppervlakken",
+    "arb": 1.42,
+    "maa": 12.99,
+    "enh": "m²"
+  },
+  "OHV04-hobe-m²": {
+    "code": "OHV04-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - houten betimmeringen",
+    "arb": 1.75,
+    "maa": 13.38,
+    "enh": "m²"
+  },
+  "OHV04-khn-m¹": {
+    "code": "OHV04-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 04 - kozijnen hout normaal profiel",
+    "arb": 0.27,
+    "maa": 1.76,
+    "enh": "m¹"
+  },
+  "OHV04-khz-m¹": {
+    "code": "OHV04-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 04 - kozijnen hout zwaar profiel",
+    "arb": 0.43,
+    "maa": 1.85,
+    "enh": "m¹"
+  },
+  "OHV04-phg-m²": {
+    "code": "OHV04-phg-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - panelen hout groef",
+    "arb": 1.75,
+    "maa": 13.17,
+    "enh": "m²"
+  },
+  "OHV04-phv-m²": {
+    "code": "OHV04-phv-m²",
+    "systeem": "OH",
+    "oms": "OHV 04 - panelen hout vlak",
+    "arb": 1.12,
+    "maa": 12.57,
+    "enh": "m²"
+  },
+  "OHV04-rh-m¹": {
+    "code": "OHV04-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 04 - ramen hout",
+    "arb": 0.2,
+    "maa": 1.38,
+    "enh": "m¹"
+  },
+  "OHV04-roede-m¹": {
+    "code": "OHV04-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHV 04 - roede",
+    "arb": 0.22,
+    "maa": 0.89,
+    "enh": "m¹"
+  },
+  "OHV05-dhg-m²": {
+    "code": "OHV05-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - deuren hout glas",
+    "arb": 0.68,
+    "maa": 4.67,
+    "enh": "m²"
+  },
+  "OHV05-dhpr-m²": {
+    "code": "OHV05-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - deuren hout geprofileerd",
+    "arb": 0.96,
+    "maa": 6.95,
+    "enh": "m²"
+  },
+  "OHV05-dhv-m²": {
+    "code": "OHV05-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - deuren hout vlak",
+    "arb": 0.58,
+    "maa": 5.43,
+    "enh": "m²"
+  },
+  "OHV05-gl-m²": {
+    "code": "OHV05-gl-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - goot- en lijstwerk",
+    "arb": 1.05,
+    "maa": 5.81,
+    "enh": "m²"
+  },
+  "OHV05-glb-m²": {
+    "code": "OHV05-glb-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - gootlijst boeiboord",
+    "arb": 0.95,
+    "maa": 5.81,
+    "enh": "m²"
+  },
+  "OHV05-glpr-m²": {
+    "code": "OHV05-glpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - goot- en lijstwerk geprofileerd",
+    "arb": 1.28,
+    "maa": 5.81,
+    "enh": "m²"
+  },
+  "OHV05-ho-m²": {
+    "code": "OHV05-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - houten oppervlakken",
+    "arb": 0.76,
+    "maa": 5.43,
+    "enh": "m²"
+  },
+  "OHV05-hobe-m²": {
+    "code": "OHV05-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - houten betimmeringen",
+    "arb": 1.07,
+    "maa": 5.81,
+    "enh": "m²"
+  },
+  "OHV05-khn-m¹": {
+    "code": "OHV05-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 05 - kozijnen hout normaal profiel",
+    "arb": 0.17,
+    "maa": 0.9,
+    "enh": "m¹"
+  },
+  "OHV05-khz-m¹": {
+    "code": "OHV05-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 05 - kozijnen hout zwaar profiel",
+    "arb": 0.21,
+    "maa": 0.9,
+    "enh": "m¹"
+  },
+  "OHV05-phg-m²": {
+    "code": "OHV05-phg-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - panelen hout groef",
+    "arb": 1.02,
+    "maa": 6.04,
+    "enh": "m²"
+  },
+  "OHV05-phv-m²": {
+    "code": "OHV05-phv-m²",
+    "systeem": "OH",
+    "oms": "OHV 05 - panelen hout vlak",
+    "arb": 0.72,
+    "maa": 5.81,
+    "enh": "m²"
+  },
+  "OHV05-rh-m¹": {
+    "code": "OHV05-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 05 - ramen hout",
+    "arb": 0.12,
+    "maa": 0.7,
+    "enh": "m¹"
+  },
+  "OHV50-dhB": {
+    "code": "OHV50-dhB",
+    "systeem": "OH",
+    "oms": "OHV 50 - deur met een ruit",
+    "arb": 0.34,
+    "maa": 4.01,
+    "enh": "m²"
+  },
+  "OHV50-dhC": {
+    "code": "OHV50-dhC",
+    "systeem": "OH",
+    "oms": "OHV 50 - deur met twee ruiten",
+    "arb": 0.36,
+    "maa": 4.01,
+    "enh": "m²"
+  },
+  "OHV50-dhg-m²": {
+    "code": "OHV50-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 50 - deuren hout glas",
+    "arb": 0.92,
+    "maa": 3.53,
+    "enh": "m²"
+  },
+  "OHV50-dhpr-m²": {
+    "code": "OHV50-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 50 - deuren hout geprofileerd",
+    "arb": 0.73,
+    "maa": 3.53,
+    "enh": "m²"
+  },
+  "OHV50-dhv-m²": {
+    "code": "OHV50-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 50 - deuren hout vlak",
+    "arb": 0.56,
+    "maa": 3.15,
+    "enh": "m²"
+  },
+  "OHV50-hdag-m²": {
+    "code": "OHV50-hdag-m²",
+    "systeem": "OH",
+    "oms": "OHV 50 - houtwerk dagkanten",
+    "arb": 0.6,
+    "maa": 0.81,
+    "enh": "m²"
+  },
+  "OHV50-ho-m²": {
+    "code": "OHV50-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 50 - houten oppervlakken",
+    "arb": 0.66,
+    "maa": 3.15,
+    "enh": "m²"
+  },
+  "OHV50-ho-m¹": {
+    "code": "OHV50-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHV 50 - houten oppervlakken",
+    "arb": 0.23,
+    "maa": 1.09,
+    "enh": "m¹"
+  },
+  "OHV50-hop-m¹": {
+    "code": "OHV50-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHV 50 - houten oppervlak plint",
+    "arb": 0.13,
+    "maa": 0.33,
+    "enh": "m¹"
+  },
+  "OHV50-khB": {
+    "code": "OHV50-khB",
+    "systeem": "OH",
+    "oms": "OHV 50 - Hout kozijnen 10-20cm",
+    "arb": 0.08,
+    "maa": 0.79,
+    "enh": "m¹"
+  },
+  "OHV50-khn-m¹": {
+    "code": "OHV50-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 50 - kozijnen hout normaal profiel",
+    "arb": 0.15,
+    "maa": 0.63,
+    "enh": "m¹"
+  },
+  "OHV50-khz-m¹": {
+    "code": "OHV50-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 50 - kozijnen hout zwaar profiel",
+    "arb": 0.19,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OHV50-phB": {
+    "code": "OHV50-phB",
+    "systeem": "OH",
+    "oms": "OHV 50 - panelen hout 10-20cm",
+    "arb": 0.11,
+    "maa": 1.37,
+    "enh": "m¹"
+  },
+  "OHV50-phD": {
+    "code": "OHV50-phD",
+    "systeem": "OH",
+    "oms": "OHV 50 - Hout panelen >30cm",
+    "arb": 0.28,
+    "maa": 4.01,
+    "enh": "m²"
+  },
+  "OHV50-rh-m¹": {
+    "code": "OHV50-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 50 - ramen hout",
+    "arb": 0.1,
+    "maa": 0.4,
+    "enh": "m¹"
+  },
+  "OHV50-trap-m²": {
+    "code": "OHV50-trap-m²",
+    "systeem": "OH",
+    "oms": "OHV 50 - trap",
+    "arb": 0.95,
+    "maa": 3.53,
+    "enh": "m²"
+  },
+  "OHV51-dhg-m²": {
+    "code": "OHV51-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 51 - deuren hout glas",
+    "arb": 1.13,
+    "maa": 5.43,
+    "enh": "m²"
+  },
+  "OHV51-dhpr-m²": {
+    "code": "OHV51-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 51 - deuren hout geprofileerd",
+    "arb": 0.92,
+    "maa": 5.43,
+    "enh": "m²"
+  },
+  "OHV51-dhv-m²": {
+    "code": "OHV51-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 51 - deuren hout vlak",
+    "arb": 0.69,
+    "maa": 5.43,
+    "enh": "m²"
+  },
+  "OHV51-ho-m²": {
+    "code": "OHV51-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 51 - houten oppervlakken",
+    "arb": 0.8,
+    "maa": 5.43,
+    "enh": "m²"
+  },
+  "OHV51-ho-m¹": {
+    "code": "OHV51-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHV 51 - houten oppervlakken",
+    "arb": 0.28,
+    "maa": 1.96,
+    "enh": "m¹"
+  },
+  "OHV51-hop-m¹": {
+    "code": "OHV51-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHV 51 - houten oppervlak plint",
+    "arb": 0.16,
+    "maa": 0.44,
+    "enh": "m¹"
+  },
+  "OHV51-khn-m¹": {
+    "code": "OHV51-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 51 - kozijnen hout normaal profiel",
+    "arb": 0.14,
+    "maa": 1.2,
+    "enh": "m¹"
+  },
+  "OHV51-khz-m¹": {
+    "code": "OHV51-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 51 - kozijnen hout zwaar profiel",
+    "arb": 0.19,
+    "maa": 1.2,
+    "enh": "m¹"
+  },
+  "OHV51-rh-m¹": {
+    "code": "OHV51-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 51 - ramen hout",
+    "arb": 0.11,
+    "maa": 1.2,
+    "enh": "m¹"
+  },
+  "OHV51-trap-m²": {
+    "code": "OHV51-trap-m²",
+    "systeem": "OH",
+    "oms": "OHV 51 - trap",
+    "arb": 1.0,
+    "maa": 5.43,
+    "enh": "m²"
+  },
+  "OHV52-dhg-m²": {
+    "code": "OHV52-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 52 - deuren hout glas",
+    "arb": 1.25,
+    "maa": 6.29,
+    "enh": "m²"
+  },
+  "OHV52-dhpr-m²": {
+    "code": "OHV52-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 52 - deuren hout geprofileerd",
+    "arb": 1.02,
+    "maa": 6.29,
+    "enh": "m²"
+  },
+  "OHV52-dhv-m²": {
+    "code": "OHV52-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 52 - deuren hout vlak",
+    "arb": 0.81,
+    "maa": 6.29,
+    "enh": "m²"
+  },
+  "OHV52-ho-m²": {
+    "code": "OHV52-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 52 - houten oppervlakken",
+    "arb": 1.04,
+    "maa": 6.29,
+    "enh": "m²"
+  },
+  "OHV52-ho-m¹": {
+    "code": "OHV52-ho-m¹",
+    "systeem": "OH",
+    "oms": "OHV 52 - houten oppervlakken",
+    "arb": 0.34,
+    "maa": 2.15,
+    "enh": "m¹"
+  },
+  "OHV52-hop-m¹": {
+    "code": "OHV52-hop-m¹",
+    "systeem": "OH",
+    "oms": "OHV 52 - houten oppervlak plint",
+    "arb": 0.2,
+    "maa": 0.61,
+    "enh": "m¹"
+  },
+  "OHV52-khn-m¹": {
+    "code": "OHV52-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 52 - kozijnen hout normaal profiel",
+    "arb": 0.21,
+    "maa": 1.38,
+    "enh": "m¹"
+  },
+  "OHV52-khz-m¹": {
+    "code": "OHV52-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 52 - kozijnen hout zwaar profiel",
+    "arb": 0.28,
+    "maa": 1.38,
+    "enh": "m¹"
+  },
+  "OHV52-rh-m¹": {
+    "code": "OHV52-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 52 - ramen hout",
+    "arb": 0.18,
+    "maa": 1.38,
+    "enh": "m¹"
+  },
+  "OHV52-trap-m²": {
+    "code": "OHV52-trap-m²",
+    "systeem": "OH",
+    "oms": "OHV 52 - trap",
+    "arb": 1.24,
+    "maa": 6.31,
+    "enh": "m²"
+  },
+  "OHV53-dhg-m²": {
+    "code": "OHV53-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 53 - deuren hout glas",
+    "arb": 1.07,
+    "maa": 10.8,
+    "enh": "m²"
+  },
+  "OHV53-dhpr-m²": {
+    "code": "OHV53-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 53 - deuren hout geprofileerd",
+    "arb": 1.77,
+    "maa": 14.95,
+    "enh": "m²"
+  },
+  "OHV53-dhv-m²": {
+    "code": "OHV53-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 53 - deuren hout vlak",
+    "arb": 1.0,
+    "maa": 12.43,
+    "enh": "m²"
+  },
+  "OHV53-ho-m²": {
+    "code": "OHV53-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 53 - houten oppervlakken",
+    "arb": 1.42,
+    "maa": 12.43,
+    "enh": "m²"
+  },
+  "OHV53-hobe-m²": {
+    "code": "OHV53-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHV 53 - houten betimmeringen",
+    "arb": 1.75,
+    "maa": 12.67,
+    "enh": "m²"
+  },
+  "OHV53-khn-m¹": {
+    "code": "OHV53-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 53 - kozijnen hout normaal profiel",
+    "arb": 0.27,
+    "maa": 1.76,
+    "enh": "m¹"
+  },
+  "OHV53-khz-m¹": {
+    "code": "OHV53-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 53 - kozijnen hout zwaar profiel",
+    "arb": 0.43,
+    "maa": 1.85,
+    "enh": "m¹"
+  },
+  "OHV53-phg-m²": {
+    "code": "OHV53-phg-m²",
+    "systeem": "OH",
+    "oms": "OHV 53 - panelen hout groef",
+    "arb": 1.75,
+    "maa": 13.03,
+    "enh": "m²"
+  },
+  "OHV53-phv-m²": {
+    "code": "OHV53-phv-m²",
+    "systeem": "OH",
+    "oms": "OHV 53 - panelen hout vlak",
+    "arb": 1.12,
+    "maa": 12.43,
+    "enh": "m²"
+  },
+  "OHV53-rh-m¹": {
+    "code": "OHV53-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 53 - ramen hout",
+    "arb": 0.2,
+    "maa": 1.38,
+    "enh": "m¹"
+  },
+  "OHV53-roede-m¹": {
+    "code": "OHV53-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHV 53 - roede",
+    "arb": 0.22,
+    "maa": 0.89,
+    "enh": "m¹"
+  },
+  "OHV54-dhg-m²": {
+    "code": "OHV54-dhg-m²",
+    "systeem": "OH",
+    "oms": "OHV 54 - deuren hout glas",
+    "arb": 1.02,
+    "maa": 9.34,
+    "enh": "m²"
+  },
+  "OHV54-dhpr-m²": {
+    "code": "OHV54-dhpr-m²",
+    "systeem": "OH",
+    "oms": "OHV 54 - deuren hout geprofileerd",
+    "arb": 1.7,
+    "maa": 13.48,
+    "enh": "m²"
+  },
+  "OHV54-dhv-m²": {
+    "code": "OHV54-dhv-m²",
+    "systeem": "OH",
+    "oms": "OHV 54 - deuren hout vlak",
+    "arb": 0.95,
+    "maa": 10.96,
+    "enh": "m²"
+  },
+  "OHV54-ho-m²": {
+    "code": "OHV54-ho-m²",
+    "systeem": "OH",
+    "oms": "OHV 54 - houten oppervlakken",
+    "arb": 1.34,
+    "maa": 10.96,
+    "enh": "m²"
+  },
+  "OHV54-hobe-m²": {
+    "code": "OHV54-hobe-m²",
+    "systeem": "OH",
+    "oms": "OHV 54 - houten betimmeringen",
+    "arb": 1.66,
+    "maa": 11.2,
+    "enh": "m²"
+  },
+  "OHV54-khn-m¹": {
+    "code": "OHV54-khn-m¹",
+    "systeem": "OH",
+    "oms": "OHV 54 - kozijnen hout normaal profiel",
+    "arb": 0.25,
+    "maa": 1.54,
+    "enh": "m¹"
+  },
+  "OHV54-khz-m¹": {
+    "code": "OHV54-khz-m¹",
+    "systeem": "OH",
+    "oms": "OHV 54 - kozijnen hout zwaar profiel",
+    "arb": 0.4,
+    "maa": 1.63,
+    "enh": "m¹"
+  },
+  "OHV54-phg-m²": {
+    "code": "OHV54-phg-m²",
+    "systeem": "OH",
+    "oms": "OHV 54 - panelen hout groef",
+    "arb": 1.68,
+    "maa": 11.56,
+    "enh": "m²"
+  },
+  "OHV54-phv-m²": {
+    "code": "OHV54-phv-m²",
+    "systeem": "OH",
+    "oms": "OHV 54 - panelen hout vlak",
+    "arb": 1.08,
+    "maa": 10.96,
+    "enh": "m²"
+  },
+  "OHV54-rh-m¹": {
+    "code": "OHV54-rh-m¹",
+    "systeem": "OH",
+    "oms": "OHV 54 - ramen hout",
+    "arb": 0.18,
+    "maa": 1.23,
+    "enh": "m¹"
+  },
+  "OHV54-roede-m¹": {
+    "code": "OHV54-roede-m¹",
+    "systeem": "OH",
+    "oms": "OHV 54 - roede",
+    "arb": 0.18,
+    "maa": 0.74,
+    "enh": "m¹"
+  },
+  "OKD01-hwak-m¹": {
+    "code": "OKD01-hwak-m¹",
+    "systeem": "OK",
+    "oms": "OKD 01 - hemelwaterafvoer kunststof",
+    "arb": 0.02,
+    "maa": 0.07,
+    "enh": "m¹"
+  },
+  "OKD01-kdiv-m²": {
+    "code": "OKD01-kdiv-m²",
+    "systeem": "OK",
+    "oms": "OKD 01 - kunststof diversen",
+    "arb": 0.08,
+    "maa": 0.07,
+    "enh": "m²"
+  },
+  "OKD01-kk-m¹": {
+    "code": "OKD01-kk-m¹",
+    "systeem": "OK",
+    "oms": "OKD 01 - kozijnen kunststof",
+    "arb": 0.01,
+    "maa": 0.01,
+    "enh": "m¹"
+  },
+  "OKD01-pkg-m²": {
+    "code": "OKD01-pkg-m²",
+    "systeem": "OK",
+    "oms": "OKD 01 - panelen kunststof groef",
+    "arb": 0.14,
+    "maa": 0.1,
+    "enh": "m²"
+  },
+  "OKD01-pkv-m²": {
+    "code": "OKD01-pkv-m²",
+    "systeem": "OK",
+    "oms": "OKD 01 - panelen kunststof vlak",
+    "arb": 0.1,
+    "maa": 0.07,
+    "enh": "m²"
+  },
+  "OKD01-rk-m¹": {
+    "code": "OKD01-rk-m¹",
+    "systeem": "OK",
+    "oms": "OKD 01 - ramen kunststof",
+    "arb": 0.01,
+    "maa": 0.01,
+    "enh": "m¹"
+  },
+  "OKD01-roede-m¹": {
+    "code": "OKD01-roede-m¹",
+    "systeem": "OK",
+    "oms": "OKD 01 - roede",
+    "arb": 0.01,
+    "maa": 0.01,
+    "enh": "m¹"
+  },
+  "OKD02-dkg-m²": {
+    "code": "OKD02-dkg-m²",
+    "systeem": "OK",
+    "oms": "OKD 02 - deuren kunststof glas",
+    "arb": 0.53,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OKD02-dkv-m²": {
+    "code": "OKD02-dkv-m²",
+    "systeem": "OK",
+    "oms": "OKD 02 - deuren kunststof vlak",
+    "arb": 0.35,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OKD02-glbk-m²": {
+    "code": "OKD02-glbk-m²",
+    "systeem": "OK",
+    "oms": "OKD 02 - gootlijst boeiboord",
+    "arb": 0.58,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OKD02-glk-m²": {
+    "code": "OKD02-glk-m²",
+    "systeem": "OK",
+    "oms": "OKD 02 - goot- en lijstwerk kunststof",
+    "arb": 0.7,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OKD02-hwak-m¹": {
+    "code": "OKD02-hwak-m¹",
+    "systeem": "OK",
+    "oms": "OKD 02 - hemelwaterafvoer kunststof",
+    "arb": 0.23,
+    "maa": 1.22,
+    "enh": "m¹"
+  },
+  "OKD02-kdiv-m²": {
+    "code": "OKD02-kdiv-m²",
+    "systeem": "OK",
+    "oms": "OKD 02 - kunststof diversen",
+    "arb": 0.56,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OKD02-kk-m¹": {
+    "code": "OKD02-kk-m¹",
+    "systeem": "OK",
+    "oms": "OKD 02 - kozijnen kunststof",
+    "arb": 0.12,
+    "maa": 1.43,
+    "enh": "m¹"
+  },
+  "OKD02-kkz-m¹": {
+    "code": "OKD02-kkz-m¹",
+    "systeem": "OK",
+    "oms": "OKD 02 - kozijnen kunststof zwaar profiel",
+    "arb": 0.16,
+    "maa": 1.43,
+    "enh": "m¹"
+  },
+  "OKD02-pkg-m²": {
+    "code": "OKD02-pkg-m²",
+    "systeem": "OK",
+    "oms": "OKD 02 - panelen kunststof groef",
+    "arb": 0.68,
+    "maa": 10.07,
+    "enh": "m²"
+  },
+  "OKD02-pkv-m²": {
+    "code": "OKD02-pkv-m²",
+    "systeem": "OK",
+    "oms": "OKD 02 - panelen kunststof vlak",
+    "arb": 0.46,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OKD02-rk-m¹": {
+    "code": "OKD02-rk-m¹",
+    "systeem": "OK",
+    "oms": "OKD 02 - ramen kunststof",
+    "arb": 0.09,
+    "maa": 1.17,
+    "enh": "m¹"
+  },
+  "OKD03-dkg-m²": {
+    "code": "OKD03-dkg-m²",
+    "systeem": "OK",
+    "oms": "OKD 03 - deuren kunststof glas",
+    "arb": 0.68,
+    "maa": 12.41,
+    "enh": "m²"
+  },
+  "OKD03-dkv-m²": {
+    "code": "OKD03-dkv-m²",
+    "systeem": "OK",
+    "oms": "OKD 03 - deuren kunststof vlak",
+    "arb": 0.49,
+    "maa": 12.41,
+    "enh": "m²"
+  },
+  "OKD03-glbk-m²": {
+    "code": "OKD03-glbk-m²",
+    "systeem": "OK",
+    "oms": "OKD 03 - gootlijst boeiboord",
+    "arb": 0.78,
+    "maa": 12.41,
+    "enh": "m²"
+  },
+  "OKD03-glk-m²": {
+    "code": "OKD03-glk-m²",
+    "systeem": "OK",
+    "oms": "OKD 03 - goot- en lijstwerk kunststof",
+    "arb": 0.95,
+    "maa": 12.41,
+    "enh": "m²"
+  },
+  "OKD03-hwak-m¹": {
+    "code": "OKD03-hwak-m¹",
+    "systeem": "OK",
+    "oms": "OKD 03 - hemelwaterafvoer kunststof",
+    "arb": 0.33,
+    "maa": 1.45,
+    "enh": "m¹"
+  },
+  "OKD03-kdiv-m²": {
+    "code": "OKD03-kdiv-m²",
+    "systeem": "OK",
+    "oms": "OKD 03 - kunststof diversen",
+    "arb": 0.76,
+    "maa": 12.41,
+    "enh": "m²"
+  },
+  "OKD03-kk-m¹": {
+    "code": "OKD03-kk-m¹",
+    "systeem": "OK",
+    "oms": "OKD 03 - kozijnen kunststof",
+    "arb": 0.17,
+    "maa": 1.75,
+    "enh": "m¹"
+  },
+  "OKD03-pkg-m²": {
+    "code": "OKD03-pkg-m²",
+    "systeem": "OK",
+    "oms": "OKD 03 - panelen kunststof groef",
+    "arb": 0.92,
+    "maa": 12.44,
+    "enh": "m²"
+  },
+  "OKD03-pkv-m²": {
+    "code": "OKD03-pkv-m²",
+    "systeem": "OK",
+    "oms": "OKD 03 - panelen kunststof vlak",
+    "arb": 0.64,
+    "maa": 12.41,
+    "enh": "m²"
+  },
+  "OKD03-rk-m¹": {
+    "code": "OKD03-rk-m¹",
+    "systeem": "OK",
+    "oms": "OKD 03 - ramen kunststof",
+    "arb": 0.13,
+    "maa": 1.44,
+    "enh": "m¹"
+  },
+  "OKD04-kdiv-m²": {
+    "code": "OKD04-kdiv-m²",
+    "systeem": "OK",
+    "oms": "OKD 04 - kunststof diversen",
+    "arb": 0.44,
+    "maa": 6.11,
+    "enh": "m²"
+  },
+  "OKD05-kdiv-m²": {
+    "code": "OKD05-kdiv-m²",
+    "systeem": "OK",
+    "oms": "OKD 05 - kunststof diversen",
+    "arb": 0.64,
+    "maa": 8.49,
+    "enh": "m²"
+  },
+  "OMA01-alu-m²": {
+    "code": "OMA01-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 01 - aluminium-m²",
+    "arb": 0.76,
+    "maa": 14.02,
+    "enh": "m²"
+  },
+  "OMA01-alu-m¹": {
+    "code": "OMA01-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 01 - aluminium-m¹",
+    "arb": 0.12,
+    "maa": 1.38,
+    "enh": "m¹"
+  },
+  "OMA01-dag-m²": {
+    "code": "OMA01-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 01 - deuren aluminium glas",
+    "arb": 0.63,
+    "maa": 7.03,
+    "enh": "m²"
+  },
+  "OMA01-dav-m²": {
+    "code": "OMA01-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 01 - deuren aluminium vlak",
+    "arb": 0.48,
+    "maa": 14.02,
+    "enh": "m²"
+  },
+  "OMA01-ka-m¹": {
+    "code": "OMA01-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 01 - kozijnen aluminium",
+    "arb": 0.18,
+    "maa": 1.9,
+    "enh": "m¹"
+  },
+  "OMA01-kapr-m¹": {
+    "code": "OMA01-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 01 - kozijnen aluminium geprofileerd",
+    "arb": 0.19,
+    "maa": 2.07,
+    "enh": "m¹"
+  },
+  "OMA01-pag-m²": {
+    "code": "OMA01-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 01 - panelen aluminium groef",
+    "arb": 0.92,
+    "maa": 13.99,
+    "enh": "m²"
+  },
+  "OMA01-pav-m²": {
+    "code": "OMA01-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 01 - panelen aluminium vlak",
+    "arb": 0.64,
+    "maa": 13.95,
+    "enh": "m²"
+  },
+  "OMA01-ra-m¹": {
+    "code": "OMA01-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 01 - ramen aluminium",
+    "arb": 0.14,
+    "maa": 1.38,
+    "enh": "m¹"
+  },
+  "OMA02-alu-m²": {
+    "code": "OMA02-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 02 - aluminium-m²",
+    "arb": 0.33,
+    "maa": 4.63,
+    "enh": "m²"
+  },
+  "OMA02-dag-m²": {
+    "code": "OMA02-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 02 - deuren aluminium glas",
+    "arb": 0.3,
+    "maa": 3.67,
+    "enh": "m²"
+  },
+  "OMA02-dav-m²": {
+    "code": "OMA02-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 02 - deuren aluminium vlak",
+    "arb": 0.25,
+    "maa": 4.42,
+    "enh": "m²"
+  },
+  "OMA02-ka-m¹": {
+    "code": "OMA02-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 02 - kozijnen aluminium",
+    "arb": 0.08,
+    "maa": 2.98,
+    "enh": "m¹"
+  },
+  "OMA02-kapr-m¹": {
+    "code": "OMA02-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 02 - kozijnen aluminium geprofileerd",
+    "arb": 0.12,
+    "maa": 5.7,
+    "enh": "m¹"
+  },
+  "OMA02-pag-m²": {
+    "code": "OMA02-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 02 - panelen aluminium groef",
+    "arb": 0.35,
+    "maa": 4.44,
+    "enh": "m²"
+  },
+  "OMA02-pav-m²": {
+    "code": "OMA02-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 02 - panelen aluminium vlak",
+    "arb": 0.23,
+    "maa": 3.2,
+    "enh": "m²"
+  },
+  "OMA02-ra-m¹": {
+    "code": "OMA02-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 02 - ramen aluminium",
+    "arb": 0.05,
+    "maa": 0.7,
+    "enh": "m¹"
+  },
+  "OMA03-alu-m¹": {
+    "code": "OMA03-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 02 - aluminium-m¹",
+    "arb": 0.06,
+    "maa": 0.7,
+    "enh": "m¹"
+  },
+  "OMA02-alu-m¹": {
+    "code": "OMA02-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 03 - aluminium-m¹",
+    "arb": 0.05,
+    "maa": 0.7,
+    "enh": "m¹"
+  },
+  "OMA03-alu-m²": {
+    "code": "OMA03-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 03 - aluminium-m²",
+    "arb": 0.46,
+    "maa": 6.67,
+    "enh": "m²"
+  },
+  "OMA03-dag-m²": {
+    "code": "OMA03-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 03 - deuren aluminium glas",
+    "arb": 0.42,
+    "maa": 3.67,
+    "enh": "m²"
+  },
+  "OMA03-dav-m²": {
+    "code": "OMA03-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 03 - deuren aluminium vlak",
+    "arb": 0.34,
+    "maa": 6.46,
+    "enh": "m²"
+  },
+  "OMA03-ka-m¹": {
+    "code": "OMA03-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 03 - kozijnen aluminium",
+    "arb": 0.12,
+    "maa": 1.01,
+    "enh": "m¹"
+  },
+  "OMA03-kapr-m¹": {
+    "code": "OMA03-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 03 - kozijnen aluminium geprofileerd",
+    "arb": 0.15,
+    "maa": 1.08,
+    "enh": "m¹"
+  },
+  "OMA03-pag-m²": {
+    "code": "OMA03-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 03 - panelen aluminium groef",
+    "arb": 0.7,
+    "maa": 7.16,
+    "enh": "m²"
+  },
+  "OMA03-pav-m²": {
+    "code": "OMA03-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 03 - panelen aluminium vlak",
+    "arb": 0.47,
+    "maa": 6.6,
+    "enh": "m²"
+  },
+  "OMA03-ra-m¹": {
+    "code": "OMA03-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 03 - ramen aluminium",
+    "arb": 0.09,
+    "maa": 0.7,
+    "enh": "m¹"
+  },
+  "OMA04-alu-m²": {
+    "code": "OMA04-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 04 - aluminium-m²",
+    "arb": 0.64,
+    "maa": 10.1,
+    "enh": "m²"
+  },
+  "OMA04-alu-m¹": {
+    "code": "OMA04-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 04 - aluminium-m¹",
+    "arb": 0.09,
+    "maa": 1.05,
+    "enh": "m¹"
+  },
+  "OMA04-dag-m²": {
+    "code": "OMA04-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 04 - deuren aluminium glas",
+    "arb": 0.62,
+    "maa": 5.24,
+    "enh": "m²"
+  },
+  "OMA04-dav-m²": {
+    "code": "OMA04-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 04 - deuren aluminium vlak",
+    "arb": 0.46,
+    "maa": 9.99,
+    "enh": "m²"
+  },
+  "OMA04-ka-m¹": {
+    "code": "OMA04-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 04 - kozijnen aluminium",
+    "arb": 0.15,
+    "maa": 1.45,
+    "enh": "m¹"
+  },
+  "OMA04-kapr-m¹": {
+    "code": "OMA04-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 04 - kozijnen aluminium geprofileerd",
+    "arb": 0.18,
+    "maa": 3.33,
+    "enh": "m¹"
+  },
+  "OMA04-pag-m²": {
+    "code": "OMA04-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 04 - panelen aluminium groef",
+    "arb": 0.88,
+    "maa": 10.35,
+    "enh": "m²"
+  },
+  "OMA04-pav-m²": {
+    "code": "OMA04-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 04 - panelen aluminium vlak",
+    "arb": 0.62,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMA04-ra-m¹": {
+    "code": "OMA04-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 04 - ramen aluminium",
+    "arb": 0.13,
+    "maa": 1.05,
+    "enh": "m¹"
+  },
+  "OMA05-alu-m²": {
+    "code": "OMA05-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 05 - aluminium-m²",
+    "arb": 0.75,
+    "maa": 11.87,
+    "enh": "m²"
+  },
+  "OMA05-alu-m¹": {
+    "code": "OMA05-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 05 - aluminium-m¹",
+    "arb": 0.2,
+    "maa": 6.02,
+    "enh": "m¹"
+  },
+  "OMA05-dag-m²": {
+    "code": "OMA05-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 05 - deuren aluminium glas",
+    "arb": 0.83,
+    "maa": 11.87,
+    "enh": "m²"
+  },
+  "OMA05-dav-m²": {
+    "code": "OMA05-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 05 - deuren aluminium vlak",
+    "arb": 0.67,
+    "maa": 11.87,
+    "enh": "m²"
+  },
+  "OMA05-ka-m¹": {
+    "code": "OMA05-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 05 - kozijnen aluminium",
+    "arb": 0.23,
+    "maa": 6.02,
+    "enh": "m¹"
+  },
+  "OMA05-kapr-m¹": {
+    "code": "OMA05-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 05 - kozijnen aluminium geprofileerd",
+    "arb": 0.28,
+    "maa": 6.02,
+    "enh": "m¹"
+  },
+  "OMA05-pag-m²": {
+    "code": "OMA05-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 05 - panelen aluminium groef",
+    "arb": 1.0,
+    "maa": 11.87,
+    "enh": "m²"
+  },
+  "OMA05-pav-m²": {
+    "code": "OMA05-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 05 - panelen aluminium vlak",
+    "arb": 0.75,
+    "maa": 11.87,
+    "enh": "m²"
+  },
+  "OMA05-ra-m¹": {
+    "code": "OMA05-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 05 - ramen aluminium",
+    "arb": 0.15,
+    "maa": 6.02,
+    "enh": "m¹"
+  },
+  "OMA50-alu-m²": {
+    "code": "OMA50-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 50 - aluminium-m²",
+    "arb": 0.76,
+    "maa": 13.7,
+    "enh": "m²"
+  },
+  "OMA50-dag-m²": {
+    "code": "OMA50-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 50 - deuren aluminium glas",
+    "arb": 0.63,
+    "maa": 6.87,
+    "enh": "m²"
+  },
+  "OMA50-dav-m²": {
+    "code": "OMA50-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 50 - deuren aluminium vlak",
+    "arb": 0.48,
+    "maa": 13.7,
+    "enh": "m²"
+  },
+  "OMA50-ka-m¹": {
+    "code": "OMA50-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 50 - kozijnen aluminium",
+    "arb": 0.18,
+    "maa": 1.86,
+    "enh": "m¹"
+  },
+  "OMA50-kapr-m¹": {
+    "code": "OMA50-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 50 - kozijnen aluminium geprofileerd",
+    "arb": 0.19,
+    "maa": 2.03,
+    "enh": "m¹"
+  },
+  "OMA50-pag-m²": {
+    "code": "OMA50-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 50 - panelen aluminium groef",
+    "arb": 0.92,
+    "maa": 13.67,
+    "enh": "m²"
+  },
+  "OMA50-pav-m²": {
+    "code": "OMA50-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 50 - panelen aluminium vlak",
+    "arb": 0.64,
+    "maa": 13.63,
+    "enh": "m²"
+  },
+  "OMA50-ra-m¹": {
+    "code": "OMA50-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 50 - ramen aluminium",
+    "arb": 0.14,
+    "maa": 1.35,
+    "enh": "m¹"
+  },
+  "OMA51-alu-m²": {
+    "code": "OMA51-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 51 - aluminium-m²",
+    "arb": 0.64,
+    "maa": 10.06,
+    "enh": "m²"
+  },
+  "OMA51-alu-m¹": {
+    "code": "OMA51-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 51 - aluminium-m¹",
+    "arb": 0.09,
+    "maa": 5.9,
+    "enh": "m¹"
+  },
+  "OMA51-dag-m²": {
+    "code": "OMA51-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 51 - deuren aluminium glas",
+    "arb": 0.62,
+    "maa": 5.21,
+    "enh": "m²"
+  },
+  "OMA51-dav-m²": {
+    "code": "OMA51-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 51 - deuren aluminium vlak",
+    "arb": 0.46,
+    "maa": 9.95,
+    "enh": "m²"
+  },
+  "OMA51-ka-m¹": {
+    "code": "OMA51-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 51 - kozijnen aluminium",
+    "arb": 0.15,
+    "maa": 1.45,
+    "enh": "m¹"
+  },
+  "OMA51-kapr-m¹": {
+    "code": "OMA51-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 51 - kozijnen aluminium geprofileerd",
+    "arb": 0.18,
+    "maa": 3.32,
+    "enh": "m¹"
+  },
+  "OMA51-pag-m²": {
+    "code": "OMA51-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 51 - panelen aluminium groef",
+    "arb": 0.88,
+    "maa": 10.29,
+    "enh": "m²"
+  },
+  "OMA51-pav-m²": {
+    "code": "OMA51-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 51 - panelen aluminium vlak",
+    "arb": 0.62,
+    "maa": 9.99,
+    "enh": "m²"
+  },
+  "OMA51-ra-m¹": {
+    "code": "OMA51-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 51 - ramen aluminium",
+    "arb": 0.13,
+    "maa": 1.04,
+    "enh": "m¹"
+  },
+  "OMA50-alu-m¹": {
+    "code": "OMA50-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 52 - aluminium-m¹",
+    "arb": 0.12,
+    "maa": 1.35,
+    "enh": "m¹"
+  },
+  "OMA52-alu-m²": {
+    "code": "OMA52-alu-m²",
+    "systeem": "OM",
+    "oms": "OMA 52 - aluminium-m²",
+    "arb": 0.57,
+    "maa": 9.54,
+    "enh": "m²"
+  },
+  "OMA52-alu-m¹": {
+    "code": "OMA52-alu-m¹",
+    "systeem": "OM",
+    "oms": "OMA 52 - aluminium-m¹",
+    "arb": 0.08,
+    "maa": 0.99,
+    "enh": "m¹"
+  },
+  "OMA52-dag-m²": {
+    "code": "OMA52-dag-m²",
+    "systeem": "OM",
+    "oms": "OMA 52 - deuren aluminium glas",
+    "arb": 0.48,
+    "maa": 4.79,
+    "enh": "m²"
+  },
+  "OMA52-dav-m²": {
+    "code": "OMA52-dav-m²",
+    "systeem": "OM",
+    "oms": "OMA 52 - deuren aluminium vlak",
+    "arb": 0.37,
+    "maa": 9.54,
+    "enh": "m²"
+  },
+  "OMA52-ka-m¹": {
+    "code": "OMA52-ka-m¹",
+    "systeem": "OM",
+    "oms": "OMA 52 - kozijnen aluminium",
+    "arb": 0.13,
+    "maa": 1.34,
+    "enh": "m¹"
+  },
+  "OMA52-kapr-m¹": {
+    "code": "OMA52-kapr-m¹",
+    "systeem": "OM",
+    "oms": "OMA 52 - kozijnen aluminium geprofileerd",
+    "arb": 0.15,
+    "maa": 1.46,
+    "enh": "m¹"
+  },
+  "OMA52-pag-m²": {
+    "code": "OMA52-pag-m²",
+    "systeem": "OM",
+    "oms": "OMA 52 - panelen aluminium groef",
+    "arb": 0.78,
+    "maa": 9.51,
+    "enh": "m²"
+  },
+  "OMA52-pav-m²": {
+    "code": "OMA52-pav-m²",
+    "systeem": "OM",
+    "oms": "OMA 52 - panelen aluminium vlak",
+    "arb": 0.49,
+    "maa": 9.47,
+    "enh": "m²"
+  },
+  "OMA52-ra-m¹": {
+    "code": "OMA52-ra-m¹",
+    "systeem": "OM",
+    "oms": "OMA 52 - ramen aluminium",
+    "arb": 0.1,
+    "maa": 0.99,
+    "enh": "m¹"
+  },
+  "OMS01-hwas-m¹": {
+    "code": "OMS01-hwas-m¹",
+    "systeem": "OM",
+    "oms": "OMS 01 - hemelwaterafvoer staal",
+    "arb": 0.15,
+    "maa": 0.82,
+    "enh": "m¹"
+  },
+  "OMS01-st-m²": {
+    "code": "OMS01-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 01 - staalwerk diversen m²",
+    "arb": 0.23,
+    "maa": 1.35,
+    "enh": "m²"
+  },
+  "OMS01-st-m¹": {
+    "code": "OMS01-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 01 - staalwerk diversen m¹",
+    "arb": 0.08,
+    "maa": 0.35,
+    "enh": "m¹"
+  },
+  "OMS02-hsC": {
+    "code": "OMS02-hsC",
+    "systeem": "OM",
+    "oms": "OMS 02 - Stalen hekwerk met beplating",
+    "arb": 0.46,
+    "maa": 7.09,
+    "enh": "m²"
+  },
+  "OMS02-hsE": {
+    "code": "OMS02-hsE",
+    "systeem": "OM",
+    "oms": "OMS 02 - stalen leuningen",
+    "arb": 0.12,
+    "maa": 3.62,
+    "enh": "m¹"
+  },
+  "OMS02-hwas-m¹": {
+    "code": "OMS02-hwas-m¹",
+    "systeem": "OM",
+    "oms": "OMS 02 - hemelwaterafvoer staal",
+    "arb": 0.32,
+    "maa": 1.54,
+    "enh": "m¹"
+  },
+  "OMS02-rs-m¹": {
+    "code": "OMS02-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMS 02 - ramen staal",
+    "arb": 0.09,
+    "maa": 1.47,
+    "enh": "m¹"
+  },
+  "OMS02-st-m²": {
+    "code": "OMS02-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 02 - staalwerk diversen m²",
+    "arb": 0.5,
+    "maa": 7.09,
+    "enh": "m²"
+  },
+  "OMS02-st-m¹": {
+    "code": "OMS02-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 02 - staalwerk diversen m¹",
+    "arb": 0.15,
+    "maa": 1.09,
+    "enh": "m¹"
+  },
+  "OMS02-stgb-st": {
+    "code": "OMS02-stgb-st",
+    "systeem": "OM",
+    "oms": "OMS 02 - staalwerk gootbeugels",
+    "arb": 0.3,
+    "maa": 0.97,
+    "enh": "Stuks"
+  },
+  "OMS02-sthw-m²": {
+    "code": "OMS02-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMS 02 - stalen hekwerk",
+    "arb": 0.52,
+    "maa": 7.09,
+    "enh": "m²"
+  },
+  "OMS02-stleu-m¹": {
+    "code": "OMS02-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 02 - stalen leuningen",
+    "arb": 0.34,
+    "maa": 3.62,
+    "enh": "m¹"
+  },
+  "OMS02-stplp-m²": {
+    "code": "OMS02-stplp-m²",
+    "systeem": "OM",
+    "oms": "OMS 02 - staalwerk beplating geprofileerd",
+    "arb": 0.53,
+    "maa": 7.09,
+    "enh": "m²"
+  },
+  "OMS02-stplv-m²": {
+    "code": "OMS02-stplv-m²",
+    "systeem": "OM",
+    "oms": "OMS 02 - staalwerk beplating vlak",
+    "arb": 0.47,
+    "maa": 7.09,
+    "enh": "m²"
+  },
+  "OMS03-dsA": {
+    "code": "OMS03-dsA",
+    "systeem": "OM",
+    "oms": "OMS 03 - Deuren staal vlak",
+    "arb": 0.68,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMS03-hsA": {
+    "code": "OMS03-hsA",
+    "systeem": "OM",
+    "oms": "OMS 03 - hekwerk stijlen en regels",
+    "arb": 0.72,
+    "maa": 12.48,
+    "enh": "m²"
+  },
+  "OMS03-hsC": {
+    "code": "OMS03-hsC",
+    "systeem": "OM",
+    "oms": "OMS 03 - hekwerk met beplating",
+    "arb": 0.56,
+    "maa": 12.48,
+    "enh": "m²"
+  },
+  "OMS03-hsE": {
+    "code": "OMS03-hsE",
+    "systeem": "OM",
+    "oms": "OMS 03 - hekwerk leuningen en regels",
+    "arb": 0.13,
+    "maa": 1.26,
+    "enh": "m¹"
+  },
+  "OMS03-hsb": {
+    "code": "OMS03-hsb",
+    "systeem": "OM",
+    "oms": "OMS 03 - hekwerk met gaas",
+    "arb": 0.88,
+    "maa": 12.48,
+    "enh": "m²"
+  },
+  "OMS03-hwas-m¹": {
+    "code": "OMS03-hwas-m¹",
+    "systeem": "OM",
+    "oms": "OMS 03 - hemelwaterafvoer staal",
+    "arb": 0.25,
+    "maa": 1.05,
+    "enh": "m¹"
+  },
+  "OMS03-ksB": {
+    "code": "OMS03-ksB",
+    "systeem": "OM",
+    "oms": "OMS 03 - Kozijnen 10-20 cm",
+    "arb": 0.22,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OMS03-prsA": {
+    "code": "OMS03-prsA",
+    "systeem": "OM",
+    "oms": "OMS 03 - Staal profiel <30 cm",
+    "arb": 0.19,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OMS03-prsB": {
+    "code": "OMS03-prsB",
+    "systeem": "OM",
+    "oms": "OMS 03 - Staal profiel 30-120 cm",
+    "arb": 0.3,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMS03-prsC": {
+    "code": "OMS03-prsC",
+    "systeem": "OM",
+    "oms": "OMS 03 - Staal profiel >120 cm",
+    "arb": 0.26,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMS03-psA": {
+    "code": "OMS03-psA",
+    "systeem": "OM",
+    "oms": "OMS 03 - Panelen <10 cm",
+    "arb": 0.14,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OMS03-psB": {
+    "code": "OMS03-psB",
+    "systeem": "OM",
+    "oms": "OMS 03 - Panelen 10-20 cm",
+    "arb": 0.17,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OMS03-psC": {
+    "code": "OMS03-psC",
+    "systeem": "OM",
+    "oms": "OMS 03 - Panelen 20-30 cm",
+    "arb": 0.2,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OMS03-psD": {
+    "code": "OMS03-psD",
+    "systeem": "OM",
+    "oms": "OMS 03 - Staal beplating >30 cm",
+    "arb": 0.4,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMS03-rs-m¹": {
+    "code": "OMS03-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMS 03 - ramen staal",
+    "arb": 0.16,
+    "maa": 1.71,
+    "enh": "m¹"
+  },
+  "OMS03-st-m²": {
+    "code": "OMS03-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 03 - staalwerk diversen m²",
+    "arb": 0.62,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMS03-st-m¹": {
+    "code": "OMS03-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 03 - staalwerk diversen m¹",
+    "arb": 0.12,
+    "maa": 1.19,
+    "enh": "m¹"
+  },
+  "OMS03-stgb-st": {
+    "code": "OMS03-stgb-st",
+    "systeem": "OM",
+    "oms": "OMS 03 - staalwerk gootbeugels",
+    "arb": 0.37,
+    "maa": 0.93,
+    "enh": "Stuks"
+  },
+  "OMS03-sthw-m²": {
+    "code": "OMS03-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMS 03 - stalen hekwerk",
+    "arb": 0.64,
+    "maa": 12.48,
+    "enh": "m²"
+  },
+  "OMS03-stleu-m¹": {
+    "code": "OMS03-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 03 - stalen leuningen",
+    "arb": 0.43,
+    "maa": 4.6,
+    "enh": "m¹"
+  },
+  "OMS03-stplp-m²": {
+    "code": "OMS03-stplp-m²",
+    "systeem": "OM",
+    "oms": "OMS 03 - staalwerk beplating geprofileerd",
+    "arb": 0.56,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMS03-stplv-m²": {
+    "code": "OMS03-stplv-m²",
+    "systeem": "OM",
+    "oms": "OMS 03 - staalwerk beplating vlak",
+    "arb": 0.48,
+    "maa": 10.03,
+    "enh": "m²"
+  },
+  "OMS04-st-m²": {
+    "code": "OMS04-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 04 - staalwerk diversen m²",
+    "arb": 0.68,
+    "maa": 13.95,
+    "enh": "m²"
+  },
+  "OMS05-hsA": {
+    "code": "OMS05-hsA",
+    "systeem": "OM",
+    "oms": "OMS 05 - hekwer stijlen en regels",
+    "arb": 0.71,
+    "maa": 13.95,
+    "enh": "m²"
+  },
+  "OMS05-hsE": {
+    "code": "OMS05-hsE",
+    "systeem": "OM",
+    "oms": "OMS 05 - hekwerk leunigen en regels",
+    "arb": 0.13,
+    "maa": 2.14,
+    "enh": "m¹"
+  },
+  "OMS05-hwas-m¹": {
+    "code": "OMS05-hwas-m¹",
+    "systeem": "OM",
+    "oms": "OMS 05 - hemelwaterafvoer staal",
+    "arb": 0.44,
+    "maa": 1.83,
+    "enh": "m¹"
+  },
+  "OMS05-st-m²": {
+    "code": "OMS05-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 05 - staalwerk diversen m²",
+    "arb": 0.68,
+    "maa": 13.95,
+    "enh": "m²"
+  },
+  "OMS05-st-m¹": {
+    "code": "OMS05-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 05 - staalwerk diversen m¹",
+    "arb": 0.22,
+    "maa": 1.87,
+    "enh": "m¹"
+  },
+  "OMS05-stplp-m²": {
+    "code": "OMS05-stplp-m²",
+    "systeem": "OM",
+    "oms": "OMS 05 - staalwerk beplating geprofileerd",
+    "arb": 0.81,
+    "maa": 13.95,
+    "enh": "m²"
+  },
+  "OMS05-stplv-m²": {
+    "code": "OMS05-stplv-m²",
+    "systeem": "OM",
+    "oms": "OMS 05 - staalwerk beplating vlak",
+    "arb": 0.69,
+    "maa": 13.95,
+    "enh": "m²"
+  },
+  "OMS06-st-m²": {
+    "code": "OMS06-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 06 - staalwerk diversen m²",
+    "arb": 0.96,
+    "maa": 17.38,
+    "enh": "m²"
+  },
+  "OMS07-rs-m¹": {
+    "code": "OMS07-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMS 07 - ramen staal",
+    "arb": 0.43,
+    "maa": 5.56,
+    "enh": "m¹"
+  },
+  "OMS07-st-m²": {
+    "code": "OMS07-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 07 - staalwerk diversen m²",
+    "arb": 1.28,
+    "maa": 19.67,
+    "enh": "m²"
+  },
+  "OMS07-st-m¹": {
+    "code": "OMS07-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 07 - staalwerk diversen m¹",
+    "arb": 0.31,
+    "maa": 2.54,
+    "enh": "m¹"
+  },
+  "OMS07-sthw-m²": {
+    "code": "OMS07-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMS 07 - stalen hekwerk",
+    "arb": 1.18,
+    "maa": 19.67,
+    "enh": "m²"
+  },
+  "OMS07-stleu-m¹": {
+    "code": "OMS07-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 07 - stalen leuningen",
+    "arb": 0.77,
+    "maa": 6.74,
+    "enh": "m¹"
+  },
+  "OMS08-hwas-m¹": {
+    "code": "OMS08-hwas-m¹",
+    "systeem": "OM",
+    "oms": "OMS 08 - hemelwaterafvoer staal",
+    "arb": 0.52,
+    "maa": 1.72,
+    "enh": "m¹"
+  },
+  "OMS08-ksA": {
+    "code": "OMS08-ksA",
+    "systeem": "OM",
+    "oms": "OMS 08 - Kozijnen staal <10cm",
+    "arb": 0.3,
+    "maa": 4.39,
+    "enh": "m¹"
+  },
+  "OMS08-rs-m¹": {
+    "code": "OMS08-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMS 08 - ramen staal",
+    "arb": 0.35,
+    "maa": 4.39,
+    "enh": "m¹"
+  },
+  "OMS08-st-m²": {
+    "code": "OMS08-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 08 - staalwerk diversen m²",
+    "arb": 1.08,
+    "maa": 15.75,
+    "enh": "m²"
+  },
+  "OMS08-st-m¹": {
+    "code": "OMS08-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 08 - staalwerk diversen m¹",
+    "arb": 0.27,
+    "maa": 1.95,
+    "enh": "m¹"
+  },
+  "OMS08-stgb-st": {
+    "code": "OMS08-stgb-st",
+    "systeem": "OM",
+    "oms": "OMS 08 - staalwerk gootbeugels",
+    "arb": 0.48,
+    "maa": 0.95,
+    "enh": "Stuks"
+  },
+  "OMS08-sthw-m²": {
+    "code": "OMS08-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMS 08 - stalen hekwerk",
+    "arb": 1.02,
+    "maa": 15.75,
+    "enh": "m²"
+  },
+  "OMS08-stleu-m¹": {
+    "code": "OMS08-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 08 - stalen leuningen",
+    "arb": 0.65,
+    "maa": 5.27,
+    "enh": "m¹"
+  },
+  "OMS08-stplp-m²": {
+    "code": "OMS08-stplp-m²",
+    "systeem": "OM",
+    "oms": "OMS 08 - staalwerk beplating geprofileerd",
+    "arb": 1.02,
+    "maa": 15.75,
+    "enh": "m²"
+  },
+  "OMS08-stplv-m²": {
+    "code": "OMS08-stplv-m²",
+    "systeem": "OM",
+    "oms": "OMS 08 - staalwerk beplating vlak",
+    "arb": 0.86,
+    "maa": 15.75,
+    "enh": "m²"
+  },
+  "OMS50-st-m²": {
+    "code": "OMS50-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 50 - staalwerk diversen m²",
+    "arb": 0.45,
+    "maa": 1.14,
+    "enh": "m²"
+  },
+  "OMS50-st-m¹": {
+    "code": "OMS50-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 50 - staalwerk diversen m¹",
+    "arb": 0.22,
+    "maa": 0.62,
+    "enh": "m¹"
+  },
+  "OMS50-stleu-m¹": {
+    "code": "OMS50-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 50 - stalen leuningen",
+    "arb": 0.18,
+    "maa": 1.07,
+    "enh": "m¹"
+  },
+  "OMS51-ds-m²": {
+    "code": "OMS51-ds-m²",
+    "systeem": "OM",
+    "oms": "OMS 51 - deuren staal",
+    "arb": 0.56,
+    "maa": 6.03,
+    "enh": "m²"
+  },
+  "OMS51-ks-m¹": {
+    "code": "OMS51-ks-m¹",
+    "systeem": "OM",
+    "oms": "OMS 51 - kozijnen staal",
+    "arb": 0.14,
+    "maa": 1.24,
+    "enh": "m¹"
+  },
+  "OMS51-rs-m¹": {
+    "code": "OMS51-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMS 51 - ramen staal",
+    "arb": 0.11,
+    "maa": 0.6,
+    "enh": "m¹"
+  },
+  "OMS51-st-m²": {
+    "code": "OMS51-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 51 - staalwerk diversen m²",
+    "arb": 0.54,
+    "maa": 6.03,
+    "enh": "m²"
+  },
+  "OMS51-st-m¹": {
+    "code": "OMS51-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 51 - staalwerk diversen m¹",
+    "arb": 0.22,
+    "maa": 1.63,
+    "enh": "m¹"
+  },
+  "OMS51-stle-m¹": {
+    "code": "OMS51-stle-m¹",
+    "systeem": "OM",
+    "oms": "OMS 51 - stalen leidingen",
+    "arb": 0.2,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OMS51-stleu-m¹": {
+    "code": "OMS51-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 51 - stalen leuningen",
+    "arb": 0.28,
+    "maa": 2.67,
+    "enh": "m¹"
+  },
+  "OMS51-strr-m²": {
+    "code": "OMS51-strr-m²",
+    "systeem": "OM",
+    "oms": "OMS 51 - staalwerk radiator rib",
+    "arb": 0.98,
+    "maa": 6.03,
+    "enh": "m²"
+  },
+  "OMS51-strv-m²": {
+    "code": "OMS51-strv-m²",
+    "systeem": "OM",
+    "oms": "OMS 51 - staalwerk radiator vlak",
+    "arb": 0.77,
+    "maa": 6.03,
+    "enh": "m²"
+  },
+  "OMS52-stle-m¹": {
+    "code": "OMS52-stle-m¹",
+    "systeem": "OM",
+    "oms": "OMS 52 - stalen leidingen",
+    "arb": 0.27,
+    "maa": 1.1,
+    "enh": "m¹"
+  },
+  "OMS52-strr-m²": {
+    "code": "OMS52-strr-m²",
+    "systeem": "OM",
+    "oms": "OMS 52 - staalwerk radiator rib",
+    "arb": 1.3,
+    "maa": 9.95,
+    "enh": "m²"
+  },
+  "OMS52-strv-m²": {
+    "code": "OMS52-strv-m²",
+    "systeem": "OM",
+    "oms": "OMS 52 - staalwerk radiator vlak",
+    "arb": 1.01,
+    "maa": 9.95,
+    "enh": "m²"
+  },
+  "OMS53-ds-m²": {
+    "code": "OMS53-ds-m²",
+    "systeem": "OM",
+    "oms": "OMS 53 - deuren staal",
+    "arb": 0.73,
+    "maa": 9.95,
+    "enh": "m²"
+  },
+  "OMS53-hsA": {
+    "code": "OMS53-hsA",
+    "systeem": "OM",
+    "oms": "OMS 53 - hekwerk met stijlen en regels",
+    "arb": 0.72,
+    "maa": 9.95,
+    "enh": "m²"
+  },
+  "OMS53-hsE": {
+    "code": "OMS53-hsE",
+    "systeem": "OM",
+    "oms": "OMS 53 - leuningen en regels",
+    "arb": 0.14,
+    "maa": 4.04,
+    "enh": "m¹"
+  },
+  "OMS53-ks-m¹": {
+    "code": "OMS53-ks-m¹",
+    "systeem": "OM",
+    "oms": "OMS 53 - kozijnen staal",
+    "arb": 0.17,
+    "maa": 1.97,
+    "enh": "m¹"
+  },
+  "OMS53-rs-m¹": {
+    "code": "OMS53-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMS 53 - ramen staal",
+    "arb": 0.17,
+    "maa": 0.94,
+    "enh": "m¹"
+  },
+  "OMS53-st-m²": {
+    "code": "OMS53-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 53 - staalwerk diversen m²",
+    "arb": 0.69,
+    "maa": 9.95,
+    "enh": "m²"
+  },
+  "OMS53-st-m¹": {
+    "code": "OMS53-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 53 - staalwerk diversen m¹",
+    "arb": 0.27,
+    "maa": 2.61,
+    "enh": "m¹"
+  },
+  "OMS53-stleu-m¹": {
+    "code": "OMS53-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 53 - stalen leuningen",
+    "arb": 0.4,
+    "maa": 4.04,
+    "enh": "m¹"
+  },
+  "OMS54-ds-m²": {
+    "code": "OMS54-ds-m²",
+    "systeem": "OM",
+    "oms": "OMS 54 - deuren staal",
+    "arb": 0.68,
+    "maa": 6.43,
+    "enh": "m²"
+  },
+  "OMS54-hsA": {
+    "code": "OMS54-hsA",
+    "systeem": "OM",
+    "oms": "OMS 54 - hekwerk met stijlen en regels",
+    "arb": 0.67,
+    "maa": 6.43,
+    "enh": "m²"
+  },
+  "OMS54-hsE": {
+    "code": "OMS54-hsE",
+    "systeem": "OM",
+    "oms": "OMS 54 - stalen leuningen",
+    "arb": 0.12,
+    "maa": 4.46,
+    "enh": "m¹"
+  },
+  "OMS54-ks-m¹": {
+    "code": "OMS54-ks-m¹",
+    "systeem": "OM",
+    "oms": "OMS 54 - kozijnen staal",
+    "arb": 0.19,
+    "maa": 2.08,
+    "enh": "m¹"
+  },
+  "OMS54-rs-m¹": {
+    "code": "OMS54-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMS 54 - ramen staal",
+    "arb": 0.18,
+    "maa": 0.99,
+    "enh": "m¹"
+  },
+  "OMS54-st-m²": {
+    "code": "OMS54-st-m²",
+    "systeem": "OM",
+    "oms": "OMS 54 - staalwerk diversen m²",
+    "arb": 0.63,
+    "maa": 6.43,
+    "enh": "m²"
+  },
+  "OMS54-st-m¹": {
+    "code": "OMS54-st-m¹",
+    "systeem": "OM",
+    "oms": "OMS 54 - staalwerk diversen m¹",
+    "arb": 0.26,
+    "maa": 1.78,
+    "enh": "m¹"
+  },
+  "OMS54-stle-m¹": {
+    "code": "OMS54-stle-m¹",
+    "systeem": "OM",
+    "oms": "OMS 54 - stalen leidingen",
+    "arb": 0.23,
+    "maa": 0.71,
+    "enh": "m¹"
+  },
+  "OMS54-stleu-m¹": {
+    "code": "OMS54-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMS 54 - stalen leuningen",
+    "arb": 0.42,
+    "maa": 4.46,
+    "enh": "m¹"
+  },
+  "OMS54-strr-m²": {
+    "code": "OMS54-strr-m²",
+    "systeem": "OM",
+    "oms": "OMS 54 - staalwerk radiator rib",
+    "arb": 1.08,
+    "maa": 6.43,
+    "enh": "m²"
+  },
+  "OMS54-strv-m²": {
+    "code": "OMS54-strv-m²",
+    "systeem": "OM",
+    "oms": "OMS 54 - staalwerk radiator vlak",
+    "arb": 0.86,
+    "maa": 6.43,
+    "enh": "m²"
+  },
+  "OMV03-rs-m¹": {
+    "code": "OMV03-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMV 03 - ramen staal",
+    "arb": 0.08,
+    "maa": 1.32,
+    "enh": "m¹"
+  },
+  "OMV03-sthw-m²": {
+    "code": "OMV03-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMV 03 - stalen hekwerk",
+    "arb": 0.5,
+    "maa": 6.67,
+    "enh": "m²"
+  },
+  "OMV03-stleu-m¹": {
+    "code": "OMV03-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMV 03 - stalen leuningen",
+    "arb": 0.31,
+    "maa": 3.2,
+    "enh": "m¹"
+  },
+  "OMV03-stplv-m²": {
+    "code": "OMV03-stplv-m²",
+    "systeem": "OM",
+    "oms": "OMV 03 - staalwerk beplating vlak",
+    "arb": 0.44,
+    "maa": 6.67,
+    "enh": "m²"
+  },
+  "OMV03-stzk-m²": {
+    "code": "OMV03-stzk-m²",
+    "systeem": "OM",
+    "oms": "OMV 03 - staalwerk verzinkt",
+    "arb": 0.47,
+    "maa": 6.67,
+    "enh": "m²"
+  },
+  "OMV03-stzk-m¹": {
+    "code": "OMV03-stzk-m¹",
+    "systeem": "OM",
+    "oms": "OMV 03 - staalwerk verzinkt",
+    "arb": 0.14,
+    "maa": 1.0,
+    "enh": "m¹"
+  },
+  "OMV04-rs-m¹": {
+    "code": "OMV04-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMV 04 - ramen staal",
+    "arb": 0.16,
+    "maa": 1.5,
+    "enh": "m¹"
+  },
+  "OMV04-sthw-m²": {
+    "code": "OMV04-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMV 04 - stalen hekwerk",
+    "arb": 0.6,
+    "maa": 10.1,
+    "enh": "m²"
+  },
+  "OMV04-stleu-m¹": {
+    "code": "OMV04-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMV 04 - stalen leuningen",
+    "arb": 0.4,
+    "maa": 4.18,
+    "enh": "m¹"
+  },
+  "OMV04-stzk-m²": {
+    "code": "OMV04-stzk-m²",
+    "systeem": "OM",
+    "oms": "OMV 04 - staalwerk verzinkt",
+    "arb": 0.62,
+    "maa": 10.1,
+    "enh": "m²"
+  },
+  "OMV04-stzk-m¹": {
+    "code": "OMV04-stzk-m¹",
+    "systeem": "OM",
+    "oms": "OMV 04 - staalwerk verzinkt",
+    "arb": 0.17,
+    "maa": 1.3,
+    "enh": "m¹"
+  },
+  "OMV05-stzk-m²": {
+    "code": "OMV05-stzk-m²",
+    "systeem": "OM",
+    "oms": "OMV 05 - staalwerk verzinkt",
+    "arb": 0.88,
+    "maa": 14.02,
+    "enh": "m²"
+  },
+  "OMV05-stzk-m¹": {
+    "code": "OMV05-stzk-m¹",
+    "systeem": "OM",
+    "oms": "OMV 05 - staalwerk verzinkt",
+    "arb": 0.22,
+    "maa": 1.69,
+    "enh": "m¹"
+  },
+  "OMV06-rs-m¹": {
+    "code": "OMV06-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMV 06 - ramen staal",
+    "arb": 0.36,
+    "maa": 4.56,
+    "enh": "m¹"
+  },
+  "OMV06-sthw-m²": {
+    "code": "OMV06-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMV 06 - stalen hekwerk",
+    "arb": 1.1,
+    "maa": 16.31,
+    "enh": "m²"
+  },
+  "OMV06-stleu-m¹": {
+    "code": "OMV06-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMV 06 - stalen leuningen",
+    "arb": 0.67,
+    "maa": 5.48,
+    "enh": "m¹"
+  },
+  "OMV06-stplp-m²": {
+    "code": "OMV06-stplp-m²",
+    "systeem": "OM",
+    "oms": "OMV 06 - staalwerk beplating geprofileerd",
+    "arb": 1.1,
+    "maa": 16.31,
+    "enh": "m²"
+  },
+  "OMV06-stplv-m²": {
+    "code": "OMV06-stplv-m²",
+    "systeem": "OM",
+    "oms": "OMV 06 - staalwerk beplating vlak",
+    "arb": 0.94,
+    "maa": 16.31,
+    "enh": "m²"
+  },
+  "OMV06-stzk-m²": {
+    "code": "OMV06-stzk-m²",
+    "systeem": "OM",
+    "oms": "OMV 06 - staalwerk verzinkt",
+    "arb": 1.16,
+    "maa": 16.31,
+    "enh": "m²"
+  },
+  "OMV06-stzk-m¹": {
+    "code": "OMV06-stzk-m¹",
+    "systeem": "OM",
+    "oms": "OMV 06 - staalwerk verzinkt",
+    "arb": 0.29,
+    "maa": 2.03,
+    "enh": "m¹"
+  },
+  "OMV07-rs-m¹": {
+    "code": "OMV07-rs-m¹",
+    "systeem": "OM",
+    "oms": "OMV 07 - ramen staal",
+    "arb": 0.44,
+    "maa": 5.9,
+    "enh": "m¹"
+  },
+  "OMV07-sthw-m²": {
+    "code": "OMV07-sthw-m²",
+    "systeem": "OM",
+    "oms": "OMV 07 - stalen hekwerk",
+    "arb": 1.26,
+    "maa": 20.79,
+    "enh": "m²"
+  },
+  "OMV07-stleu-m¹": {
+    "code": "OMV07-stleu-m¹",
+    "systeem": "OM",
+    "oms": "OMV 07 - stalen leuningen",
+    "arb": 0.79,
+    "maa": 7.16,
+    "enh": "m¹"
+  },
+  "OMV07-stzk-m²": {
+    "code": "OMV07-stzk-m²",
+    "systeem": "OM",
+    "oms": "OMV 07 - staalwerk verzinkt",
+    "arb": 1.36,
+    "maa": 20.79,
+    "enh": "m²"
+  },
+  "OMV07-stzk-m¹": {
+    "code": "OMV07-stzk-m¹",
+    "systeem": "OM",
+    "oms": "OMV 07 - staalwerk verzinkt",
+    "arb": 0.33,
+    "maa": 2.71,
+    "enh": "m¹"
+  },
+  "OSA01-m²": {
+    "code": "OSA01-m²",
+    "systeem": "OS",
+    "oms": "OSA 01 - Steenachtig antigraffiti",
+    "arb": 0.43,
+    "maa": 2.24,
+    "enh": "m²"
+  },
+  "OSA02-m²": {
+    "code": "OSA02-m²",
+    "systeem": "OS",
+    "oms": "OSA 02 - Steenachtig antigraffiti",
+    "arb": 0.59,
+    "maa": 3.31,
+    "enh": "m²"
+  },
+  "OSD01-bela-m¹1": {
+    "code": "OSD01-bela-m¹1",
+    "systeem": "OS",
+    "oms": "OSD 01 - beton latei",
+    "arb": 0.01,
+    "maa": 0.1,
+    "enh": "m¹"
+  },
+  "OSD01-mu-m²": {
+    "code": "OSD01-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 01 - muurwerk",
+    "arb": 0.04,
+    "maa": 0.1,
+    "enh": "m²"
+  },
+  "OSD01-wsG": {
+    "code": "OSD01-wsG",
+    "systeem": "OS",
+    "oms": "OSD 01 - wanden stucwerk",
+    "arb": 0.05,
+    "maa": 0.1,
+    "enh": "m²"
+  },
+  "OSD02-bela-m¹": {
+    "code": "OSD02-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 02 - beton latei",
+    "arb": 0.05,
+    "maa": 2.94,
+    "enh": "m¹"
+  },
+  "OSD02-mu-m²": {
+    "code": "OSD02-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 02 - muurwerk",
+    "arb": 0.12,
+    "maa": 12.25,
+    "enh": "m²"
+  },
+  "OSD02-pl-m²": {
+    "code": "OSD02-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 02 - plafonds",
+    "arb": 0.14,
+    "maa": 9.8,
+    "enh": "m²"
+  },
+  "OSD02-plA": {
+    "code": "OSD02-plA",
+    "systeem": "OS",
+    "oms": "OSD 02 - plafonds",
+    "arb": 0.15,
+    "maa": 9.8,
+    "enh": "m²"
+  },
+  "OSD02-wsG": {
+    "code": "OSD02-wsG",
+    "systeem": "OS",
+    "oms": "OSD 02 - wanden stucwerk",
+    "arb": 0.08,
+    "maa": 12.25,
+    "enh": "m²"
+  },
+  "OSD03-bela-m¹": {
+    "code": "OSD03-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 03 - beton latei",
+    "arb": 0.05,
+    "maa": 0.77,
+    "enh": "m¹"
+  },
+  "OSD03-mu-m²": {
+    "code": "OSD03-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 03 - muurwerk",
+    "arb": 0.12,
+    "maa": 3.23,
+    "enh": "m²"
+  },
+  "OSD03-pl-m²": {
+    "code": "OSD03-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 03 - plafonds",
+    "arb": 0.14,
+    "maa": 2.58,
+    "enh": "m²"
+  },
+  "OSD03-plA": {
+    "code": "OSD03-plA",
+    "systeem": "OS",
+    "oms": "OSD 03 - plafonds",
+    "arb": 0.15,
+    "maa": 2.58,
+    "enh": "m²"
+  },
+  "OSD03-wsG": {
+    "code": "OSD03-wsG",
+    "systeem": "OS",
+    "oms": "OSD 03 - wanden stucwerk",
+    "arb": 0.08,
+    "maa": 3.23,
+    "enh": "m²"
+  },
+  "OSD04-bela-m¹": {
+    "code": "OSD04-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 04 - beton latei",
+    "arb": 0.12,
+    "maa": 6.4,
+    "enh": "m¹"
+  },
+  "OSD04-mu-m²": {
+    "code": "OSD04-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 04 - muurwerk",
+    "arb": 0.34,
+    "maa": 24.5,
+    "enh": "m²"
+  },
+  "OSD04-pl-m²": {
+    "code": "OSD04-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 04 - plafonds",
+    "arb": 0.4,
+    "maa": 19.86,
+    "enh": "m²"
+  },
+  "OSD04-plA": {
+    "code": "OSD04-plA",
+    "systeem": "OS",
+    "oms": "OSD 04 - plafonds",
+    "arb": 0.21,
+    "maa": 19.86,
+    "enh": "m²"
+  },
+  "OSD04-wsG": {
+    "code": "OSD04-wsG",
+    "systeem": "OS",
+    "oms": "OSD 04 - wanden stucwerk",
+    "arb": 0.18,
+    "maa": 24.5,
+    "enh": "m²"
+  },
+  "OSD05-bela-m¹": {
+    "code": "OSD05-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 05 - beton latei",
+    "arb": 0.04,
+    "maa": 0.74,
+    "enh": "m¹"
+  },
+  "OSD05-mu-m²": {
+    "code": "OSD05-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 05 - muurwerk",
+    "arb": 0.16,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD05-pl-m²": {
+    "code": "OSD05-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 05 - plafonds",
+    "arb": 0.11,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD05-plA": {
+    "code": "OSD05-plA",
+    "systeem": "OS",
+    "oms": "OSD 05 - plafonds",
+    "arb": 0.07,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD05-wsG": {
+    "code": "OSD05-wsG",
+    "systeem": "OS",
+    "oms": "OSD 05 - wanden stucwerk",
+    "arb": 0.06,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD06-bela-m¹": {
+    "code": "OSD06-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 06 - beton latei",
+    "arb": 0.1,
+    "maa": 3.92,
+    "enh": "m¹"
+  },
+  "OSD06-lbB": {
+    "code": "OSD06-lbB",
+    "systeem": "OS",
+    "oms": "OSD 06 - beton latei 10-20 cm",
+    "arb": 0.09,
+    "maa": 3.92,
+    "enh": "m¹"
+  },
+  "OSD06-lbC": {
+    "code": "OSD06-lbC",
+    "systeem": "OS",
+    "oms": "OSD 06 - beton latei 20-30 cm",
+    "arb": 0.12,
+    "maa": 3.92,
+    "enh": "m¹"
+  },
+  "OSD06-mu-m²": {
+    "code": "OSD06-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 06 - muurwerk",
+    "arb": 0.29,
+    "maa": 22.05,
+    "enh": "m²"
+  },
+  "OSD06-pbA": {
+    "code": "OSD06-pbA",
+    "systeem": "OS",
+    "oms": "OSD 06 - wanden beton",
+    "arb": 0.21,
+    "maa": null,
+    "enh": "m²"
+  },
+  "OSD06-pl-m²": {
+    "code": "OSD06-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 06 - plafonds",
+    "arb": 0.37,
+    "maa": 14.7,
+    "enh": "m²"
+  },
+  "OSD06-plA": {
+    "code": "OSD06-plA",
+    "systeem": "OS",
+    "oms": "OSD 06 - plafonds",
+    "arb": 0.14,
+    "maa": 14.7,
+    "enh": "m²"
+  },
+  "OSD06-wbA": {
+    "code": "OSD06-wbA",
+    "systeem": "OS",
+    "oms": "OSD 06 - wanden beton",
+    "arb": 0.15,
+    "maa": null,
+    "enh": "m²"
+  },
+  "OSD06-wsA": {
+    "code": "OSD06-wsA",
+    "systeem": "OS",
+    "oms": "OSD 06 - wanden vlak volle voeg",
+    "arb": 0.16,
+    "maa": 11.76,
+    "enh": "m²"
+  },
+  "OSD06-wsG": {
+    "code": "OSD06-wsG",
+    "systeem": "OS",
+    "oms": "OSD 06 - wanden stucwerk",
+    "arb": 0.12,
+    "maa": 22.05,
+    "enh": "m²"
+  },
+  "OSD07-bela-m¹": {
+    "code": "OSD07-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 07 - beton latei",
+    "arb": 0.14,
+    "maa": 6.43,
+    "enh": "m¹"
+  },
+  "OSD07-mu-m²": {
+    "code": "OSD07-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 07 - muurwerk",
+    "arb": 0.4,
+    "maa": 34.86,
+    "enh": "m²"
+  },
+  "OSD07-pl-m²": {
+    "code": "OSD07-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 07 - plafonds",
+    "arb": 0.5,
+    "maa": 25.06,
+    "enh": "m²"
+  },
+  "OSD07-plA": {
+    "code": "OSD07-plA",
+    "systeem": "OS",
+    "oms": "OSD 07 - plafonds",
+    "arb": 0.26,
+    "maa": 25.06,
+    "enh": "m²"
+  },
+  "OSD07-wsG": {
+    "code": "OSD07-wsG",
+    "systeem": "OS",
+    "oms": "OSD 07 - wanden stucwerk",
+    "arb": 0.21,
+    "maa": 2.52,
+    "enh": "m²"
+  },
+  "OSD11-bela-m¹": {
+    "code": "OSD11-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 07 - beton latei",
+    "arb": 0.19,
+    "maa": 6.43,
+    "enh": "m¹"
+  },
+  "OSD08-LBA": {
+    "code": "OSD08-LBA",
+    "systeem": "OS",
+    "oms": "OSD 08 - Beton latei <10 cm",
+    "arb": 0.08,
+    "maa": 1.01,
+    "enh": "m¹"
+  },
+  "OSD08-bbc": {
+    "code": "OSD08-bbc",
+    "systeem": "OS",
+    "oms": "OSD 08 - Beton banden 20-30 cm",
+    "arb": 0.1,
+    "maa": 7.19,
+    "enh": "m¹"
+  },
+  "OSD08-bbd": {
+    "code": "OSD08-bbd",
+    "systeem": "OS",
+    "oms": "OSD 08 - Beton banden 10-20 cm",
+    "arb": 0.28,
+    "maa": 2.29,
+    "enh": "m¹"
+  },
+  "OSD08-bela-m¹": {
+    "code": "OSD08-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 08 - beton latei",
+    "arb": 0.12,
+    "maa": 6.4,
+    "enh": "m¹"
+  },
+  "OSD08-mu-m²": {
+    "code": "OSD08-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 08 - muurwerk",
+    "arb": 0.37,
+    "maa": 17.15,
+    "enh": "m²"
+  },
+  "OSD08-pl-m²": {
+    "code": "OSD08-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 08 - plafonds",
+    "arb": 0.47,
+    "maa": 17.41,
+    "enh": "m²"
+  },
+  "OSD08-plA": {
+    "code": "OSD08-plA",
+    "systeem": "OS",
+    "oms": "OSD 08 - plafonds",
+    "arb": 0.21,
+    "maa": 17.41,
+    "enh": "m²"
+  },
+  "OSD08-wsG": {
+    "code": "OSD08-wsG",
+    "systeem": "OS",
+    "oms": "OSD 08 - wanden stucwerk",
+    "arb": 0.18,
+    "maa": null,
+    "enh": "m²"
+  },
+  "OSD09-bela-m¹": {
+    "code": "OSD09-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 09 - beton latei",
+    "arb": 0.17,
+    "maa": 1.97,
+    "enh": "m¹"
+  },
+  "OSD09-mu-m²": {
+    "code": "OSD09-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 09 - muurwerk",
+    "arb": 0.54,
+    "maa": 11.59,
+    "enh": "m²"
+  },
+  "OSD09-pl-m²": {
+    "code": "OSD09-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 09 - plafonds",
+    "arb": 0.68,
+    "maa": 9.38,
+    "enh": "m²"
+  },
+  "OSD09-plA": {
+    "code": "OSD09-plA",
+    "systeem": "OS",
+    "oms": "OSD 09 - plafonds",
+    "arb": 0.47,
+    "maa": 9.38,
+    "enh": "m²"
+  },
+  "OSD09-wsG": {
+    "code": "OSD09-wsG",
+    "systeem": "OS",
+    "oms": "OSD 09 - wanden stucwerk",
+    "arb": 0.25,
+    "maa": 11.59,
+    "enh": "m²"
+  },
+  "OSD10-bela-m¹": {
+    "code": "OSD10-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 10 - beton latei",
+    "arb": 0.18,
+    "maa": 6.64,
+    "enh": "m¹"
+  },
+  "OSD10-mu-m²": {
+    "code": "OSD10-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 10 - muurwerk",
+    "arb": 0.45,
+    "maa": 22.32,
+    "enh": "m²"
+  },
+  "OSD10-pl-m²": {
+    "code": "OSD10-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 10 - plafonds",
+    "arb": 0.55,
+    "maa": 22.32,
+    "enh": "m²"
+  },
+  "OSD11-mu-m²": {
+    "code": "OSD11-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 11 - muurwerk",
+    "arb": 0.45,
+    "maa": 11.3,
+    "enh": "m²"
+  },
+  "OSD11-pl-m²": {
+    "code": "OSD11-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 11 - plafonds",
+    "arb": 0.57,
+    "maa": 11.3,
+    "enh": "m²"
+  },
+  "OSD11-plA": {
+    "code": "OSD11-plA",
+    "systeem": "OS",
+    "oms": "OSD 11 - plafonds",
+    "arb": 0.27,
+    "maa": 11.3,
+    "enh": "m²"
+  },
+  "OSD12-bela-m¹": {
+    "code": "OSD12-bela-m¹",
+    "systeem": "OS",
+    "oms": "OSD 12 - beton latei",
+    "arb": 0.14,
+    "maa": 8.34,
+    "enh": "m¹"
+  },
+  "OSD12-mu-m²": {
+    "code": "OSD12-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 12 - muurwerk",
+    "arb": 0.46,
+    "maa": 26.78,
+    "enh": "m²"
+  },
+  "OSD12-pl-m²": {
+    "code": "OSD12-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 12 - plafonds",
+    "arb": 0.57,
+    "maa": 26.78,
+    "enh": "m²"
+  },
+  "OSD12-plA": {
+    "code": "OSD12-plA",
+    "systeem": "OS",
+    "oms": "OSD 12 - plafonds",
+    "arb": 0.34,
+    "maa": 26.78,
+    "enh": "m²"
+  },
+  "OSD12-wsG": {
+    "code": "OSD12-wsG",
+    "systeem": "OS",
+    "oms": "OSD 12 - wanden stucwerk",
+    "arb": 0.22,
+    "maa": 26.78,
+    "enh": "m²"
+  },
+  "OSD50-mu-m²": {
+    "code": "OSD50-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 50 - muurwerk",
+    "arb": 0.12,
+    "maa": 3.12,
+    "enh": "m²"
+  },
+  "OSD50-pl-m²": {
+    "code": "OSD50-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 50 - plafonds",
+    "arb": 0.14,
+    "maa": 3.12,
+    "enh": "m²"
+  },
+  "OSD50-plA": {
+    "code": "OSD50-plA",
+    "systeem": "OS",
+    "oms": "OSD 50 - plafonds",
+    "arb": 0.15,
+    "maa": 3.12,
+    "enh": "m²"
+  },
+  "OSD50-wsG": {
+    "code": "OSD50-wsG",
+    "systeem": "OS",
+    "oms": "OSD 50 - wanden stucwerk",
+    "arb": 0.08,
+    "maa": 3.12,
+    "enh": "m²"
+  },
+  "OSD51-mu-m²": {
+    "code": "OSD51-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 51 - muurwerk",
+    "arb": 0.12,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OSD51-pl-m²": {
+    "code": "OSD51-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 51 - plafonds",
+    "arb": 0.14,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OSD51-plA": {
+    "code": "OSD51-plA",
+    "systeem": "OS",
+    "oms": "OSD 51 - plafonds",
+    "arb": 0.15,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OSD51-wsG": {
+    "code": "OSD51-wsG",
+    "systeem": "OS",
+    "oms": "OSD 51 - wanden stucwerk",
+    "arb": 0.08,
+    "maa": 2.06,
+    "enh": "m²"
+  },
+  "OSD52-mu-m²": {
+    "code": "OSD52-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 52 - muurwerk",
+    "arb": 0.12,
+    "maa": 1.78,
+    "enh": "m²"
+  },
+  "OSD52-pl-m²": {
+    "code": "OSD52-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 52 - plafonds",
+    "arb": 0.14,
+    "maa": 1.78,
+    "enh": "m²"
+  },
+  "OSD52-plA": {
+    "code": "OSD52-plA",
+    "systeem": "OS",
+    "oms": "OSD 52 - plafonds",
+    "arb": 0.15,
+    "maa": 1.78,
+    "enh": "m²"
+  },
+  "OSD52-wsG": {
+    "code": "OSD52-wsG",
+    "systeem": "OS",
+    "oms": "OSD 52 - wanden stucwerk",
+    "arb": 0.08,
+    "maa": 1.78,
+    "enh": "m²"
+  },
+  "OSD53-mu-m²": {
+    "code": "OSD53-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 53 - muurwerk",
+    "arb": 0.06,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD53-pl-m²": {
+    "code": "OSD53-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 53 - plafonds",
+    "arb": 0.08,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD53-plA": {
+    "code": "OSD53-plA",
+    "systeem": "OS",
+    "oms": "OSD 53 - plafonds",
+    "arb": 0.07,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD53-wsG": {
+    "code": "OSD53-wsG",
+    "systeem": "OS",
+    "oms": "OSD 53 - wanden stucwerk",
+    "arb": 0.06,
+    "maa": 7.35,
+    "enh": "m²"
+  },
+  "OSD54-mu-m²": {
+    "code": "OSD54-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 54 - muurwerk",
+    "arb": 0.29,
+    "maa": 14.75,
+    "enh": "m²"
+  },
+  "OSD54-pl-m²": {
+    "code": "OSD54-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 54 - plafonds",
+    "arb": 0.37,
+    "maa": 9.97,
+    "enh": "m²"
+  },
+  "OSD54-plA": {
+    "code": "OSD54-plA",
+    "systeem": "OS",
+    "oms": "OSD 54 - plafonds",
+    "arb": 0.14,
+    "maa": 9.97,
+    "enh": "m²"
+  },
+  "OSD54-wsG": {
+    "code": "OSD54-wsG",
+    "systeem": "OS",
+    "oms": "OSD 54 - wanden stucwerk",
+    "arb": 0.12,
+    "maa": 14.7,
+    "enh": "m²"
+  },
+  "OSD55-mu-m²": {
+    "code": "OSD55-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 55 - muurwerk",
+    "arb": 0.4,
+    "maa": 19.67,
+    "enh": "m²"
+  },
+  "OSD55-pl-m²": {
+    "code": "OSD55-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 55 - plafonds",
+    "arb": 0.5,
+    "maa": 19.72,
+    "enh": "m²"
+  },
+  "OSD55-plA": {
+    "code": "OSD55-plA",
+    "systeem": "OS",
+    "oms": "OSD 55 - plafonds",
+    "arb": 0.24,
+    "maa": 19.72,
+    "enh": "m²"
+  },
+  "OSD55-wsG": {
+    "code": "OSD55-wsG",
+    "systeem": "OS",
+    "oms": "OSD 55 - wanden stucwerk",
+    "arb": 0.21,
+    "maa": 19.67,
+    "enh": "m²"
+  },
+  "OSD56-mu-m²": {
+    "code": "OSD56-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 56 - muurwerk",
+    "arb": 0.37,
+    "maa": 17.15,
+    "enh": "m²"
+  },
+  "OSD56-pl-m²": {
+    "code": "OSD56-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 56 - plafonds",
+    "arb": 0.47,
+    "maa": 17.15,
+    "enh": "m²"
+  },
+  "OSD56-plA": {
+    "code": "OSD56-plA",
+    "systeem": "OS",
+    "oms": "OSD 56 - plafonds",
+    "arb": 0.21,
+    "maa": 17.15,
+    "enh": "m²"
+  },
+  "OSD56-wsG": {
+    "code": "OSD56-wsG",
+    "systeem": "OS",
+    "oms": "OSD 56 - wanden stucwerk",
+    "arb": 0.18,
+    "maa": 9.8,
+    "enh": "m²"
+  },
+  "OSD57-mu-m²": {
+    "code": "OSD57-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 57 - muurwerk",
+    "arb": 0.38,
+    "maa": 17.16,
+    "enh": "m²"
+  },
+  "OSD57-pl-m²": {
+    "code": "OSD57-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 57 - plafonds",
+    "arb": 0.47,
+    "maa": 14.41,
+    "enh": "m²"
+  },
+  "OSD57-plA": {
+    "code": "OSD57-plA",
+    "systeem": "OS",
+    "oms": "OSD 57 - plafonds",
+    "arb": 0.14,
+    "maa": 14.41,
+    "enh": "m²"
+  },
+  "OSD57-wsG": {
+    "code": "OSD57-wsG",
+    "systeem": "OS",
+    "oms": "OSD 57 - wanden stucwerk",
+    "arb": 0.12,
+    "maa": 17.16,
+    "enh": "m²"
+  },
+  "OSD58-mu-m²": {
+    "code": "OSD58-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 58 - muurwerk",
+    "arb": 0.54,
+    "maa": 8.82,
+    "enh": "m²"
+  },
+  "OSD58-pl-m²": {
+    "code": "OSD58-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 58 - plafonds",
+    "arb": 0.68,
+    "maa": 8.96,
+    "enh": "m²"
+  },
+  "OSD58-plA": {
+    "code": "OSD58-plA",
+    "systeem": "OS",
+    "oms": "OSD 58 - plafonds",
+    "arb": 0.47,
+    "maa": 8.96,
+    "enh": "m²"
+  },
+  "OSD58-wsG": {
+    "code": "OSD58-wsG",
+    "systeem": "OS",
+    "oms": "OSD 58 - wanden stucwerk",
+    "arb": 0.25,
+    "maa": 8.82,
+    "enh": "m²"
+  },
+  "OSD59-mu-m²": {
+    "code": "OSD59-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 59 - muurwerk",
+    "arb": 0.54,
+    "maa": 11.24,
+    "enh": "m²"
+  },
+  "OSD59-pl-m²": {
+    "code": "OSD59-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 59 - plafonds",
+    "arb": 0.68,
+    "maa": 10.63,
+    "enh": "m²"
+  },
+  "OSD59-plA": {
+    "code": "OSD59-plA",
+    "systeem": "OS",
+    "oms": "OSD 59 - plafonds",
+    "arb": 0.83,
+    "maa": 10.63,
+    "enh": "m²"
+  },
+  "OSD59-wsG": {
+    "code": "OSD59-wsG",
+    "systeem": "OS",
+    "oms": "OSD 59 - wanden stucwerk",
+    "arb": 0.42,
+    "maa": 11.24,
+    "enh": "m²"
+  },
+  "OSD60-mu-m²": {
+    "code": "OSD60-mu-m²",
+    "systeem": "OS",
+    "oms": "OSD 60 - muurwerk",
+    "arb": 0.46,
+    "maa": 26.78,
+    "enh": "m²"
+  },
+  "OSD60-pl-m²": {
+    "code": "OSD60-pl-m²",
+    "systeem": "OS",
+    "oms": "OSD 60 - plafonds",
+    "arb": 0.57,
+    "maa": 26.78,
+    "enh": "m²"
+  },
+  "OSD60-plA": {
+    "code": "OSD60-plA",
+    "systeem": "OS",
+    "oms": "OSD 60 - plafonds",
+    "arb": 0.34,
+    "maa": 26.78,
+    "enh": "m²"
+  },
+  "OSD60-wsG": {
+    "code": "OSD60-wsG",
+    "systeem": "OS",
+    "oms": "OSD 60 - wanden stucwerk",
+    "arb": 0.22,
+    "maa": 26.78,
+    "enh": "m²"
+  }
+}
