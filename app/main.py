@@ -171,8 +171,8 @@ class DnDTableWidget(QTableWidget):
 
     DISCLOSURE_HIT_PX = 18
 
-    def __init__(self, parent=None) -> None:
-        super().__init__(parent)
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self._block_size_for: callable | None = None
         self._oms_col: int = 0
         self._is_titel: callable | None = None
