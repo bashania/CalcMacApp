@@ -1,11 +1,12 @@
 """Rekenmodule voor de begrotingstabel.
 
-Berekent eenheidsprijs, totale uren en regeltotaal per begrotingsregel,
-en telt deze op naar bovenliggende titelrijen (S=1/2/3).
+Fase 1 — begrotingsregels: prijspe, toturen, regeltotaal.
+Fase 2 — titel-rollup: S=1/2/3 koppen sommeren onderliggende regels.
+Fase 3 — staart: `/`-rij detecteert het begin, daarna `%`, `+`, `-`,
+          `=`, `a`, `b`, `c`, `&`, `S`, `G`, `V`, `X`.
 
 Berekende velden worden NIET in het .c4y bestand geschreven — Calc4You
-vult die zelf in bij het openen. Deze module dient alleen om de viewer
-direct te tonen wat het bestand straks oplevert.
+vult die zelf in bij het openen. Deze module dient uitsluitend de viewer-UI.
 """
 
 from __future__ import annotations
@@ -15,22 +16,22 @@ from typing import Iterable
 from app.c4y_io import format_nl, format_nl_hvh, parse_nl_number
 
 
-# S-codes die in titelrijen voorkomen (cumulatief)
-TITEL_NIVEAUS = {'1', '2', '3'}
+# ── S-code classificatie ──────────────────────────────────────────────────────
+TITEL_NIVEAUS      = frozenset({'1', '2', '3'})
+BEGROTING_S_CODES  = frozenset({'', 'S', 'V', 'G', '?', 'X'})
+STAART_S_CODES     = frozenset({'/', '%', '&', '=', '+', '-', 'a', 'b', 'c'})
 
-# Begrotingsregel-stuurcodes (tellen mee in bovenliggende titel)
-# Lege string = standaard begrotingsregel.
-BEGROTING_S_CODES = {'', 'S', 'V', 'G', '?', 'X'}
+# Standaard BTW-percentages als hvh leeg is
+BTW_DEFAULTS: dict[str, float] = {'a': 21.0, 'b': 9.0, 'c': 0.0}
 
 
 def _num(value) -> float:
-    """Parse NL-getal naar float, lege/onleesbare waarden → 0."""
     parsed = parse_nl_number(value)
     return parsed if parsed is not None else 0.0
 
 
 def _bereken_regel(row: dict) -> tuple[float, float, float]:
-    """(prijspe, toturen, totaal) voor één begrotingsregel."""
+    """(prijspe, toturen, totaal) voor een gewone begrotingsregel."""
     arb       = _num(row.get('arb'))
     maa       = _num(row.get('maa'))
     mee       = _num(row.get('mee'))
@@ -40,54 +41,62 @@ def _bereken_regel(row: dict) -> tuple[float, float, float]:
     productie = _num(row.get('productie'))
 
     prijspe = arb * uurloon * (1.0 + productie / 100.0) + maa + mee + ond
-    toturen = hvh * arb
-    totaal  = hvh * prijspe
-    return prijspe, toturen, totaal
+    return prijspe, hvh * arb, hvh * prijspe
 
 
 def recompute(rows: Iterable[dict]) -> list[dict]:
-    """Bereken per rij (prijspe, toturen, totaal).
+    """Bereken per rij (prijspe, toturen, totaal, is_staart).
 
     Argumenten
     ----------
-    rows : iterabel van dicts met (mogelijk) keys
+    rows : iterabel van dicts met keys
         s, hvh, arb, maa, mee, ond, uurloon, productie
-        Waarden zijn strings in Nederlands getalformaat ('1.234,56') of leeg.
+        Waarden zijn strings in Nederlands getalformaat of leeg.
 
     Resultaat
     ---------
-    list met per rij ``{'prijspe': str, 'toturen': str, 'totaal': str}``
-    in Nederlandse opmaak. Voor titelrijen (S=1/2/3) is ``prijspe`` leeg
-    en bevatten ``toturen`` en ``totaal`` de som van alle onderliggende
-    begrotingsregels tot de volgende titel van gelijk of hoger niveau.
+    list van dicts met:
+        prijspe  : str  (leeg voor titels en staart)
+        toturen  : str  (leeg voor titels bij 0 uren, leeg voor staart)
+        totaal   : str
+        is_staart: bool (True voor rijen op of na de '/')
     """
     rows = list(rows)
     n = len(rows)
-    raw_totaal  = [0.0] * n  # numerieke waarden voor doorrekenen
+    raw_totaal  = [0.0] * n
     raw_toturen = [0.0] * n
-    raw_prijspe = [0.0] * n  # alleen relevant voor begrotingsregels
+    raw_prijspe = [0.0] * n
+    is_titel    = [False] * n
+    is_staart   = [False] * n
 
-    is_titel = [False] * n
+    # Zoek de staartscheiding ('/')
+    staart_idx: int | None = None
+    for i, r in enumerate(rows):
+        if (r.get('s') or '').strip() == '/':
+            staart_idx = i
+            break
+
+    # ── Fase 1: begrotingsregels ──────────────────────────────────────────────
     for i, r in enumerate(rows):
         s = (r.get('s') or '').strip()
+        if staart_idx is not None and i >= staart_idx:
+            is_staart[i] = True
+            continue
         if s in TITEL_NIVEAUS:
             is_titel[i] = True
         elif s in BEGROTING_S_CODES:
             p, t, tot = _bereken_regel(r)
-            raw_prijspe[i] = p
-            raw_toturen[i] = t
-            raw_totaal[i]  = tot
-        # Onbekende S-code → laten staan op 0; veiliger dan crashen.
+            raw_prijspe[i], raw_toturen[i], raw_totaal[i] = p, t, tot
 
-    # Roll-up van titelrijen: voor elke titel-i, sommeer de begrotingsregels
-    # tot de volgende titel met s_niveau ≤ huidig niveau.
+    # ── Fase 2: titel-rollup (S=1/2/3) ───────────────────────────────────────
     for i in range(n):
         if not is_titel[i]:
             continue
         niveau = int((rows[i].get('s') or '').strip())
-        som_tot = 0.0
-        som_uren = 0.0
+        som_tot = som_uren = 0.0
         for j in range(i + 1, n):
+            if is_staart[j]:
+                break
             s_j = (rows[j].get('s') or '').strip()
             if s_j in TITEL_NIVEAUS and int(s_j) <= niveau:
                 break
@@ -96,27 +105,88 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
         raw_totaal[i]  = som_tot
         raw_toturen[i] = som_uren
 
+    # ── Fase 3: staart ────────────────────────────────────────────────────────
+    if staart_idx is not None:
+        # Directe kosten: som van begrotingsregels, X-posten NIET meegeteld.
+        directe_kosten = sum(
+            raw_totaal[i] for i in range(staart_idx)
+            if not is_titel[i] and (rows[i].get('s') or '').strip() != 'X'
+        )
+        # Subtotalen per post-type voor gebruik in staart
+        _sub = {
+            code: sum(raw_totaal[i] for i in range(staart_idx)
+                      if (rows[i].get('s') or '').strip() == code)
+            for code in ('S', 'V', 'G', 'X')
+        }
+
+        running = directe_kosten
+        raw_totaal[staart_idx] = directe_kosten  # '/' rij
+
+        for i in range(staart_idx + 1, n):
+            s   = (rows[i].get('s') or '').strip()
+            hvh = _num(rows[i].get('hvh'))
+
+            if s == '%':
+                delta = running * hvh / 100.0
+                raw_totaal[i] = delta
+                running += delta
+            elif s == '+':
+                raw_totaal[i] = hvh
+                running += hvh
+            elif s == '-':
+                raw_totaal[i] = -hvh
+                running -= hvh
+            elif s == '=':
+                raw_totaal[i] = running   # toont lopend totaal, reset niet
+            elif s in ('a', 'b', 'c'):
+                pct = hvh if hvh != 0 else BTW_DEFAULTS.get(s, 0.0)
+                delta = running * pct / 100.0
+                raw_totaal[i] = delta
+                running += delta
+            elif s in ('S', 'V', 'G', 'X'):
+                raw_totaal[i] = _sub.get(s, 0.0)
+            elif s == '&':
+                # Vereenvoudigd: behandel als %-opslag
+                delta = running * hvh / 100.0
+                raw_totaal[i] = delta
+                running += delta
+
+    # ── Uitvoer ───────────────────────────────────────────────────────────────
     out: list[dict] = []
     for i in range(n):
+        t  = raw_totaal[i]
+        tu = raw_toturen[i]
+        pp = raw_prijspe[i]
+        st = is_staart[i]
+
         if is_titel[i]:
             out.append({
-                'prijspe': '',
-                'toturen': format_nl_hvh(raw_toturen[i]) if raw_toturen[i] else '',
-                'totaal':  format_nl(raw_totaal[i]),
+                'prijspe':  '',
+                'toturen':  format_nl_hvh(tu) if tu else '',
+                'totaal':   format_nl(t),
+                'is_staart': False,
+            })
+        elif st:
+            out.append({
+                'prijspe':  '',
+                'toturen':  '',
+                'totaal':   format_nl(t) if t != 0 else '',
+                'is_staart': True,
             })
         else:
             out.append({
-                'prijspe': format_nl(raw_prijspe[i]) if raw_prijspe[i] else '',
-                'toturen': format_nl_hvh(raw_toturen[i]) if raw_toturen[i] else '',
-                'totaal':  format_nl(raw_totaal[i]) if raw_totaal[i] else '',
+                'prijspe':  format_nl(pp) if pp else '',
+                'toturen':  format_nl_hvh(tu) if tu else '',
+                'totaal':   format_nl(t)  if t  else '',
+                'is_staart': False,
             })
     return out
 
 
 def totaal_begroting(calc_rows: list[dict], rows: list[dict]) -> float:
-    """Totaal van alle S=1 rijen — voor de statusbalk."""
-    totaal = 0.0
-    for c, r in zip(calc_rows, rows):
-        if (r.get('s') or '').strip() == '1':
-            totaal += _num(c.get('totaal'))
-    return totaal
+    """Som van alle S=1 rijen — voor de statusbalk (excl. staart)."""
+    return sum(
+        _num(c['totaal'])
+        for c, r in zip(calc_rows, rows)
+        if (r.get('s') or '').strip() == '1'
+    )
