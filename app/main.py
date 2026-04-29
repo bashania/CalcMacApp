@@ -9,7 +9,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal
 from PyQt6.QtGui import (
     QAction,
     QBrush,
@@ -55,24 +55,33 @@ from app.commands import (
 # (tag, label, breedte, bewerkbaar)
 # Tags met '_' zijn berekend: read-only, niet in XML.
 COLUMNS: list[tuple[str, str, int, bool]] = [
-    ('nr',        'Nr',           50,  False),
-    ('code',      'Code',         80,  True),
-    ('s',         'S',            36,  True),
-    ('oms',       'Omschrijving', 260, True),
-    ('hvh',       'Hvh',          72,  True),
-    ('enh',       'Enh',          44,  True),
-    ('arb',       'Arb',          68,  True),
-    ('uurloon',   'Uurloon',      72,  True),
-    ('maa',       'Maa',          80,  True),
-    ('mee',       'Mee',          72,  True),
-    ('ond',       'Ond',          80,  True),
-    ('productie', 'Factor%',      64,  True),
-    ('_prijspe',  'Prijspe',      88,  False),
-    ('_toturen',  'Toturen',      72,  False),
-    ('_totaal',   'Totaal',       96,  False),
-    ('btw',       'BTW',          44,  True),
-    ('code1',     'Onderaannemer', 150, True),
-    ('code4',     'Bestek/Off.',  110, True),
+    # Identificatie
+    ('nr',        'Nr',                 50,  False),
+    ('code',      'Code',               80,  True),
+    ('s',         'S',                  36,  True),
+    ('oms',       'Omschrijving',      260,  True),
+    # Hoeveelheid en eenheid
+    ('hvh',       'Hoeveelheid',        90,  True),
+    ('enh',       'Eenheid',            60,  True),
+    # Eenheidsprijzen (invoer)
+    ('arb',       'Norm (uur/eh)',      90,  True),
+    ('uurloon',   'Uurloon (€/u)',      90,  True),
+    ('maa',       'Materiaal (€/eh)',  110,  True),
+    ('mee',       'Materieel (€/eh)',  110,  True),
+    ('ond',       'Onderaan. (€/eh)',  110,  True),
+    ('productie', 'Factor (%)',         70,  True),
+    # Berekend
+    ('_prijspe',  'Prijs/eenheid (€)', 110,  False),
+    ('_toturen',  'Tot. uren',          80,  False),
+    ('_tot_arb',  'Tot. arbeid (€)',   110,  False),
+    ('_tot_maa',  'Tot. materiaal (€)', 120, False),
+    ('_tot_mee',  'Tot. materieel (€)', 120, False),
+    ('_tot_ond',  'Tot. onderaan. (€)', 130, False),
+    ('_totaal',   'Regeltotaal (€)',   120,  False),
+    # Overige
+    ('btw',       'BTW',                44,  True),
+    ('code1',     'Onderaannemer',     150,  True),
+    ('code4',     'Bestek / Offerte',  130,  True),
 ]
 
 COL_S   = next(i for i, c in enumerate(COLUMNS) if c[0] == 's')
@@ -81,7 +90,8 @@ COL_OMS = next(i for i, c in enumerate(COLUMNS) if c[0] == 'oms')
 # Numerieke kolommen → rechts uitlijnen
 NUMBER_TAGS = frozenset({
     'hvh', 'arb', 'uurloon', 'maa', 'mee', 'ond', 'productie',
-    '_prijspe', '_toturen', '_totaal',
+    '_prijspe', '_toturen',
+    '_tot_arb', '_tot_maa', '_tot_mee', '_tot_ond', '_totaal',
 })
 
 
@@ -178,6 +188,7 @@ class DnDTableWidget(QTableWidget):
         self._oms_col: int = 0
         self._is_titel: callable | None = None
         self._drag_block_count = 1
+        self._drag_src_row = -1
 
     # ── Configuratie door MainWindow ─────────────────────────────────────────
     def set_helpers(
@@ -187,55 +198,77 @@ class DnDTableWidget(QTableWidget):
         self._is_titel = is_titel
         self._oms_col = oms_col
 
-    # ── Klik op disclosure-driehoekje ────────────────────────────────────────
+    # ── Helper: positie uit drop/mouse event (PyQt6 gebruikt position()) ─────
+    @staticmethod
+    def _event_pos(event):
+        if hasattr(event, 'position'):
+            return event.position().toPoint()
+        return event.pos()
+
+    # ── Klik op disclosure-driehoekje + onthoud blok-grootte voor drag ───────
     def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton and self._is_titel:
-            idx = self.indexAt(event.pos())
-            if idx.isValid() and idx.column() == self._oms_col \
-                    and self._is_titel(idx.row()):
+        if event.button() == Qt.MouseButton.LeftButton:
+            pos = self._event_pos(event)
+            idx = self.indexAt(pos)
+            if idx.isValid() and self._is_titel and self._is_titel(idx.row()) \
+                    and idx.column() == self._oms_col:
                 cell_rect = self.visualRect(idx)
-                x_in_cell = event.pos().x() - cell_rect.x()
+                x_in_cell = pos.x() - cell_rect.x()
                 if 0 <= x_in_cell <= self.DISCLOSURE_HIT_PX:
                     self.disclosureClicked.emit(idx.row())
                     event.accept()
                     return
-        # Onthouden welk blok we slepen, voordat de selectie wordt gewijzigd
-        if self._block_size_for and event.button() == Qt.MouseButton.LeftButton:
-            idx = self.indexAt(event.pos())
-            if idx.isValid():
-                self._drag_block_count = self._block_size_for(idx.row())
+            # Onthouden welk blok we slepen
+            if idx.isValid() and self._block_size_for is not None:
+                self._drag_src_row = idx.row()
+                self._drag_block_count = self._block_size_for(idx.row()) or 1
+            else:
+                self._drag_src_row = -1
+                self._drag_block_count = 1
         super().mousePressEvent(event)
 
-    # ── Drop: bereken (src, count, dst) en signal ────────────────────────────
+    # ── Drop: bereken (src, count, dst), defer move tot na event ─────────────
     def dropEvent(self, event):
         if event.source() is not self:
             event.ignore()
             return
-        src = self.currentRow()
+        src = self._drag_src_row
+        if src < 0:
+            src = self.currentRow()
         if src < 0:
             event.ignore()
             return
         count = self._drag_block_count or 1
+        n = self.rowCount()
+        if src + count > n:
+            count = max(1, n - src)
 
-        dst_idx = self.indexAt(event.pos())
+        pos = self._event_pos(event)
+        dst_idx = self.indexAt(pos)
         if not dst_idx.isValid():
-            dst = self.rowCount() - count
+            dst = max(0, n - count)
         else:
             dst = dst_idx.row()
-            # Bereken doelpositie ná verwijdering van het blok:
             if dst > src:
                 dst -= count
                 if dst < 0:
                     dst = 0
-        # Drop binnen het bron-blok zelf wordt genegeerd
-        if src <= dst < src + count:
-            event.ignore()
-            return
-        if dst == src:
+
+        # Drop binnen het bron-blok zelf → niets doen
+        if src <= dst < src + count or dst == src:
             event.ignore()
             return
 
-        self.blockMoveRequested.emit(src, count, dst)
+        # Defer met QTimer.singleShot: laat Qt eerst klaar zijn met het
+        # drop-event voordat we de tabel volledig hervullen.
+        QTimer.singleShot(
+            0, lambda s=src, c=count, d=dst:
+            self.blockMoveRequested.emit(s, c, d),
+        )
+        # Belangrijk: NIET event.accept() met DragDrop mode; setDropAction
+        # zorgt ervoor dat Qt's interne MoveAction-afhandeling onze rijen
+        # niet ook nog eens probeert te verwijderen.
+        event.setDropAction(Qt.DropAction.IgnoreAction)
         event.accept()
 
 
@@ -389,12 +422,13 @@ class MainWindow(QMainWindow):
         )
         self.table.setAlternatingRowColors(False)
 
-        # Drag & drop
+        # Drag & drop — DragDrop mode (geen InternalMove) zodat Qt's
+        # eigen rij-verwijdering ons niet in de weg zit.
         self.table.setDragEnabled(True)
         self.table.setAcceptDrops(True)
         self.table.setDropIndicatorShown(True)
         self.table.setDragDropMode(
-            QAbstractItemView.DragDropMode.InternalMove
+            QAbstractItemView.DragDropMode.DragDrop
         )
         self.table.setDefaultDropAction(Qt.DropAction.MoveAction)
 
@@ -641,8 +675,12 @@ class MainWindow(QMainWindow):
 
         calc_map = {
             '_prijspe': 'prijspe',
-            '_toturen':  'toturen',
-            '_totaal':   'totaal',
+            '_toturen': 'toturen',
+            '_tot_arb': 'tot_arb',
+            '_tot_maa': 'tot_maa',
+            '_tot_mee': 'tot_mee',
+            '_tot_ond': 'tot_ond',
+            '_totaal':  'totaal',
         }
         col_idx = {tag: i for i, (tag, _, _, _) in enumerate(COLUMNS)}
 
