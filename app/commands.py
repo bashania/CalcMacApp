@@ -54,6 +54,33 @@ class SetCellCommand(QUndoCommand):
         self.host.refresh()
 
 
+# ── Project-veld edit ─────────────────────────────────────────────────────────
+class SetProjectFieldCommand(QUndoCommand):
+    """Wijzig één <alginfo> projectveld."""
+
+    def __init__(self, host: _Host, tag: str, old: str, new: str) -> None:
+        super().__init__(f"Project {tag} → {new[:30]}")
+        self.host = host
+        self.tag = tag
+        self.old = old
+        self.new = new
+
+    def redo(self) -> None:
+        if self.host.doc is None:
+            return
+        self.host.doc.set_project_field(self.tag, self.new)
+        # Vraag MainWindow het projectveld in de UI bij te werken
+        if hasattr(self.host, 'sync_project_field'):
+            self.host.sync_project_field(self.tag)
+
+    def undo(self) -> None:
+        if self.host.doc is None:
+            return
+        self.host.doc.set_project_field(self.tag, self.old)
+        if hasattr(self.host, 'sync_project_field'):
+            self.host.sync_project_field(self.tag)
+
+
 # ── Rij invoegen ──────────────────────────────────────────────────────────────
 class InsertRowCommand(QUndoCommand):
     """Voeg een lege rij in op `idx`."""

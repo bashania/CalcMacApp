@@ -47,6 +47,7 @@ from app.commands import (
     InsertRowCommand,
     MoveBlockCommand,
     SetCellCommand,
+    SetProjectFieldCommand,
 )
 
 
@@ -666,8 +667,24 @@ class MainWindow(QMainWindow):
             (self.f_kop, 'kop'), (self.f_r1, 'r1'),
             (self.f_r2,  'r2'),  (self.f_r4, 'r4'),
         ):
-            self.doc.set_project_field(tag, fld.text())
-        self._set_dirty(True)
+            old = self.doc.get_project_field(tag)
+            new = fld.text()
+            if old != new:
+                self.undo_stack.push(
+                    SetProjectFieldCommand(self, tag, old, new)
+                )
+
+    def sync_project_field(self, tag: str) -> None:
+        """Update een QLineEdit na een undo/redo van een project-veld."""
+        fld = {
+            'kop': self.f_kop, 'r1': self.f_r1,
+            'r2':  self.f_r2,  'r4': self.f_r4,
+        }.get(tag)
+        if fld is None or self.doc is None:
+            return
+        fld.blockSignals(True)
+        fld.setText(self.doc.get_project_field(tag))
+        fld.blockSignals(False)
 
     def _on_cell_changed(self, item: QTableWidgetItem) -> None:
         if not self.doc:
