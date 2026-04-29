@@ -2,13 +2,23 @@
 
 Een snelstart voor het werken met `.c4y` begrotingen in CalcMacApp.
 
+## Snel starten op Mac
+
+Twee manieren:
+
+1. **Dubbelklik op `CalcMacApp.command`** in Finder. De eerste keer
+   installeert het script automatisch de benodigde Python-pakketten.
+2. **Vanuit Terminal**: `python3 -m app.main` (na `pip install -r
+   requirements.txt`).
+
 ## In één minuut
 
 1. Open een bestand: **⌘O**
 2. Selecteer een cel, **typ** of **F2** om te bewerken
 3. **⌅ Return** of **Tab** om naar de volgende cel/rij te gaan
 4. **F9** voor een nieuwe rij eronder, **F11** om te verwijderen
-5. **⌘S** om te bewaren
+5. **⌘B** om een totaalbedrag terug te rekenen naar prijs per eenheid
+6. **⌘S** om te bewaren
 
 ## Overzicht van het venster
 
@@ -37,6 +47,7 @@ Een snelstart voor het werken met `.c4y` begrotingen in CalcMacApp.
 | F11 | Rij verwijderen (met bevestiging bij data) |
 | ⇧F4 | Rij dupliceren onder |
 | F4 | Cel uit rij erboven kopiëren |
+| ⌘B | Bruto invoeren (totaal → per eenheid) |
 | ⇧⌘F | Kolom met waarde vullen |
 
 ### Navigatie
@@ -93,17 +104,42 @@ de S-code? Dan worden de bewerkbare velden direct opnieuw bepaald.
 De cel waar je in staat heeft een **systemBlue rand** rondom — ook als de
 hele rij geselecteerd is. Zo zie je altijd waar je intypt.
 
-### Kolommen tonen / verbergen
+### Kolommen tonen / verbergen / **verplaatsen**
 
-Twee plekken:
+Drie plekken:
 
 1. **Beeld → Kolommen** — submenu met een vinkje per kolom
 2. **Rechtermuisknop op een kolomkop** → "Verberg deze kolom" of submenu
    "Kolommen…"
+3. **Sleep een kolomkop links of rechts** om de volgorde aan te passen
 
-Je instellingen (kolombreedtes, welke kolommen verborgen zijn,
-venstergrootte, Inspector aan/uit) worden bij het afsluiten bewaard en
-weer hersteld als je de app opnieuw opent.
+Je instellingen (kolombreedtes, kolomvolgorde, welke kolommen verborgen
+zijn, venstergrootte, Inspector aan/uit) worden bij het afsluiten
+bewaard en weer hersteld als je de app opnieuw opent.
+
+### Bruto invoeren (⌘B)
+
+Als je een offerte van een onderaannemer hebt waarin een **totaalbedrag**
+staat (bv. "Steiger 576 m² = € 5.616"), maar de tabel verwacht een prijs
+per eenheid, gebruik dan **⌘B**:
+
+1. Zorg dat de **hoeveelheid** op de regel klopt (576 in dit voorbeeld)
+2. Druk **⌘B** of kies **Bewerken → Bruto invoeren…**
+3. Vul "Totaal onderaan." in met `5616`
+4. Onder het veld zie je live "→ € 9,75 per m²"
+5. Klik **Toepassen** → de Onderaan.-kolom wordt op **9,75** gezet
+
+Werkt voor alle vier kostensoorten (Arbeid, Materiaal, Materieel,
+Onderaanneming). Lege velden worden niet aangeraakt. Eén ⌘Z draait alle
+wijzigingen ineens terug.
+
+### Begrotingstotalen onderaan
+
+De statusbalk toont twee bedragen:
+
+- **Bouwkosten**: som van alle hoofdstukken (S=1)
+- **Eindtotaal**: het laatste `=` in de staart, dus inclusief BTW en
+  alle staart-opslagen. Verschijnt alleen als er een staart is.
 
 ## Stuurcodes (S-kolom)
 

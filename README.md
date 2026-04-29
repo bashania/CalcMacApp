@@ -32,12 +32,26 @@ GUI gebruikt worden — handig voor scripts.
 
 ## Installeren en starten
 
+### macOS — snelste manier
+
+Dubbelklik op **`CalcMacApp.command`** in Finder. Bij de eerste start
+maakt het script automatisch een virtuele omgeving aan en installeert
+het de dependencies.
+
+### Vanuit Terminal (Mac of Windows)
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate         # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python3 -m app.main
 ```
+
+### Echte `.app` bundel (later)
+
+Voor een volledige macOS-applicatie zonder Terminal-popup is `py2app`
+of `briefcase` de aangewezen route. Niet meegeleverd in de huidige
+build — staat op de roadmap.
 
 ## Documentatie
 

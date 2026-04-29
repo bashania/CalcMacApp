@@ -49,10 +49,14 @@ def _clean_xml(text: str) -> str:
 
 # ── Getalconversie NL ↔ float ─────────────────────────────────────────────────
 def parse_nl_number(value: Optional[str]) -> Optional[float]:
-    """'1.234,56' → 1234.56. Lege string → None."""
+    """'1.234,56' → 1234.56. Lege string → None.
+
+    Tolerant voor `%`-teken (bv. '21%' of '21 %' uit een BTW-rij) en
+    omringende whitespace. Niet-numerieke input geeft None.
+    """
     if value is None:
         return None
-    s = str(value).strip()
+    s = str(value).strip().rstrip('%').strip()
     if not s:
         return None
     cleaned = s.replace('.', '').replace(',', '.')

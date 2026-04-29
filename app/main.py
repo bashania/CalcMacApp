@@ -50,8 +50,10 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from app.c4y_io import C4YDocument, TITEL_NIVEAUS, format_nl
-from app.calc import recompute, totaal_begroting
+from app.c4y_io import (
+    C4YDocument, TITEL_NIVEAUS, format_nl, format_nl_hvh, parse_nl_number,
+)
+from app.calc import eindtotaal_begroting, recompute, totaal_begroting
 from app.commands import (
     DeleteRowCommand,
     DuplicateRowCommand,
@@ -459,6 +461,117 @@ class FillColumnDialog(QDialog):
         return self.rb_sel.isChecked()
 
 
+class BrutoInputDialog(QDialog):
+    """Bruto-invoer: voer totaalbedragen per kostensoort in en zie live
+    wat de prijs per eenheid wordt. Toepassen schrijft alleen niet-lege
+    velden weg via één undo-macro.
+    """
+
+    KOSTEN_VELDEN = (
+        ('arb_uur', 'Totaal arbeid (€)',      'arb',     True),
+        ('maa',     'Totaal materiaal (€)',   'maa',     False),
+        ('mee',     'Totaal materieel (€)',   'mee',     False),
+        ('ond',     'Totaal onderaan. (€)',   'ond',     False),
+    )
+
+    def __init__(
+        self, parent: QWidget,
+        hoeveelheid: float, eenheid: str, uurloon: float,
+        productie: float,
+    ) -> None:
+        super().__init__(parent)
+        self.setWindowTitle('Bruto invoeren')
+        self.setWindowModality(Qt.WindowModality.WindowModal)
+        self.resize(420, 320)
+
+        self.hvh = hoeveelheid
+        self.eenheid = eenheid or 'eh'
+        self.uurloon = uurloon
+        self.factor = 1.0 + productie / 100.0
+
+        layout = QVBoxLayout(self)
+        info = QLabel(
+            f'Hoeveelheid: <b>{format_nl_hvh(hoeveelheid)} {self.eenheid}</b>'
+            f' &nbsp; · &nbsp; Uurloon: € {format_nl(uurloon)}'
+            f' &nbsp; · &nbsp; Factor: {format_nl(productie, 0)}%'
+        )
+        info.setTextFormat(Qt.TextFormat.RichText)
+        layout.addWidget(info)
+
+        form = QFormLayout()
+        self.fields: dict[str, QLineEdit] = {}
+        self.previews: dict[str, QLabel] = {}
+        for key, label, _tag, _is_arb in self.KOSTEN_VELDEN:
+            le = QLineEdit()
+            le.setPlaceholderText('leeg laten = niet wijzigen')
+            le.textChanged.connect(self._update_previews)
+            preview = QLabel('—')
+            preview.setStyleSheet('color: palette(mid);')
+            self.fields[key] = le
+            self.previews[key] = preview
+            row = QVBoxLayout()
+            row.setSpacing(2)
+            row.addWidget(le)
+            row.addWidget(preview)
+            holder = QWidget(); holder.setLayout(row)
+            form.addRow(label, holder)
+        layout.addLayout(form)
+
+        bb = QDialogButtonBox()
+        self.btn_apply = bb.addButton(
+            'Toepassen', QDialogButtonBox.ButtonRole.AcceptRole
+        )
+        bb.addButton('Annuleren', QDialogButtonBox.ButtonRole.RejectRole)
+        self.btn_apply.setDefault(True)
+        bb.accepted.connect(self.accept)
+        bb.rejected.connect(self.reject)
+        layout.addStretch(1)
+        layout.addWidget(bb)
+
+        self._update_previews()
+        self.fields['ond'].setFocus()
+
+    def _per_eh(self, key: str) -> float | None:
+        """Bepaal de per-eenheid waarde uit het totaal in dit veld."""
+        total = parse_nl_number(self.fields[key].text())
+        if total is None or self.hvh <= 0:
+            return None
+        if key == 'arb_uur':
+            # Arbeid: totaal = hvh * arb * uurloon * factor → per uren-eenheid
+            denom = self.hvh * self.uurloon * self.factor
+            return total / denom if denom else None
+        # Andere kostensoort: totaal = hvh * waarde * factor → waarde = totaal / (hvh*factor)
+        denom = self.hvh * self.factor
+        return total / denom if denom else None
+
+    def _update_previews(self) -> None:
+        for key, _label, _tag, is_arb in self.KOSTEN_VELDEN:
+            v = self._per_eh(key)
+            if v is None:
+                self.previews[key].setText('—')
+            elif is_arb:
+                self.previews[key].setText(
+                    f'→ {format_nl(v, 3)} uur per {self.eenheid}'
+                )
+            else:
+                self.previews[key].setText(
+                    f'→ € {format_nl(v)} per {self.eenheid}'
+                )
+
+    def values_to_apply(self) -> dict[str, str]:
+        """Geeft {tag: waarde} voor alle ingevulde velden, in NL-formaat."""
+        out: dict[str, str] = {}
+        for key, _label, tag, is_arb in self.KOSTEN_VELDEN:
+            v = self._per_eh(key)
+            if v is None:
+                continue
+            if is_arb:
+                out['arb'] = format_nl(v, 3)
+            else:
+                out[tag] = format_nl(v)
+        return out
+
+
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
@@ -558,6 +671,12 @@ class MainWindow(QMainWindow):
         )
         self.act_fill_column.triggered.connect(self.on_fill_column)
 
+        # Bruto invoeren (⌘B)
+        self.act_bruto = QAction(
+            'Bruto invoeren…', self, shortcut='Ctrl+B',
+        )
+        self.act_bruto.triggered.connect(self.on_bruto_invoeren)
+
         # Inspector toggle (⌘I op macOS, Ctrl+I elders)
         self.act_toggle_inspector = QAction(
             'Toon Inspector', self, shortcut='Ctrl+I', checkable=True,
@@ -623,7 +742,9 @@ class MainWindow(QMainWindow):
         hh = self.table.horizontalHeader()
         hh.setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
         hh.setStretchLastSection(False)
-        # Rechtermuisklik op een kolomkop → snel-menu "Vul kolom met..."
+        # Sleep om kolommen te herordenen — saveState() onthoudt de volgorde
+        hh.setSectionsMovable(True)
+        # Rechtermuisklik op een kolomkop → snel-menu
         hh.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         hh.customContextMenuRequested.connect(self._on_header_context_menu)
         self.table.verticalHeader().setDefaultSectionSize(22)
@@ -922,6 +1043,7 @@ class MainWindow(QMainWindow):
         b.addAction(self.act_row_dup)
         b.addAction(self.act_cell_dup_above)
         b.addSeparator()
+        b.addAction(self.act_bruto)
         b.addAction(self.act_fill_column)
         b.addSeparator()
         b.addAction(self.act_find)
@@ -957,8 +1079,16 @@ class MainWindow(QMainWindow):
     def _build_statusbar(self) -> None:
         sb = QStatusBar(self)
         self.setStatusBar(sb)
-        self._lbl_totaal = QLabel('Geen bestand geopend')
-        sb.addPermanentWidget(self._lbl_totaal)
+        # Bouwkosten subtiel; eindtotaal vetgedrukt rechts ervan.
+        self._lbl_bouwkosten = QLabel('Geen bestand geopend')
+        self._lbl_bouwkosten.setStyleSheet('color: palette(mid);')
+        self._lbl_eindtotaal = QLabel('')
+        f = self._lbl_eindtotaal.font(); f.setBold(True)
+        self._lbl_eindtotaal.setFont(f)
+        # Compatibiliteit met oudere code: alias
+        self._lbl_totaal = self._lbl_bouwkosten
+        sb.addPermanentWidget(self._lbl_bouwkosten)
+        sb.addPermanentWidget(self._lbl_eindtotaal)
 
     # ── Titelstatus + actie-enabled ───────────────────────────────────────────
     @property
@@ -1202,8 +1332,19 @@ class MainWindow(QMainWindow):
         finally:
             self.table.blockSignals(False)
 
-        totaal = totaal_begroting(results, rows_in)
-        self._lbl_totaal.setText(f'Totaal: € {format_nl(totaal)}')
+        bouwkosten = totaal_begroting(results, rows_in)
+        self._lbl_bouwkosten.setText(
+            f'Bouwkosten: € {format_nl(bouwkosten)}'
+        )
+        eindtotaal = eindtotaal_begroting(results, rows_in)
+        if eindtotaal is not None:
+            self._lbl_eindtotaal.setText(
+                f'Eindtotaal: € {format_nl(eindtotaal)}'
+            )
+            self._lbl_eindtotaal.setVisible(True)
+        else:
+            self._lbl_eindtotaal.setText('')
+            self._lbl_eindtotaal.setVisible(False)
 
     # ── Celwijzigingen ───────────────────────────────────────────────────────
     def _on_project_edit(self) -> None:
@@ -1403,6 +1544,50 @@ class MainWindow(QMainWindow):
         if not rows:
             return
         self.undo_stack.push(FillColumnCommand(self, tag, value, rows))
+
+    # ── Bruto-invoer ─────────────────────────────────────────────────────────
+    def on_bruto_invoeren(self) -> None:
+        if not self.doc or self.doc.row_count() == 0:
+            return
+        row = self._current_row()
+        s_code = self.doc.get_row_field(row, 's').strip()
+        # Alleen begrotingsregels (geen titels, geen staart)
+        if s_code in ('1', '2', '3', '/', '%', '&', '=', '+', '-', 'a', 'b', 'c'):
+            QMessageBox.information(
+                self, 'Bruto invoeren',
+                'Bruto-invoer werkt alleen op een begrotingsregel.',
+            )
+            return
+        hvh = parse_nl_number(self.doc.get_row_field(row, 'hvh')) or 0.0
+        if hvh <= 0:
+            QMessageBox.information(
+                self, 'Bruto invoeren',
+                'Vul eerst een hoeveelheid groter dan 0 in.',
+            )
+            return
+        ul = parse_nl_number(self.doc.get_row_field(row, 'uurloon'))
+        if ul is None or ul == 0:
+            ul = parse_nl_number(self.doc.get_project_field('ul')) or 45.0
+        prod = parse_nl_number(self.doc.get_row_field(row, 'productie')) or 0.0
+        enh = self.doc.get_row_field(row, 'enh')
+
+        dlg = BrutoInputDialog(self, hvh, enh, ul, prod)
+        if dlg.exec() != QDialog.DialogCode.Accepted:
+            return
+        updates = dlg.values_to_apply()
+        if not updates:
+            return
+        # Eén undo-macro voor alles
+        self.undo_stack.beginMacro('Bruto invoer')
+        try:
+            for tag, new_value in updates.items():
+                old_value = self.doc.get_row_field(row, tag)
+                if old_value != new_value:
+                    self.undo_stack.push(
+                        SetCellCommand(self, row, tag, old_value, new_value)
+                    )
+        finally:
+            self.undo_stack.endMacro()
 
     def _on_header_context_menu(self, pos) -> None:
         """Rechtermuisklik op een kolomkop → contextmenu met

@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from app.c4y_io import format_nl, format_nl_hvh, parse_nl_number
+from app.c4y_io import format_nl, format_nl_hvh, parse_nl_number  # noqa: F401
 
 
 # ── S-code classificatie ──────────────────────────────────────────────────────
@@ -185,8 +185,15 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 delta = running * pct / 100.0
                 raw_totaal[i] = delta
                 running += delta
-            elif s in ('S', 'V', 'G', 'X'):
+            elif s in ('S', 'V', 'G'):
+                # Stelposten/verrekenposten/geschatte posten zitten al in
+                # directe kosten — alleen tonen, niet nogmaals optellen.
                 raw_totaal[i] = _sub.get(s, 0.0)
+            elif s == 'X':
+                # X-posten zijn juist BUITEN directe kosten — nu wel optellen.
+                delta = _sub.get('X', 0.0)
+                raw_totaal[i] = delta
+                running += delta
             elif s == '&':
                 # Vereenvoudigd: behandel als %-opslag
                 delta = running * hvh / 100.0
@@ -249,3 +256,20 @@ def totaal_begroting(calc_rows: list[dict], rows: list[dict]) -> float:
         for c, r in zip(calc_rows, rows)
         if (r.get('s') or '').strip() == '1'
     )
+
+
+def eindtotaal_begroting(
+    calc_rows: list[dict], rows: list[dict],
+) -> float | None:
+    """Eindbedrag = laatste '=' in de staart, of None als er geen staart is.
+
+    Een '=' rij toont het lopend totaal, dus de laatste '=' is het
+    eindtotaal van de begroting incl. BTW.
+    """
+    last: float | None = None
+    for c, r in zip(calc_rows, rows):
+        if (r.get('s') or '').strip() == '=':
+            v = parse_nl_number(c['totaal'])
+            if v is not None:
+                last = v
+    return last
