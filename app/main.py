@@ -22,6 +22,10 @@ from PyQt6.QtWidgets import (
     QAbstractItemDelegate,
     QAbstractItemView,
     QApplication,
+    QButtonGroup,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
     QFileDialog,
     QFormLayout,
     QHBoxLayout,
@@ -29,7 +33,9 @@ from PyQt6.QtWidgets import (
     QLabel,
     QLineEdit,
     QMainWindow,
+    QMenu,
     QMessageBox,
+    QRadioButton,
     QSizePolicy,
     QStatusBar,
     QStyle,
@@ -45,6 +51,7 @@ from app.calc import recompute, totaal_begroting
 from app.commands import (
     DeleteRowCommand,
     DuplicateRowCommand,
+    FillColumnCommand,
     InsertRowCommand,
     MoveBlockCommand,
     SetCellCommand,
@@ -326,6 +333,83 @@ class _ShiftEnterFilter(QObject):
         return True
 
 
+class FillColumnDialog(QDialog):
+    """Dialog om één kolom met dezelfde waarde te vullen."""
+
+    def __init__(
+        self, parent: QWidget,
+        editable_columns: list[tuple[str, str]],
+        prefill_tag: str | None = None,
+        has_selection: bool = False,
+    ) -> None:
+        super().__init__(parent)
+        self.setWindowTitle('Kolom vullen met waarde')
+        self.setModal(True)
+        self.resize(380, 200)
+
+        layout = QVBoxLayout(self)
+        form = QFormLayout()
+
+        self.cb_column = QComboBox()
+        for tag, label in editable_columns:
+            self.cb_column.addItem(label, tag)
+        if prefill_tag:
+            for i in range(self.cb_column.count()):
+                if self.cb_column.itemData(i) == prefill_tag:
+                    self.cb_column.setCurrentIndex(i)
+                    break
+
+        self.le_value = QLineEdit()
+        self.le_value.setPlaceholderText('Bijvoorbeeld 45 of 25 of OHD 03')
+
+        form.addRow('Kolom:', self.cb_column)
+        form.addRow('Nieuwe waarde:', self.le_value)
+        layout.addLayout(form)
+
+        # Bereik
+        self.rb_all = QRadioButton('Alle rijen')
+        self.rb_sel = QRadioButton(
+            f'Alleen geselecteerde rijen'
+            f'{"" if has_selection else " (geen selectie)"}'
+        )
+        self.rb_sel.setEnabled(has_selection)
+        if has_selection:
+            self.rb_sel.setChecked(True)
+        else:
+            self.rb_all.setChecked(True)
+        group = QButtonGroup(self)
+        group.addButton(self.rb_all)
+        group.addButton(self.rb_sel)
+
+        layout.addSpacing(6)
+        layout.addWidget(QLabel('Bereik:'))
+        layout.addWidget(self.rb_all)
+        layout.addWidget(self.rb_sel)
+
+        bb = QDialogButtonBox(
+            QDialogButtonBox.StandardButton.Ok
+            | QDialogButtonBox.StandardButton.Cancel
+        )
+        bb.accepted.connect(self.accept)
+        bb.rejected.connect(self.reject)
+        layout.addStretch(1)
+        layout.addWidget(bb)
+
+        self.le_value.setFocus()
+
+    @property
+    def selected_tag(self) -> str:
+        return self.cb_column.currentData()
+
+    @property
+    def selected_value(self) -> str:
+        return self.le_value.text()
+
+    @property
+    def use_selection(self) -> bool:
+        return self.rb_sel.isChecked()
+
+
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
@@ -410,6 +494,12 @@ class MainWindow(QMainWindow):
         )
         self.act_cell_dup_above.triggered.connect(self.on_cell_dup_above)
 
+        # Kolom vullen
+        self.act_fill_column = QAction(
+            'Kolom vullen met waarde…', self, shortcut='Ctrl+Shift+F',
+        )
+        self.act_fill_column.triggered.connect(self.on_fill_column)
+
         # In/uitklap
         self.act_collapse = QAction('Niveau in/uitklappen', self,
                                     shortcut=Qt.Key.Key_F8)
@@ -468,6 +558,9 @@ class MainWindow(QMainWindow):
         hh = self.table.horizontalHeader()
         hh.setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
         hh.setStretchLastSection(False)
+        # Rechtermuisklik op een kolomkop → snel-menu "Vul kolom met..."
+        hh.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        hh.customContextMenuRequested.connect(self._on_header_context_menu)
         self.table.verticalHeader().setDefaultSectionSize(22)
         self.table.verticalHeader().setVisible(False)
         self.table.setShowGrid(True)
@@ -533,6 +626,8 @@ class MainWindow(QMainWindow):
         b.addAction(self.act_row_dup)
         b.addAction(self.act_cell_dup_above)
         b.addSeparator()
+        b.addAction(self.act_fill_column)
+        b.addSeparator()
         b.addAction(self.act_collapse)
         b.addAction(self.act_collapse_level)
 
@@ -580,6 +675,7 @@ class MainWindow(QMainWindow):
             self.act_row_add_below, self.act_row_add_above,
             self.act_row_delete,    self.act_row_dup,
             self.act_cell_dup_above,
+            self.act_fill_column,
             self.act_collapse,      self.act_collapse_level,
         ):
             a.setEnabled(has_doc)
@@ -918,6 +1014,65 @@ class MainWindow(QMainWindow):
         if old == new:
             return
         self.undo_stack.push(SetCellCommand(self, row, tag, old, new))
+
+    # ── Kolom vullen ─────────────────────────────────────────────────────────
+    def _editable_columns_for_dialog(self) -> list[tuple[str, str]]:
+        """Geef (tag, label) voor kolommen die je via 'Kolom vullen' mag
+        bewerken — alleen XML-velden, geen berekende of structurele kolommen.
+        """
+        skip = {'nr', 's', 'oms'}  # nr is auto, s is structurele code, oms is per regel
+        return [
+            (tag, label)
+            for tag, label, _w, editable in COLUMNS
+            if editable and not tag.startswith('_') and tag not in skip
+        ]
+
+    def _selected_row_indices(self) -> list[int]:
+        rows: set[int] = set()
+        for idx in self.table.selectionModel().selectedIndexes():
+            rows.add(idx.row())
+        return sorted(rows)
+
+    def on_fill_column(self, prefill_tag: str | None = None) -> None:
+        if not self.doc:
+            return
+        editable = self._editable_columns_for_dialog()
+        if not editable:
+            return
+        sel_rows = self._selected_row_indices()
+        dlg = FillColumnDialog(
+            self, editable,
+            prefill_tag=prefill_tag,
+            has_selection=bool(sel_rows),
+        )
+        if dlg.exec() != QDialog.DialogCode.Accepted:
+            return
+        tag = dlg.selected_tag
+        value = dlg.selected_value
+        rows = sel_rows if dlg.use_selection else list(range(
+            self.doc.row_count()
+        ))
+        if not rows:
+            return
+        self.undo_stack.push(FillColumnCommand(self, tag, value, rows))
+
+    def _on_header_context_menu(self, pos) -> None:
+        """Rechtermuisklik op een kolomkop → snel-menu met 'Vul deze kolom…'"""
+        if not self.doc:
+            return
+        col = self.table.horizontalHeader().logicalIndexAt(pos)
+        if col < 0 or col >= len(COLUMNS):
+            return
+        tag, label, _w, editable = COLUMNS[col]
+        if not editable or tag.startswith('_'):
+            return
+        menu = QMenu(self)
+        act = menu.addAction(f'Vul kolom "{label}" met waarde…')
+        chosen = menu.exec(
+            self.table.horizontalHeader().mapToGlobal(pos)
+        )
+        if chosen is act:
+            self.on_fill_column(prefill_tag=tag)
 
     # ── Drag & drop signal-handler ────────────────────────────────────────────
     def _on_block_move(self, src: int, count: int, dst: int) -> None:

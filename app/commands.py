@@ -208,3 +208,41 @@ class MoveBlockCommand(QUndoCommand):
         self.host.doc.renumber()
         self.host.refresh()
         self.host.select_row(self.src)
+
+
+# ── Kolom vullen / forceren ───────────────────────────────────────────────────
+class FillColumnCommand(QUndoCommand):
+    """Zet één veld op meerdere rijen tegelijk; undo herstelt elk
+    individuele oude waarde.
+    """
+
+    def __init__(
+        self, host: _Host, tag: str, new_value: str,
+        row_indices: list[int],
+    ) -> None:
+        n = len(row_indices)
+        super().__init__(f"{tag} → {new_value[:30]} ({n} rijen)")
+        self.host = host
+        self.tag = tag
+        self.new_value = new_value
+        self.row_indices = list(row_indices)
+        self._old_values: list[str] = []
+
+    def redo(self) -> None:
+        if self.host.doc is None:
+            return
+        if not self._old_values:
+            self._old_values = [
+                self.host.doc.get_row_field(r, self.tag)
+                for r in self.row_indices
+            ]
+        for r in self.row_indices:
+            self.host.doc.set_row_field(r, self.tag, self.new_value)
+        self.host.refresh()
+
+    def undo(self) -> None:
+        if self.host.doc is None:
+            return
+        for r, old in zip(self.row_indices, self._old_values):
+            self.host.doc.set_row_field(r, self.tag, old)
+        self.host.refresh()
