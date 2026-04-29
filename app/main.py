@@ -480,6 +480,17 @@ class MainWindow(QMainWindow):
         )
         self.table.setAlternatingRowColors(False)
         self.table.setTabKeyNavigation(True)   # Tab → volgende cel
+        # Edit-triggers ruim zetten zodat toetsenbordnavigatie soepel werkt:
+        # - dubbelklik (standaard)
+        # - F2 (EditKeyPressed)
+        # - één klik op een al geselecteerde cel (SelectedClicked)
+        # - elke toetsaanslag op de cel begint direct te typen (AnyKeyPressed)
+        self.table.setEditTriggers(
+            QAbstractItemView.EditTrigger.DoubleClicked
+            | QAbstractItemView.EditTrigger.EditKeyPressed
+            | QAbstractItemView.EditTrigger.SelectedClicked
+            | QAbstractItemView.EditTrigger.AnyKeyPressed
+        )
 
         # Drag & drop — DragDrop mode (geen InternalMove) zodat Qt's
         # eigen rij-verwijdering ons niet in de weg zit.
