@@ -9,7 +9,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import QEvent, QObject, Qt, QTimer, pyqtSignal
+from PyQt6.QtCore import QEvent, QObject, QSettings, Qt, QTimer, pyqtSignal
 from PyQt6.QtGui import (
     QAction,
     QBrush,
@@ -26,8 +26,10 @@ from PyQt6.QtWidgets import (
     QComboBox,
     QDialog,
     QDialogButtonBox,
+    QDockWidget,
     QFileDialog,
     QFormLayout,
+    QGroupBox,
     QHBoxLayout,
     QHeaderView,
     QLabel,
@@ -57,6 +59,7 @@ from app.commands import (
     SetCellCommand,
     SetProjectFieldCommand,
 )
+from app.find_bar import FindBar
 
 
 # ── Kolomdefinitie ───────────────────────────────────────────────────────────
@@ -280,11 +283,12 @@ class DnDTableWidget(QTableWidget):
         event.accept()
 
 
-class _ShiftEnterFilter(QObject):
-    """Application-event filter die Shift+Enter (en Shift+Return) opvangt
-    wanneer focus ergens in de tabel of zijn cel-editor staat. Pleegt
-    eventueel een commit van de actieve editor en zet de cursor op de
-    cel direct eronder (zelfde kolom).
+class _ReturnNextRowFilter(QObject):
+    """Numbers-stijl Return-navigatie.
+
+    Vangt zowel Return als Shift+Return op wanneer focus binnen de tabel
+    staat (ook tijdens cel-bewerking). Commit de actieve editor en zet
+    de cursor op de cel direct eronder (zelfde kolom).
     """
 
     def __init__(self, table: QTableWidget) -> None:
@@ -295,8 +299,6 @@ class _ShiftEnterFilter(QObject):
         if event.type() != QEvent.Type.KeyPress:
             return False
         if event.key() not in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
-            return False
-        if not (event.modifiers() & Qt.KeyboardModifier.ShiftModifier):
             return False
 
         # Geldt alleen als de focus binnen de tabel staat (of in een editor
@@ -344,7 +346,8 @@ class FillColumnDialog(QDialog):
     ) -> None:
         super().__init__(parent)
         self.setWindowTitle('Kolom vullen met waarde')
-        self.setModal(True)
+        # Sheet-stijl op macOS (window-modal + parent = main window)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
         self.resize(380, 200)
 
         layout = QVBoxLayout(self)
@@ -386,10 +389,15 @@ class FillColumnDialog(QDialog):
         layout.addWidget(self.rb_all)
         layout.addWidget(self.rb_sel)
 
-        bb = QDialogButtonBox(
-            QDialogButtonBox.StandardButton.Ok
-            | QDialogButtonBox.StandardButton.Cancel
+        # Apple HIG: named actie-knop i.p.v. OK
+        bb = QDialogButtonBox()
+        btn_apply = bb.addButton(
+            'Vul kolom', QDialogButtonBox.ButtonRole.AcceptRole
         )
+        bb.addButton(
+            'Annuleren', QDialogButtonBox.ButtonRole.RejectRole
+        )
+        btn_apply.setDefault(True)
         bb.accepted.connect(self.accept)
         bb.rejected.connect(self.reject)
         layout.addStretch(1)
@@ -425,6 +433,11 @@ class MainWindow(QMainWindow):
         import xml.etree.ElementTree as _ET
         self._collapsed: set[_ET.Element] = set()
 
+        # Find-bar state
+        self._find_query: str = ''
+        self._find_matches: list[tuple[int, int]] = []  # (row, col)
+        self._find_active: int = -1   # index in _find_matches
+
         self._build_actions()
         self._build_ui()
         self._build_menu()
@@ -434,9 +447,10 @@ class MainWindow(QMainWindow):
         self._update_action_state()
         self.resize(1540, 800)
 
-        # Shift+Enter → volgende rij (zelfde kolom), ook tijdens cel-bewerken
-        self._shift_enter_filter = _ShiftEnterFilter(self.table)
-        QApplication.instance().installEventFilter(self._shift_enter_filter)
+        # Return / Shift+Return → volgende rij (Numbers-stijl), ook tijdens
+        # cel-bewerken
+        self._return_filter = _ReturnNextRowFilter(self.table)
+        QApplication.instance().installEventFilter(self._return_filter)
 
     # ── Gedeelde acties ──────────────────────────────────────────────────────
     def _build_actions(self) -> None:
@@ -500,6 +514,28 @@ class MainWindow(QMainWindow):
         )
         self.act_fill_column.triggered.connect(self.on_fill_column)
 
+        # Inspector toggle (⌘I op macOS, Ctrl+I elders)
+        self.act_toggle_inspector = QAction(
+            'Toon Inspector', self, shortcut='Ctrl+I', checkable=True,
+        )
+        self.act_toggle_inspector.triggered.connect(
+            self.on_toggle_inspector
+        )
+
+        # Find-bar (⌘F)
+        self.act_find = QAction(
+            'Zoeken…', self, shortcut=QKeySequence.StandardKey.Find,
+        )
+        self.act_find.triggered.connect(self.on_find_open)
+        self.act_find_next = QAction(
+            'Volgende', self, shortcut=QKeySequence.StandardKey.FindNext,
+        )
+        self.act_find_next.triggered.connect(self.on_find_next)
+        self.act_find_prev = QAction(
+            'Vorige', self, shortcut=QKeySequence.StandardKey.FindPrevious,
+        )
+        self.act_find_prev.triggered.connect(self.on_find_prev)
+
         # In/uitklap
         self.act_collapse = QAction('Niveau in/uitklappen', self,
                                     shortcut=Qt.Key.Key_F8)
@@ -519,36 +555,21 @@ class MainWindow(QMainWindow):
         root.setContentsMargins(8, 6, 8, 4)
         root.setSpacing(6)
 
-        # Projectkop: twee QFormLayouts naast elkaar
-        form_row = QHBoxLayout()
-        form_row.setSpacing(20)
-
-        left_form  = QFormLayout()
-        right_form = QFormLayout()
-        for f in (left_form, right_form):
-            f.setRowWrapPolicy(QFormLayout.RowWrapPolicy.DontWrapRows)
-            f.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
-            f.setHorizontalSpacing(8)
-
+        # Projectvelden komen in een Inspector-zijbalk (zie _build_inspector).
         self.f_kop = QLineEdit(); self.f_kop.setPlaceholderText('20261.00260')
         self.f_r1  = QLineEdit(); self.f_r1.setPlaceholderText('Projectnaam')
         self.f_r2  = QLineEdit(); self.f_r2.setPlaceholderText('Adres')
         self.f_r4  = QLineEdit(); self.f_r4.setPlaceholderText('Omschrijving werkzaamheden')
-
-        left_form.addRow('Nummer',       self.f_kop)
-        left_form.addRow('Naam',         self.f_r1)
-        right_form.addRow('Adres',       self.f_r2)
-        right_form.addRow('Omschrijving', self.f_r4)
-
-        for w in (self.f_r1, self.f_r4):
-            w.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-
         for fld in (self.f_kop, self.f_r1, self.f_r2, self.f_r4):
             fld.editingFinished.connect(self._on_project_edit)
 
-        form_row.addLayout(left_form, 1)
-        form_row.addLayout(right_form, 2)
-        root.addLayout(form_row)
+        # Find-bar (slide-down boven de tabel)
+        self.find_bar = FindBar(self)
+        self.find_bar.queryChanged.connect(self._on_find_query)
+        self.find_bar.nextRequested.connect(self._find_advance)
+        self.find_bar.previousRequested.connect(self._find_back)
+        self.find_bar.closed.connect(self._on_find_closed)
+        root.addWidget(self.find_bar)
 
         # Begrotingstabel met drag & drop en disclosure-klik
         self.table = DnDTableWidget(0, len(COLUMNS))
@@ -606,6 +627,177 @@ class MainWindow(QMainWindow):
         root.addWidget(self.table)
 
         self.setCentralWidget(central)
+        self._build_inspector()
+
+    def _build_inspector(self) -> None:
+        """Inspector-zijbalk (rechts) voor projectgegevens. ⌘I toggle't."""
+        panel = QWidget()
+        v = QVBoxLayout(panel)
+        v.setContentsMargins(12, 10, 12, 12)
+        v.setSpacing(10)
+
+        gb_proj = QGroupBox('Project')
+        gp_form = QFormLayout(gb_proj)
+        gp_form.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
+        gp_form.addRow('Nummer', self.f_kop)
+        gp_form.addRow('Naam',   self.f_r1)
+
+        gb_loc = QGroupBox('Locatie')
+        gl_form = QFormLayout(gb_loc)
+        gl_form.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
+        gl_form.addRow('Adres', self.f_r2)
+
+        gb_omschr = QGroupBox('Omschrijving')
+        go_form = QFormLayout(gb_omschr)
+        go_form.setLabelAlignment(Qt.AlignmentFlag.AlignRight)
+        go_form.addRow('Werk', self.f_r4)
+
+        v.addWidget(gb_proj)
+        v.addWidget(gb_loc)
+        v.addWidget(gb_omschr)
+        v.addStretch(1)
+
+        self.inspector = QDockWidget('Inspector', self)
+        self.inspector.setObjectName('inspector')
+        self.inspector.setWidget(panel)
+        self.inspector.setFeatures(
+            QDockWidget.DockWidgetFeature.DockWidgetClosable
+            | QDockWidget.DockWidgetFeature.DockWidgetMovable
+        )
+        self.inspector.setAllowedAreas(
+            Qt.DockWidgetArea.RightDockWidgetArea
+            | Qt.DockWidgetArea.LeftDockWidgetArea
+        )
+        self.addDockWidget(
+            Qt.DockWidgetArea.RightDockWidgetArea, self.inspector,
+        )
+
+        # Persist visibility tussen sessies
+        settings = QSettings('CalcMacApp', 'CalcMacApp')
+        visible = settings.value(
+            'window/inspectorVisible', True, type=bool,
+        )
+        self.inspector.setVisible(visible)
+        self.inspector.visibilityChanged.connect(
+            self._on_inspector_visibility_changed
+        )
+
+    def _on_inspector_visibility_changed(self, visible: bool) -> None:
+        QSettings('CalcMacApp', 'CalcMacApp').setValue(
+            'window/inspectorVisible', visible,
+        )
+        if hasattr(self, 'act_toggle_inspector'):
+            self.act_toggle_inspector.setChecked(visible)
+
+    def on_toggle_inspector(self) -> None:
+        self.inspector.setVisible(not self.inspector.isVisible())
+
+    # ── Find-bar slots ────────────────────────────────────────────────────────
+    def on_find_open(self) -> None:
+        self.find_bar.show_bar()
+
+    def on_find_next(self) -> None:
+        self.find_bar.go_next()
+
+    def on_find_prev(self) -> None:
+        self.find_bar.go_previous()
+
+    def _on_find_query(self, query: str) -> None:
+        self._find_query = query
+        self._compute_find_matches()
+        self._find_active = 0 if self._find_matches else -1
+        self._update_find_count()
+        self._apply_find_highlights()
+        if self._find_active >= 0:
+            self._scroll_to_active_match()
+
+    def _on_find_closed(self) -> None:
+        self._find_query = ''
+        self._find_matches.clear()
+        self._find_active = -1
+        self._apply_find_highlights()
+
+    def _compute_find_matches(self) -> None:
+        self._find_matches = []
+        q = self._find_query.casefold()
+        if not q or self.doc is None:
+            return
+        for r in range(self.doc.row_count()):
+            for c, (tag, _, _, _) in enumerate(COLUMNS):
+                if tag.startswith('_'):
+                    continue
+                text = self.doc.get_row_field(r, tag)
+                if text and q in text.casefold():
+                    self._find_matches.append((r, c))
+
+    def _update_find_count(self) -> None:
+        n = len(self._find_matches)
+        if n == 0:
+            self.find_bar.set_count_text(
+                'geen' if self._find_query else ''
+            )
+        else:
+            self.find_bar.set_count_text(
+                f'{self._find_active + 1} van {n}'
+            )
+
+    def _find_advance(self) -> None:
+        if not self._find_matches:
+            return
+        self._find_active = (self._find_active + 1) % len(self._find_matches)
+        self._update_find_count()
+        self._apply_find_highlights()
+        self._scroll_to_active_match()
+
+    def _find_back(self) -> None:
+        if not self._find_matches:
+            return
+        self._find_active = (
+            self._find_active - 1
+        ) % len(self._find_matches)
+        self._update_find_count()
+        self._apply_find_highlights()
+        self._scroll_to_active_match()
+
+    def _scroll_to_active_match(self) -> None:
+        if 0 <= self._find_active < len(self._find_matches):
+            r, c = self._find_matches[self._find_active]
+            self.table.setCurrentCell(r, c)
+            item = self.table.item(r, c)
+            if item is not None:
+                self.table.scrollToItem(item)
+
+    def _apply_find_highlights(self) -> None:
+        """Voeg gele achtergrond toe aan match-cellen; haal weg als geen
+        find-state actief. Wordt na elke recompute opnieuw aangeroepen.
+        """
+        if not self.doc:
+            return
+        match_set = {
+            (r, c) for (r, c) in self._find_matches
+        }
+        active_cell = (
+            self._find_matches[self._find_active]
+            if 0 <= self._find_active < len(self._find_matches) else None
+        )
+        self.table.blockSignals(True)
+        try:
+            for r in range(self.doc.row_count()):
+                # Rebuild row styling first, dan eventueel highlight overschrijven
+                s_code = self.doc.get_row_field(r, 's').strip()
+                self._apply_row_style(r, s_code)
+                for c in range(len(COLUMNS)):
+                    if (r, c) not in match_set:
+                        continue
+                    item = self.table.item(r, c)
+                    if item is None:
+                        continue
+                    if (r, c) == active_cell:
+                        item.setBackground(QBrush(QColor('#ffe066')))
+                    else:
+                        item.setBackground(QBrush(QColor('#fff5cc')))
+        finally:
+            self.table.blockSignals(False)
 
     def _build_menu(self) -> None:
         m = self.menuBar()
@@ -628,8 +820,16 @@ class MainWindow(QMainWindow):
         b.addSeparator()
         b.addAction(self.act_fill_column)
         b.addSeparator()
+        b.addAction(self.act_find)
+        b.addAction(self.act_find_next)
+        b.addAction(self.act_find_prev)
+        b.addSeparator()
         b.addAction(self.act_collapse)
         b.addAction(self.act_collapse_level)
+
+        # Beeld-menu
+        v = m.addMenu('&Beeld')
+        v.addAction(self.act_toggle_inspector)
 
     def _build_toolbar(self) -> None:
         bar = QToolBar('Hoofd', self)
@@ -659,12 +859,17 @@ class MainWindow(QMainWindow):
         return not self.undo_stack.isClean()
 
     def _update_title(self) -> None:
-        base = 'CalcMacApp'
+        """Native macOS-titel via setWindowFilePath + setWindowModified.
+        Het [*] is een placeholder die Qt vervangt door een puntje in de
+        close-knop wanneer het document modified is.
+        """
         if self.doc and self.doc.path:
-            mark = ' •' if self._dirty else ''  # macOS-stijl middelpunt
-            self.setWindowTitle(f'{Path(self.doc.path).name}{mark} — {base}')
+            self.setWindowFilePath(self.doc.path)
+            self.setWindowTitle(f'{Path(self.doc.path).name}[*]')
         else:
-            self.setWindowTitle(base)
+            self.setWindowFilePath('')
+            self.setWindowTitle('CalcMacApp')
+        self.setWindowModified(self._dirty)
 
     def _update_action_state(self) -> None:
         has_doc = self.doc is not None
@@ -979,17 +1184,23 @@ class MainWindow(QMainWindow):
         if not self.doc or self.doc.row_count() == 0:
             return
         idx = self._current_row()
-        # Bevestig als rij data heeft
         oms = self.doc.get_row_field(idx, 'oms').strip()
         if oms:
-            reply = QMessageBox.question(
-                self, 'Rij verwijderen',
-                f'Verwijder rij {idx + 1}: "{oms[:60]}"?',
-                QMessageBox.StandardButton.Yes
-                | QMessageBox.StandardButton.No,
-                QMessageBox.StandardButton.No,
+            box = QMessageBox(self)
+            box.setIcon(QMessageBox.Icon.Warning)
+            box.setWindowTitle('Rij verwijderen')
+            box.setText(f'Verwijder regel “{oms[:60]}”?')
+            box.setInformativeText('Deze actie kun je ongedaan maken met ⌘Z.')
+            btn_cancel = box.addButton(
+                'Annuleren', QMessageBox.ButtonRole.RejectRole
             )
-            if reply != QMessageBox.StandardButton.Yes:
+            btn_delete = box.addButton(
+                'Verwijderen', QMessageBox.ButtonRole.DestructiveRole
+            )
+            box.setDefaultButton(btn_cancel)
+            box.setWindowModality(Qt.WindowModality.WindowModal)
+            box.exec()
+            if box.clickedButton() is not btn_delete:
                 return
         self.undo_stack.push(DeleteRowCommand(self, idx))
 
@@ -1170,18 +1381,34 @@ class MainWindow(QMainWindow):
         if not self._dirty:
             event.accept()
             return
-        reply = QMessageBox.question(
-            self, 'Niet-opgeslagen wijzigingen',
-            'Er zijn wijzigingen die nog niet zijn opgeslagen. Toch sluiten?',
-            QMessageBox.StandardButton.Save
-            | QMessageBox.StandardButton.Discard
-            | QMessageBox.StandardButton.Cancel,
-            QMessageBox.StandardButton.Save,
+        name = (
+            Path(self.doc.path).name if self.doc and self.doc.path
+            else 'dit document'
         )
-        if reply == QMessageBox.StandardButton.Save:
+        box = QMessageBox(self)
+        box.setIcon(QMessageBox.Icon.Question)
+        box.setWindowTitle('Niet-opgeslagen wijzigingen')
+        box.setText(f'Wil je de wijzigingen in “{name}” bewaren?')
+        box.setInformativeText(
+            'Als je niet bewaart, gaan je wijzigingen verloren.'
+        )
+        btn_save    = box.addButton(
+            'Bewaren', QMessageBox.ButtonRole.AcceptRole
+        )
+        btn_discard = box.addButton(
+            'Niet bewaren', QMessageBox.ButtonRole.DestructiveRole
+        )
+        btn_cancel  = box.addButton(
+            'Annuleren', QMessageBox.ButtonRole.RejectRole
+        )
+        box.setDefaultButton(btn_save)
+        box.setWindowModality(Qt.WindowModality.WindowModal)
+        box.exec()
+        clicked = box.clickedButton()
+        if clicked is btn_save:
             self.on_save()
             event.accept() if not self._dirty else event.ignore()
-        elif reply == QMessageBox.StandardButton.Discard:
+        elif clicked is btn_discard:
             event.accept()
         else:
             event.ignore()
