@@ -16,6 +16,7 @@ from PyQt6.QtGui import (
     QColor,
     QFont,
     QKeySequence,
+    QPen,
     QUndoStack,
 )
 from PyQt6.QtWidgets import (
@@ -41,6 +42,7 @@ from PyQt6.QtWidgets import (
     QSizePolicy,
     QStatusBar,
     QStyle,
+    QStyledItemDelegate,
     QTableWidget,
     QTableWidgetItem,
     QToolBar,
@@ -163,6 +165,25 @@ STYLE_DEFAULT = {'bg': None, 'fg': '#000000', 'bold': False, 'italic': False, 's
 
 # Inspringing omschrijving per S-niveau (visualiseert hiërarchie)
 INDENT = {'1': '', '2': '  ', '3': '    '}
+
+# Welke velden mag je bewerken afhankelijk van het regeltype?
+# Titelrijen S=1/2/3: alleen identificatie en omschrijving.
+TITEL_EDITABLE_TAGS = frozenset({'code', 's', 'oms'})
+# Staartrijen: ook hvh (bevat %) en enh nog zinvol; geen kosten of codes.
+STAART_EDITABLE_TAGS = frozenset({'code', 's', 'oms', 'hvh', 'enh'})
+
+
+def _editable_tags_for_s_code(s_code: str) -> frozenset[str] | None:
+    """Geef de set tags die op dit regeltype bewerkbaar zijn.
+
+    None betekent: regulier — alle bewerkbare kolommen blijven actief.
+    """
+    s = (s_code or '').strip()
+    if s in ('1', '2', '3'):
+        return TITEL_EDITABLE_TAGS
+    if s in ('/', '%', '&', '=', '+', '-', 'a', 'b', 'c'):
+        return STAART_EDITABLE_TAGS
+    return None  # gewone begrotingsregel of stelpost
 
 # Disclosure-driehoekjes voor titelrijen
 DISCLOSURE_OPEN   = '▼ '   # ▼
@@ -335,6 +356,26 @@ class _ReturnNextRowFilter(QObject):
         return True
 
 
+class CellFocusDelegate(QStyledItemDelegate):
+    """Tekent een duidelijke macOS-systemBlue rand om de cel met focus,
+    bovenop de standaard rij-selectie. Anders is op SelectRows-modus
+    nauwelijks te zien welke cel actief is.
+    """
+
+    FOCUS_COLOR = QColor('#0a84ff')   # macOS systemBlue
+
+    def paint(self, painter, option, index) -> None:
+        super().paint(painter, option, index)
+        if option.state & QStyle.StateFlag.State_HasFocus:
+            painter.save()
+            pen = QPen(self.FOCUS_COLOR, 2)
+            painter.setPen(pen)
+            painter.setBrush(Qt.BrushStyle.NoBrush)
+            # 1 px naar binnen zodat de rand binnen de cel valt
+            painter.drawRect(option.rect.adjusted(1, 1, -2, -2))
+            painter.restore()
+
+
 class FillColumnDialog(QDialog):
     """Dialog om één kolom met dezelfde waarde te vullen."""
 
@@ -451,6 +492,9 @@ class MainWindow(QMainWindow):
         # cel-bewerken
         self._return_filter = _ReturnNextRowFilter(self.table)
         QApplication.instance().installEventFilter(self._return_filter)
+
+        # Persistente instellingen herstellen (geometrie, kolommen)
+        self._restore_settings()
 
     # ── Gedeelde acties ──────────────────────────────────────────────────────
     def _build_actions(self) -> None:
@@ -623,6 +667,10 @@ class MainWindow(QMainWindow):
         )
         self.table.blockMoveRequested.connect(self._on_block_move)
         self.table.disclosureClicked.connect(self._on_disclosure_clicked)
+        # Aangepaste cel-focus-rand (macOS systemBlue) zodat de actieve cel
+        # binnen een SelectRows-selectie duidelijk te zien is.
+        self.table.setItemDelegate(CellFocusDelegate(self.table))
+
         self.table.itemChanged.connect(self._on_cell_changed)
         root.addWidget(self.table)
 
@@ -691,6 +739,62 @@ class MainWindow(QMainWindow):
 
     def on_toggle_inspector(self) -> None:
         self.inspector.setVisible(not self.inspector.isVisible())
+
+    # ── Persistente instellingen ─────────────────────────────────────────────
+    def _settings(self) -> QSettings:
+        return QSettings('CalcMacApp', 'CalcMacApp')
+
+    def _save_settings(self) -> None:
+        s = self._settings()
+        s.setValue('window/geometry', self.saveGeometry())
+        s.setValue('window/state',    self.saveState())
+        s.setValue('table/header',    self.table.horizontalHeader().saveState())
+
+    def _restore_settings(self) -> None:
+        s = self._settings()
+        geom = s.value('window/geometry')
+        if geom is not None:
+            self.restoreGeometry(geom)
+        state = s.value('window/state')
+        if state is not None:
+            self.restoreState(state)
+        hdr_state = s.value('table/header')
+        if hdr_state is not None:
+            self.table.horizontalHeader().restoreState(hdr_state)
+            # Synchroniseer de checkbox-acties met de herstelde
+            # zichtbaarheid uit de header-state.
+            for col, act in self._col_actions.items():
+                act.blockSignals(True)
+                act.setChecked(not self.table.isColumnHidden(col))
+                act.blockSignals(False)
+
+    # ── Kolommen tonen/verbergen ─────────────────────────────────────────────
+    def _build_columns_menu(self, menu: QMenu) -> None:
+        """Vult een submenu met checkbare items per kolom (één per kolom).
+        De gestreepte structurele kolommen Nr, S en Omschrijving zijn altijd
+        zichtbaar — die hebben geen toggle.
+        """
+        self._col_actions: dict[int, QAction] = {}
+        always_visible = {'nr', 's', 'oms'}
+        for col, (tag, label, _w, _e) in enumerate(COLUMNS):
+            if tag in always_visible:
+                continue
+            act = QAction(label, self, checkable=True)
+            act.setChecked(not self.table.isColumnHidden(col))
+            act.toggled.connect(
+                lambda checked, c=col: self._set_column_visible(c, checked)
+            )
+            menu.addAction(act)
+            self._col_actions[col] = act
+
+    def _set_column_visible(self, col: int, visible: bool) -> None:
+        self.table.setColumnHidden(col, not visible)
+        if col in self._col_actions:
+            act = self._col_actions[col]
+            if act.isChecked() != visible:
+                act.blockSignals(True)
+                act.setChecked(visible)
+                act.blockSignals(False)
 
     # ── Find-bar slots ────────────────────────────────────────────────────────
     def on_find_open(self) -> None:
@@ -830,6 +934,9 @@ class MainWindow(QMainWindow):
         # Beeld-menu
         v = m.addMenu('&Beeld')
         v.addAction(self.act_toggle_inspector)
+        v.addSeparator()
+        self._cols_menu = v.addMenu('Kolommen')
+        self._build_columns_menu(self._cols_menu)
 
     def _build_toolbar(self) -> None:
         bar = QToolBar('Hoofd', self)
@@ -1003,7 +1110,9 @@ class MainWindow(QMainWindow):
 
         fg_brush = QBrush(QColor(fg_hex))
 
-        for c, (tag, _, _, _) in enumerate(COLUMNS):
+        editable_tags = _editable_tags_for_s_code(s_code)
+
+        for c, (tag, _, _, col_editable) in enumerate(COLUMNS):
             item = self.table.item(row, c)
             if item is None:
                 continue
@@ -1015,7 +1124,35 @@ class MainWindow(QMainWindow):
             else:
                 item.setBackground(QBrush(QColor('#ffffff')))
 
-            item.setForeground(fg_brush)
+            # Bewerkbaarheid op basis van regeltype:
+            # - berekende kolommen blijven altijd read-only
+            # - kolom uit COLUMNS niet als bewerkbaar gemarkeerd → read-only
+            # - rij-type beperkt verder welke kolommen bewerkbaar zijn
+            cell_editable = col_editable and not is_calc
+            if cell_editable and editable_tags is not None \
+                    and tag not in editable_tags:
+                cell_editable = False
+
+            flags = item.flags()
+            if cell_editable:
+                flags |= Qt.ItemFlag.ItemIsEditable
+            else:
+                flags &= ~Qt.ItemFlag.ItemIsEditable
+            item.setFlags(flags)
+
+            # Subtiel "disabled" voor cellen die wel een waarde HEBBEN maar
+            # voor dit regeltype niet bewerkt mogen worden — alleen als de
+            # rij geen eigen tekstkleur heeft (titels hebben dat al).
+            is_locked = (
+                editable_tags is not None
+                and tag not in editable_tags
+                and not is_calc
+                and col_editable
+            )
+            if is_locked and style['fg'] is None:
+                item.setForeground(QBrush(QColor('#a0a0a4')))
+            else:
+                item.setForeground(fg_brush)
             item.setFont(font)
 
         # Inspringing en disclosure-driehoekje voor titelniveaus
@@ -1268,22 +1405,42 @@ class MainWindow(QMainWindow):
         self.undo_stack.push(FillColumnCommand(self, tag, value, rows))
 
     def _on_header_context_menu(self, pos) -> None:
-        """Rechtermuisklik op een kolomkop → snel-menu met 'Vul deze kolom…'"""
-        if not self.doc:
-            return
+        """Rechtermuisklik op een kolomkop → contextmenu met
+        'Vul kolom…', 'Verberg deze kolom' en submenu 'Kolommen…'.
+        """
         col = self.table.horizontalHeader().logicalIndexAt(pos)
         if col < 0 or col >= len(COLUMNS):
             return
         tag, label, _w, editable = COLUMNS[col]
-        if not editable or tag.startswith('_'):
-            return
+        is_calc = tag.startswith('_')
+        is_structural = tag in ('nr', 's', 'oms')
+
         menu = QMenu(self)
-        act = menu.addAction(f'Vul kolom "{label}" met waarde…')
+        # Vul-actie alleen voor bewerkbare niet-berekende kolommen
+        act_fill = None
+        if self.doc and editable and not is_calc:
+            act_fill = menu.addAction(f'Vul kolom "{label}" met waarde…')
+            menu.addSeparator()
+
+        # Verberg-actie alleen voor niet-structurele kolommen
+        act_hide = None
+        if not is_structural:
+            act_hide = menu.addAction(f'Verberg "{label}"')
+
+        # Submenu met alle kolom-toggles
+        sub = menu.addMenu('Kolommen…')
+        for col_i, action in self._col_actions.items():
+            sub.addAction(action)
+
         chosen = menu.exec(
             self.table.horizontalHeader().mapToGlobal(pos)
         )
-        if chosen is act:
+        if chosen is None:
+            return
+        if chosen is act_fill:
             self.on_fill_column(prefill_tag=tag)
+        elif chosen is act_hide:
+            self._set_column_visible(col, False)
 
     # ── Drag & drop signal-handler ────────────────────────────────────────────
     def _on_block_move(self, src: int, count: int, dst: int) -> None:
@@ -1378,6 +1535,8 @@ class MainWindow(QMainWindow):
 
     # ── Sluiten ──────────────────────────────────────────────────────────────
     def closeEvent(self, event) -> None:
+        # Sla instellingen ALTIJD op — ook als het document niet dirty is
+        self._save_settings()
         if not self._dirty:
             event.accept()
             return

@@ -54,6 +54,7 @@ Een snelstart voor het werken met `.c4y` begrotingen in CalcMacApp.
 | F8 | Hoofdstuk in/uitklappen |
 | ⇧F8 | Alle hoofdstukken op dit niveau in/uitklappen |
 | ⌘I | Inspector-zijbalk tonen / verbergen |
+| Beeld → Kolommen | Kolommen tonen / verbergen via vinkjes |
 
 ### Zoeken
 | Combinatie | Actie |
@@ -74,6 +75,35 @@ Een snelstart voor het werken met `.c4y` begrotingen in CalcMacApp.
 Berekende kolommen (Prijs/eenheid, Tot. uren, Tot. arbeid, Tot. materiaal,
 Tot. materieel, Tot. onderaan., Regeltotaal) zijn altijd lichtgrijs en niet
 bewerkbaar — die rekent de app zelf uit.
+
+### Wat is wel/niet bewerkbaar per regeltype?
+
+| Regeltype | Bewerkbare kolommen |
+|-----------|---------------------|
+| **Hoofdstuk / werksoort / locatie** (S = 1/2/3) | Alleen Code, S, Omschrijving |
+| **Begrotingsregel** (S leeg, S, V, G, ?, X) | Alle invoervelden |
+| **Staart** (`/`, `%`, `&`, `=`, `+`, `-`, `a`, `b`, `c`) | Code, S, Omschrijving, Hvh, Enh |
+| **Berekende kolommen** | Nooit |
+
+Niet-bewerkbare cellen op een titelrij zijn lichter gekleurd. Wijzigt
+de S-code? Dan worden de bewerkbare velden direct opnieuw bepaald.
+
+### Actieve cel zichtbaar
+
+De cel waar je in staat heeft een **systemBlue rand** rondom — ook als de
+hele rij geselecteerd is. Zo zie je altijd waar je intypt.
+
+### Kolommen tonen / verbergen
+
+Twee plekken:
+
+1. **Beeld → Kolommen** — submenu met een vinkje per kolom
+2. **Rechtermuisknop op een kolomkop** → "Verberg deze kolom" of submenu
+   "Kolommen…"
+
+Je instellingen (kolombreedtes, welke kolommen verborgen zijn,
+venstergrootte, Inspector aan/uit) worden bij het afsluiten bewaard en
+weer hersteld als je de app opnieuw opent.
 
 ## Stuurcodes (S-kolom)
 
