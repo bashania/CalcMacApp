@@ -9,7 +9,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-from PyQt6.QtCore import Qt, QTimer, pyqtSignal
+from PyQt6.QtCore import QEvent, QObject, Qt, QTimer, pyqtSignal
 from PyQt6.QtGui import (
     QAction,
     QBrush,
@@ -19,6 +19,7 @@ from PyQt6.QtGui import (
     QUndoStack,
 )
 from PyQt6.QtWidgets import (
+    QAbstractItemDelegate,
     QAbstractItemView,
     QApplication,
     QFileDialog,
@@ -272,6 +273,59 @@ class DnDTableWidget(QTableWidget):
         event.accept()
 
 
+class _ShiftEnterFilter(QObject):
+    """Application-event filter die Shift+Enter (en Shift+Return) opvangt
+    wanneer focus ergens in de tabel of zijn cel-editor staat. Pleegt
+    eventueel een commit van de actieve editor en zet de cursor op de
+    cel direct eronder (zelfde kolom).
+    """
+
+    def __init__(self, table: QTableWidget) -> None:
+        super().__init__(table)
+        self.table = table
+
+    def eventFilter(self, obj, event) -> bool:
+        if event.type() != QEvent.Type.KeyPress:
+            return False
+        if event.key() not in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+            return False
+        if not (event.modifiers() & Qt.KeyboardModifier.ShiftModifier):
+            return False
+
+        # Geldt alleen als de focus binnen de tabel staat (of in een editor
+        # die als child van de tabel hangt).
+        widget = obj if isinstance(obj, QWidget) else None
+        w = widget
+        in_table = False
+        while w is not None:
+            if w is self.table:
+                in_table = True
+                break
+            w = w.parent()
+        if not in_table:
+            return False
+
+        # Sluit een lopende editor netjes af (commit + close).
+        focus = QApplication.focusWidget()
+        if focus is not None and focus is not self.table:
+            try:
+                self.table.commitData(focus)
+                self.table.closeEditor(
+                    focus,
+                    QAbstractItemDelegate.EndEditHint.NoHint,
+                )
+            except Exception:
+                pass
+
+        # Cel direct eronder selecteren (zelfde kolom).
+        cur = self.table.currentIndex()
+        if cur.isValid():
+            new_row = cur.row() + 1
+            if new_row < self.table.rowCount():
+                self.table.setCurrentCell(new_row, cur.column())
+        return True
+
+
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
@@ -295,6 +349,10 @@ class MainWindow(QMainWindow):
         self._update_title()
         self._update_action_state()
         self.resize(1540, 800)
+
+        # Shift+Enter → volgende rij (zelfde kolom), ook tijdens cel-bewerken
+        self._shift_enter_filter = _ShiftEnterFilter(self.table)
+        QApplication.instance().installEventFilter(self._shift_enter_filter)
 
     # ── Gedeelde acties ──────────────────────────────────────────────────────
     def _build_actions(self) -> None:
@@ -421,6 +479,7 @@ class MainWindow(QMainWindow):
             QAbstractItemView.SelectionMode.SingleSelection
         )
         self.table.setAlternatingRowColors(False)
+        self.table.setTabKeyNavigation(True)   # Tab → volgende cel
 
         # Drag & drop — DragDrop mode (geen InternalMove) zodat Qt's
         # eigen rij-verwijdering ons niet in de weg zit.
