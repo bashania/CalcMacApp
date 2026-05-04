@@ -4,12 +4,39 @@ Een snelstart voor het werken met `.c4y` begrotingen in CalcMacApp.
 
 ## Snel starten op Mac
 
-Twee manieren:
+Drie manieren, in volgorde van eenmalige opzet:
 
-1. **Dubbelklik op `CalcMacApp.command`** in Finder. De eerste keer
-   installeert het script automatisch de benodigde Python-pakketten.
+1. **`CalcMacApp.command`** dubbelklikken in Finder — werkt direct, opent
+   wel kort een Terminal-venster
 2. **Vanuit Terminal**: `python3 -m app.main` (na `pip install -r
-   requirements.txt`).
+   requirements.txt`)
+3. **Echte `.app` bundel** — éénmaal bouwen, daarna gewoon openen vanuit
+   `/Applications` en `.c4y`-bestanden koppelen aan de app (zie hieronder)
+
+## `.app` bundel bouwen + `.c4y` koppelen aan de app
+
+In de map van de repo, in een venv met PyQt6 al geïnstalleerd:
+
+```bash
+pip install py2app
+python3 setup.py py2app
+```
+
+Resultaat: **`dist/CalcMacApp.app`**. Sleep die naar `/Applications`.
+
+Na de build:
+
+1. Rechtermuisknop op een willekeurig **`.c4y`** bestand in Finder
+2. **Open With → Other…** → kies `CalcMacApp` in `/Applications`
+3. Vink **Always Open With** aan en klik **Open**
+
+Vanaf dat moment opent een dubbelklik op een `.c4y` automatisch in
+CalcMacApp, en kun je vanuit Finder ook bestanden naar het app-icoon
+slepen.
+
+> **Werkt ook live**: open de app, sleep dan een `.c4y` op het
+> CalcMacApp-icoon in de Dock — de app vangt het Finder-event op en
+> laadt het bestand direct, ook als hij al draait.
 
 ## In één minuut
 

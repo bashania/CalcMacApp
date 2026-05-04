@@ -47,11 +47,16 @@ pip install -r requirements.txt
 python3 -m app.main
 ```
 
-### Echte `.app` bundel (later)
+### Echte `.app` bundel + `.c4y` koppelen aan de app
 
-Voor een volledige macOS-applicatie zonder Terminal-popup is `py2app`
-of `briefcase` de aangewezen route. Niet meegeleverd in de huidige
-build — staat op de roadmap.
+```bash
+pip install py2app
+python3 setup.py py2app
+```
+
+`dist/CalcMacApp.app` kan je naar `/Applications` slepen. `.c4y`-bestanden
+zijn daarna te koppelen via Finder → Open With → CalcMacApp (Always Open
+With). Zie `HANDLEIDING.md` voor details.
 
 ## Documentatie
 

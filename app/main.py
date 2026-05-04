@@ -1132,8 +1132,15 @@ class MainWindow(QMainWindow):
             self, 'Open .c4y bestand', '',
             'Calc4You bestanden (*.c4y);;Alle bestanden (*)',
         )
-        if not path:
-            return
+        if path:
+            self.load_path(path)
+
+    def load_path(self, path: str) -> None:
+        """Open een bestand op pad zonder dialoog. Wordt gebruikt door:
+        - on_open (na het kiezen van een pad)
+        - sys.argv[1] bij opstarten
+        - Finder-FileOpen events op macOS (dubbelklik in Finder)
+        """
         try:
             self.doc = C4YDocument.load(path)
         except Exception as exc:
@@ -1758,13 +1765,33 @@ class MainWindow(QMainWindow):
             event.ignore()
 
 
+class _CalcApplication(QApplication):
+    """QApplication die FileOpen-events (Finder dubbelklik op .c4y) doorgeeft.
+
+    Op macOS stuurt het systeem een QEvent.Type.FileOpen wanneer een
+    geassocieerd document met de app wordt geopend — ook na de start.
+    Wij vangen die op en sturen het pad naar de actieve MainWindow.
+    """
+
+    fileOpenRequested = pyqtSignal(str)
+
+    def event(self, ev) -> bool:
+        if ev.type() == QEvent.Type.FileOpen:
+            try:
+                self.fileOpenRequested.emit(ev.file())
+            except Exception:
+                pass
+            return True
+        return super().event(ev)
+
+
 def main() -> None:
-    app = QApplication(sys.argv)
+    app = _CalcApplication(sys.argv)
     app.setApplicationName('CalcMacApp')
+    app.setOrganizationName('CalcMacApp')
 
     # macOS: toolbar samenvoegen met titelbar (unified look)
     if sys.platform == 'darwin':
-        from PyQt6.QtGui import QPalette
         app.setAttribute(
             Qt.ApplicationAttribute.AA_DontShowIconsInMenus, True
         )
@@ -1773,6 +1800,16 @@ def main() -> None:
     if sys.platform == 'darwin':
         win.setUnifiedTitleAndToolBarOnMac(True)
     win.show()
+
+    # Open een bestand uit sys.argv[1] (bv. via 'open foo.c4y' of CalcMacApp.app)
+    if len(sys.argv) > 1:
+        candidate = Path(sys.argv[1])
+        if candidate.exists():
+            win.load_path(str(candidate))
+
+    # Daarna ook nog binnenkomende FileOpen-events afhandelen
+    app.fileOpenRequested.connect(win.load_path)
+
     sys.exit(app.exec())
 
 
