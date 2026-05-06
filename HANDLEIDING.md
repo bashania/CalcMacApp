@@ -77,6 +77,7 @@ slepen.
 | F4 | Cel uit rij erboven kopiëren |
 | ⌘B | Bruto invoeren (totaal → per eenheid) |
 | ⇧⌘F | Kolom met waarde vullen |
+| ⇧⌘I | Kolom indexeren (× percentage) |
 
 ### Navigatie
 | Combinatie | Actie |
@@ -152,16 +153,30 @@ hoeveel zijn overgeslagen.
 
 ### Kolommen tonen / verbergen / **verplaatsen**
 
-Drie plekken:
+Vier manieren:
 
 1. **Beeld → Kolommen** — submenu met een vinkje per kolom
-2. **Rechtermuisknop op een kolomkop** → "Verberg deze kolom" of submenu
-   "Kolommen…"
+2. **Rechtermuisknop op een kolomkop** → "Verplaats naar links/rechts",
+   "Verberg deze kolom" of submenu "Kolommen…"
 3. **Sleep een kolomkop links of rechts** om de volgorde aan te passen
+   (klik op het label, niet op de resize-rand)
+4. **Vanuit het submenu Kolommen…** elk kolom-vinkje aan/uit
 
 Je instellingen (kolombreedtes, kolomvolgorde, welke kolommen verborgen
 zijn, venstergrootte, Inspector aan/uit) worden bij het afsluiten
 bewaard en weer hersteld als je de app opnieuw opent.
+
+### Kolom indexeren (⇧⌘I)
+
+Verhoog of verlaag een kostensoort met een percentage over alle (of
+geselecteerde) regels:
+
+1. **⇧⌘I** of rechter­muisknop op de kolomkop → "Indexeer …"
+2. Kies de kostensoort (Norm, Uurloon, Materiaal, Materieel, Onderaan.)
+3. Vul percentage in: `5` voor +5%, `-3` voor −3%
+4. Bereik: alle begrotingsregels of alleen geselecteerd
+5. Lege cellen blijven leeg; titels/staart worden overgeslagen
+6. Eén ⌘Z draait alles ineens terug
 
 ### Bruto invoeren (⌘B)
 

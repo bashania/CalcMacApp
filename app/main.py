@@ -58,6 +58,7 @@ from app.commands import (
     DeleteRowCommand,
     DuplicateRowCommand,
     FillColumnCommand,
+    IndexColumnCommand,
     InsertRowCommand,
     MoveBlockCommand,
     SetCellCommand,
@@ -538,6 +539,88 @@ class FillColumnDialog(QDialog):
         return self.rb_sel.isChecked()
 
 
+class IndexColumnDialog(QDialog):
+    """Indexeer een kostensoort met een percentage, optioneel per selectie."""
+
+    KOSTEN_VELDEN = (
+        ('arb',     'Norm (uur/eh)'),
+        ('uurloon', 'Uurloon'),
+        ('maa',     'Materiaal'),
+        ('mee',     'Materieel'),
+        ('ond',     'Onderaan.'),
+    )
+
+    def __init__(
+        self, parent: QWidget,
+        prefill_tag: str | None = None,
+        has_selection: bool = False,
+    ) -> None:
+        super().__init__(parent)
+        self.setWindowTitle('Kolom indexeren')
+        self.setWindowModality(Qt.WindowModality.WindowModal)
+        self.resize(380, 220)
+
+        layout = QVBoxLayout(self)
+
+        form = QFormLayout()
+        self.cb_tag = QComboBox()
+        for tag, label in self.KOSTEN_VELDEN:
+            self.cb_tag.addItem(label, tag)
+        if prefill_tag:
+            for i in range(self.cb_tag.count()):
+                if self.cb_tag.itemData(i) == prefill_tag:
+                    self.cb_tag.setCurrentIndex(i)
+                    break
+
+        self.le_pct = QLineEdit()
+        self.le_pct.setPlaceholderText('Bijv. 5 voor +5% of -3 voor -3%')
+        form.addRow('Kostensoort:', self.cb_tag)
+        form.addRow('Percentage (%):', self.le_pct)
+        layout.addLayout(form)
+
+        self.rb_all = QRadioButton('Alle begrotingsregels')
+        self.rb_sel = QRadioButton(
+            f'Alleen geselecteerde rijen'
+            f'{"" if has_selection else " (geen selectie)"}'
+        )
+        self.rb_sel.setEnabled(has_selection)
+        if has_selection:
+            self.rb_sel.setChecked(True)
+        else:
+            self.rb_all.setChecked(True)
+        group = QButtonGroup(self)
+        group.addButton(self.rb_all)
+        group.addButton(self.rb_sel)
+        layout.addSpacing(6)
+        layout.addWidget(QLabel('Bereik:'))
+        layout.addWidget(self.rb_all)
+        layout.addWidget(self.rb_sel)
+
+        bb = QDialogButtonBox()
+        btn_apply = bb.addButton(
+            'Indexeer', QDialogButtonBox.ButtonRole.AcceptRole
+        )
+        bb.addButton('Annuleren', QDialogButtonBox.ButtonRole.RejectRole)
+        btn_apply.setDefault(True)
+        bb.accepted.connect(self.accept)
+        bb.rejected.connect(self.reject)
+        layout.addStretch(1)
+        layout.addWidget(bb)
+        self.le_pct.setFocus()
+
+    @property
+    def selected_tag(self) -> str:
+        return self.cb_tag.currentData()
+
+    @property
+    def percentage(self) -> float | None:
+        return parse_nl_number(self.le_pct.text())
+
+    @property
+    def use_selection(self) -> bool:
+        return self.rb_sel.isChecked()
+
+
 class BrutoInputDialog(QDialog):
     """Bruto-invoer: voer totaalbedragen per kostensoort in en zie live
     wat de prijs per eenheid wordt. Toepassen schrijft alleen niet-lege
@@ -753,6 +836,12 @@ class MainWindow(QMainWindow):
             'Bruto invoeren…', self, shortcut='Ctrl+B',
         )
         self.act_bruto.triggered.connect(self.on_bruto_invoeren)
+
+        # Indexeren (⌘⇧I)
+        self.act_index = QAction(
+            'Kolom indexeren…', self, shortcut='Ctrl+Shift+I',
+        )
+        self.act_index.triggered.connect(self.on_index_column)
 
         # Inspector toggle (⌘I op macOS, Ctrl+I elders)
         self.act_toggle_inspector = QAction(
@@ -1137,6 +1226,7 @@ class MainWindow(QMainWindow):
         b.addSeparator()
         b.addAction(self.act_bruto)
         b.addAction(self.act_fill_column)
+        b.addAction(self.act_index)
         b.addSeparator()
         b.addAction(self.act_find)
         b.addAction(self.act_find_next)
@@ -1209,7 +1299,7 @@ class MainWindow(QMainWindow):
             self.act_row_add_below, self.act_row_add_above,
             self.act_row_delete,    self.act_row_dup,
             self.act_cell_dup_above,
-            self.act_fill_column,
+            self.act_fill_column,   self.act_index, self.act_bruto,
             self.act_collapse,      self.act_collapse_level,
         ):
             a.setEnabled(has_doc)
@@ -1281,6 +1371,26 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, 'Fout bij opslaan', str(exc))
 
     # ── Tabel vullen ─────────────────────────────────────────────────────────
+    def _format_cell_value(
+        self, tag: str, raw: str, col_editable: bool,
+        allowed_tags: frozenset[str] | None,
+    ) -> str:
+        """Bepaal de te tonen tekst voor een cel.
+
+        Numerieke kolommen krijgen altijd 2 decimalen. Lege cellen waar
+        het regeltype WEL invoer toelaat, krijgen '0,00' zodat de tabel
+        visueel uniform is. Niet-bewerkbare cellen blijven leeg.
+        """
+        if tag not in NUMBER_TAGS:
+            return raw
+        cell_editable = col_editable and (
+            allowed_tags is None or tag in allowed_tags
+        )
+        v = parse_nl_number(raw)
+        if v is None:
+            return format_nl(0.0, 2) if cell_editable else ''
+        return format_nl(v, 2)
+
     def _populate_ui(self) -> None:
         if not self.doc:
             return
@@ -1299,9 +1409,15 @@ class MainWindow(QMainWindow):
             self.table.setRowCount(n)
             for r in range(n):
                 s_code = self.doc.get_row_field(r, 's').strip()
+                allowed = _editable_tags_for_s_code(s_code)
                 for c, (tag, _, _, editable) in enumerate(COLUMNS):
-                    value = '' if tag.startswith('_') \
-                            else self.doc.get_row_field(r, tag)
+                    if tag.startswith('_'):
+                        value = ''
+                    else:
+                        raw = self.doc.get_row_field(r, tag)
+                        value = self._format_cell_value(
+                            tag, raw, editable, allowed,
+                        )
                     item = QTableWidgetItem(value)
                     if not editable:
                         item.setFlags(
@@ -1483,6 +1599,12 @@ class MainWindow(QMainWindow):
         new_value = item.text()
         if tag == 'oms':
             new_value = _strip_oms_chrome(new_value)
+
+        # Numerieke kolommen normaliseren naar canonieke NL-notatie met
+        # 2 decimalen, zodat de XML schoon blijft en weergave consistent.
+        if tag in NUMBER_TAGS:
+            v = parse_nl_number(new_value)
+            new_value = format_nl(v, 2) if v is not None else ''
 
         old_value = self.doc.get_row_field(item.row(), tag)
         if old_value == new_value:
@@ -1708,6 +1830,47 @@ class MainWindow(QMainWindow):
                 f'{skipped} titel/staart-rijen overgeslagen.', 4000,
             )
 
+    # ── Indexeren ────────────────────────────────────────────────────────────
+    def on_index_column(self, prefill_tag: str | None = None) -> None:
+        if not self.doc:
+            return
+        sel = self._selected_row_indices()
+        dlg = IndexColumnDialog(
+            self, prefill_tag=prefill_tag, has_selection=bool(sel),
+        )
+        if dlg.exec() != QDialog.DialogCode.Accepted:
+            return
+        pct = dlg.percentage
+        if pct is None:
+            QMessageBox.warning(
+                self, 'Indexeren', 'Geef een geldig percentage op.',
+            )
+            return
+        tag = dlg.selected_tag
+        candidate = sel if dlg.use_selection else list(range(
+            self.doc.row_count()
+        ))
+        # Filter naar bewerkbare-kolom-voor-regeltype
+        rows: list[int] = []
+        for r in candidate:
+            s_code = self.doc.get_row_field(r, 's').strip()
+            allowed = _editable_tags_for_s_code(s_code)
+            if allowed is not None and tag not in allowed:
+                continue
+            if self.doc.get_row_field(r, tag).strip():
+                rows.append(r)
+        if not rows:
+            QMessageBox.information(
+                self, 'Indexeren',
+                'Geen rijen om te indexeren — er zijn geen ingevulde '
+                f'waarden in de kolom voor de geselecteerde kostensoort.',
+            )
+            return
+        self.undo_stack.push(IndexColumnCommand(self, tag, pct, rows))
+        self.statusBar().showMessage(
+            f'Geïndexeerd met {pct:+g}% op {len(rows)} regels.', 4000,
+        )
+
     # ── Bruto-invoer ─────────────────────────────────────────────────────────
     def on_bruto_invoeren(self) -> None:
         if not self.doc or self.doc.row_count() == 0:
@@ -1754,39 +1917,55 @@ class MainWindow(QMainWindow):
 
     def _on_header_context_menu(self, pos) -> None:
         """Rechtermuisklik op een kolomkop → contextmenu met
-        'Vul kolom…', 'Verberg deze kolom' en submenu 'Kolommen…'.
+        'Vul kolom…', 'Indexeer kolom…', 'Verplaats links/rechts',
+        'Verberg', en submenu 'Kolommen…'.
         """
-        col = self.table.horizontalHeader().logicalIndexAt(pos)
+        hh = self.table.horizontalHeader()
+        col = hh.logicalIndexAt(pos)
         if col < 0 or col >= len(COLUMNS):
             return
         tag, label, _w, editable = COLUMNS[col]
         is_calc = tag.startswith('_')
         is_structural = tag in ('nr', 's', 'oms')
+        index_eligible = tag in ('arb', 'maa', 'mee', 'ond', 'uurloon')
 
         menu = QMenu(self)
-        # Vul-actie alleen voor bewerkbare niet-berekende kolommen
-        act_fill = None
+        act_fill = act_index = act_left = act_right = act_hide = None
+
         if self.doc and editable and not is_calc:
-            act_fill = menu.addAction(f'Vul kolom "{label}" met waarde…')
+            act_fill = menu.addAction(f'Vul "{label}" met waarde…')
+        if self.doc and index_eligible:
+            act_index = menu.addAction(f'Indexeer "{label}" met %…')
+        if act_fill or act_index:
             menu.addSeparator()
 
-        # Verberg-actie alleen voor niet-structurele kolommen
-        act_hide = None
+        # Verplaats kolom — werkt altijd, ongeacht macOS-stijl
+        visual = hh.visualIndex(col)
+        if visual > 0:
+            act_left = menu.addAction(f'Verplaats "{label}" naar links')
+        if visual < hh.count() - 1:
+            act_right = menu.addAction(f'Verplaats "{label}" naar rechts')
+        if act_left or act_right:
+            menu.addSeparator()
+
         if not is_structural:
             act_hide = menu.addAction(f'Verberg "{label}"')
 
-        # Submenu met alle kolom-toggles
         sub = menu.addMenu('Kolommen…')
         for col_i, action in self._col_actions.items():
             sub.addAction(action)
 
-        chosen = menu.exec(
-            self.table.horizontalHeader().mapToGlobal(pos)
-        )
+        chosen = menu.exec(hh.mapToGlobal(pos))
         if chosen is None:
             return
         if chosen is act_fill:
             self.on_fill_column(prefill_tag=tag)
+        elif chosen is act_index:
+            self.on_index_column(prefill_tag=tag)
+        elif chosen is act_left:
+            hh.moveSection(visual, visual - 1)
+        elif chosen is act_right:
+            hh.moveSection(visual, visual + 1)
         elif chosen is act_hide:
             self._set_column_visible(col, False)
 

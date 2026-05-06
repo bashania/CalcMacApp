@@ -246,3 +246,69 @@ class FillColumnCommand(QUndoCommand):
         for r, old in zip(self.row_indices, self._old_values):
             self.host.doc.set_row_field(r, self.tag, old)
         self.host.refresh()
+
+
+# ── Kolom indexeren ───────────────────────────────────────────────────────────
+class IndexColumnCommand(QUndoCommand):
+    """Vermenigvuldigt waarden in één kolom met een factor (1 + pct/100).
+
+    Werkt alleen op niet-lege numerieke cellen. Lege cellen blijven leeg.
+    """
+
+    def __init__(
+        self, host: _Host, tag: str, pct: float, row_indices: list[int],
+    ) -> None:
+        n = len(row_indices)
+        sign = '+' if pct >= 0 else ''
+        super().__init__(f'{tag} × ({sign}{pct:g}%)  ({n} rijen)')
+        self.host = host
+        self.tag = tag
+        self.pct = pct
+        self.row_indices = list(row_indices)
+        self._old_values: list[str] = []
+
+    @staticmethod
+    def _parse(value: str) -> float | None:
+        if value is None:
+            return None
+        s = str(value).strip().rstrip('%').strip()
+        if not s:
+            return None
+        try:
+            return float(s.replace('.', '').replace(',', '.'))
+        except ValueError:
+            return None
+
+    @staticmethod
+    def _format(v: float) -> str:
+        sign = '-' if v < 0 else ''
+        v = abs(v)
+        int_part = int(v)
+        dec = v - int_part
+        int_str = f'{int_part:,}'.replace(',', '.')
+        dec_str = f'{round(dec, 2):.2f}'[2:]
+        return f'{sign}{int_str},{dec_str}'
+
+    def redo(self) -> None:
+        if self.host.doc is None:
+            return
+        factor = 1.0 + self.pct / 100.0
+        if not self._old_values:
+            self._old_values = [
+                self.host.doc.get_row_field(r, self.tag)
+                for r in self.row_indices
+            ]
+        for r, old in zip(self.row_indices, self._old_values):
+            v = self._parse(old)
+            if v is None:
+                continue   # lege cellen blijven leeg
+            new = self._format(v * factor)
+            self.host.doc.set_row_field(r, self.tag, new)
+        self.host.refresh()
+
+    def undo(self) -> None:
+        if self.host.doc is None:
+            return
+        for r, old in zip(self.row_indices, self._old_values):
+            self.host.doc.set_row_field(r, self.tag, old)
+        self.host.refresh()

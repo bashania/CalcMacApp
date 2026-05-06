@@ -215,20 +215,20 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
 
         if is_titel[i]:
             out.append({
-                'prijspe':  '',
-                'toturen':  format_nl_hvh(tu) if tu else '',
-                'totaal':   format_nl(t),
-                'tot_arb':  format_nl(ar) if ar else '',
-                'tot_maa':  format_nl(ma) if ma else '',
-                'tot_mee':  format_nl(me) if me else '',
-                'tot_ond':  format_nl(on) if on else '',
+                'prijspe':  '',  # titels hebben geen prijs per eenheid
+                'toturen':  format_nl(tu, 2),
+                'totaal':   format_nl(t,  2),
+                'tot_arb':  format_nl(ar, 2),
+                'tot_maa':  format_nl(ma, 2),
+                'tot_mee':  format_nl(me, 2),
+                'tot_ond':  format_nl(on, 2),
                 'is_staart': False,
             })
         elif st:
             out.append({
                 'prijspe':  '',
                 'toturen':  '',
-                'totaal':   format_nl(t) if t != 0 else '',
+                'totaal':   format_nl(t, 2),
                 'tot_arb':  '',
                 'tot_maa':  '',
                 'tot_mee':  '',
@@ -237,13 +237,13 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             })
         else:
             out.append({
-                'prijspe':  format_nl(pp) if pp else '',
-                'toturen':  format_nl_hvh(tu) if tu else '',
-                'totaal':   format_nl(t)  if t  else '',
-                'tot_arb':  format_nl(ar) if ar else '',
-                'tot_maa':  format_nl(ma) if ma else '',
-                'tot_mee':  format_nl(me) if me else '',
-                'tot_ond':  format_nl(on) if on else '',
+                'prijspe':  format_nl(pp, 2),
+                'toturen':  format_nl(tu, 2),
+                'totaal':   format_nl(t,  2),
+                'tot_arb':  format_nl(ar, 2),
+                'tot_maa':  format_nl(ma, 2),
+                'tot_mee':  format_nl(me, 2),
+                'tot_ond':  format_nl(on, 2),
                 'is_staart': False,
             })
     return out
