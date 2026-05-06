@@ -178,6 +178,43 @@ STYLE_DEFAULT = {'bg': None, 'fg': '#000000', 'bold': False, 'italic': False, 's
 # Inspringing omschrijving per S-niveau (visualiseert hiërarchie)
 INDENT = {'1': '', '2': '  ', '3': '    '}
 
+
+def _is_dark_mode() -> bool:
+    """Detecteer macOS dark mode via de Qt-palette."""
+    pal = QApplication.palette()
+    bg = pal.color(pal.ColorRole.Window)
+    luminance = (
+        0.299 * bg.red() + 0.587 * bg.green() + 0.114 * bg.blue()
+    ) / 255.0
+    return luminance < 0.5
+
+
+# Donkere varianten van de rij-kleuren — gebruikt als systeem op dark mode staat.
+ROW_STYLE_DARK: dict[str, dict] = {
+    '1': {'bg': '#1c3654', 'fg': '#ffffff', 'bold': True,  'italic': False, 'size+': 1},
+    '2': {'bg': '#2a4868', 'fg': '#dee9f5', 'bold': True,  'italic': False, 'size+': 0},
+    '3': {'bg': '#33405a', 'fg': '#cfd9e6', 'bold': True,  'italic': False, 'size+': 0},
+    'S': {'bg': '#5a4d1c', 'fg': '#fff8d6', 'bold': False, 'italic': False, 'size+': 0},
+    'V': {'bg': '#5a3f1d', 'fg': '#ffe9c8', 'bold': False, 'italic': False, 'size+': 0},
+    'G': {'bg': '#2c4a25', 'fg': '#daf3cc', 'bold': False, 'italic': False, 'size+': 0},
+    '?': {'bg': '#3e2c52', 'fg': '#e8d6f7', 'bold': False, 'italic': False, 'size+': 0},
+    'X': {'bg': '#5a3a1d', 'fg': '#ffd9b3', 'bold': False, 'italic': True,  'size+': 0},
+    '/': {'bg': '#3a3a3c', 'fg': '#ffffff', 'bold': True,  'italic': False, 'size+': 0},
+    '=': {'bg': '#48484a', 'fg': '#f2f2f7', 'bold': True,  'italic': False, 'size+': 0},
+    '%': {'bg': '#3e3a2a', 'fg': '#fff2cc', 'bold': False, 'italic': False, 'size+': 0},
+    '&': {'bg': '#3e3a2a', 'fg': '#fff2cc', 'bold': False, 'italic': True,  'size+': 0},
+    '+': {'bg': '#1c3a23', 'fg': '#cdf2d4', 'bold': False, 'italic': False, 'size+': 0},
+    '-': {'bg': '#3e1c1c', 'fg': '#ffd2cc', 'bold': False, 'italic': False, 'size+': 0},
+    'a': {'bg': '#1c2a4a', 'fg': '#d6e0ff', 'bold': False, 'italic': False, 'size+': 0},
+    'b': {'bg': '#1c2a4a', 'fg': '#d6e0ff', 'bold': False, 'italic': False, 'size+': 0},
+    'c': {'bg': '#3a3a3c', 'fg': '#cfcfcf', 'bold': False, 'italic': True,  'size+': 0},
+}
+CALC_BG_MAP_DARK = {
+    '1': '#27486e', '2': '#34547a', '3': '#3d4d68',
+    '/': '#48484a', '=': '#5a5a5c',
+}
+CALC_BG_DEFAULT_DARK = '#2c2c2e'
+
 # Pad waar de SVG-iconen staan (relatief aan dit bestand)
 _ICON_DIR = Path(__file__).resolve().parent / 'icons'
 
@@ -448,7 +485,9 @@ class CellFocusDelegate(QStyledItemDelegate):
     """
 
     FOCUS_COLOR = QColor('#0a84ff')   # macOS systemBlue
-    FOCUS_BG    = QColor('#ffffff')
+    # Wit op light, near-zwart op dark — leesbaar contrast met blauwe rand
+    FOCUS_BG_LIGHT = QColor('#ffffff')
+    FOCUS_BG_DARK  = QColor('#1c1c1e')
 
     SEVERITY_COLOR = {
         'error':   QColor('#ff3b30'),  # macOS systemRed
@@ -465,11 +504,12 @@ class CellFocusDelegate(QStyledItemDelegate):
 
     def createEditor(self, parent, option, index):
         editor = super().createEditor(parent, option, index)
+        col = index.column()
+        if col < 0 or col >= len(COLUMNS):
+            return editor
+        tag = COLUMNS[col][0]
         # Autocomplete op de Omschrijving-kolom
-        col_oms = next(
-            (i for i, c in enumerate(COLUMNS) if c[0] == 'oms'), -1,
-        )
-        if index.column() == col_oms and isinstance(editor, QLineEdit):
+        if tag == 'oms' and isinstance(editor, QLineEdit):
             doc = getattr(self.host, 'doc', None)
             if doc is not None:
                 seen: set[str] = set()
@@ -491,6 +531,18 @@ class CellFocusDelegate(QStyledItemDelegate):
                         QCompleter.CompletionMode.PopupCompletion
                     )
                     editor.setCompleter(completer)
+        # Inline validatie: numerieke kolommen alleen NL-getalformaat
+        elif tag in NUMBER_TAGS and isinstance(editor, QLineEdit):
+            from PyQt6.QtCore import QRegularExpression
+            from PyQt6.QtGui import QRegularExpressionValidator
+            # toegestaan: optioneel min, getallen met punt-duizendtal en
+            # komma-decimaal, optioneel %-teken
+            rx = QRegularExpression(
+                r'^-?\d{1,3}(\.\d{3})*([,]\d{0,3})?\s*%?$'
+                r'|^-?\d+([,]\d{0,3})?\s*%?$'
+                r'|^$'
+            )
+            editor.setValidator(QRegularExpressionValidator(rx, editor))
         return editor
 
     def paint(self, painter, option, index) -> None:
@@ -501,7 +553,9 @@ class CellFocusDelegate(QStyledItemDelegate):
             painter.setRenderHint(painter.RenderHint.Antialiasing, False)
             # Witte vulling overschilderen voor maximale leesbaarheid
             inner = option.rect.adjusted(1, 1, -1, -1)
-            painter.fillRect(inner, self.FOCUS_BG)
+            bg = self.FOCUS_BG_DARK if _is_dark_mode() else self.FOCUS_BG_LIGHT
+            fg = QColor('#f2f2f7') if _is_dark_mode() else QColor('#000000')
+            painter.fillRect(inner, bg)
             # Tekst opnieuw tekenen in originele uitlijning + font + kleur
             text = index.data(Qt.ItemDataRole.DisplayRole) or ''
             font = index.data(Qt.ItemDataRole.FontRole) or option.font
@@ -514,7 +568,7 @@ class CellFocusDelegate(QStyledItemDelegate):
             else:
                 align = Qt.AlignmentFlag(int(align_data))
             painter.setFont(font)
-            painter.setPen(QColor('#000000'))
+            painter.setPen(fg)
             text_rect = inner.adjusted(4, 0, -4, 0)
             painter.drawText(text_rect, int(align), str(text))
             # Blauwe rand erboven
@@ -1152,6 +1206,20 @@ class MainWindow(QMainWindow):
             QAbstractItemView.DragDropMode.DragDrop
         )
         self.table.setDefaultDropAction(Qt.DropAction.MoveAction)
+        # Duidelijke drop-indicator: dikke macOS-blauwe lijn
+        self.table.setStyleSheet(
+            'QTableWidget { '
+            '  selection-background-color: rgba(10, 132, 255, 50); '
+            '  selection-color: palette(windowtext); '
+            '} '
+            'QAbstractItemView { '
+            '  show-decoration-selected: 1; '
+            '} '
+            'QTableView::drop-indicator { '
+            '  background: #0a84ff; '
+            '  height: 3px; '
+            '}'
+        )
 
         self.table.set_helpers(
             block_size_for=self._safe_block_size,
@@ -1793,14 +1861,19 @@ class MainWindow(QMainWindow):
 
     # ── Rijstyling ────────────────────────────────────────────────────────────
     def _apply_row_style(self, row: int, s_code: str) -> None:
-        style = ROW_STYLE.get(s_code, STYLE_DEFAULT)
+        is_dark = _is_dark_mode()
+        style_set = ROW_STYLE_DARK if is_dark else ROW_STYLE
+        style = style_set.get(s_code, STYLE_DEFAULT)
         bg_hex  = style['bg']
         fg_hex  = style['fg'] or '#1c1c1e'
         bold    = style['bold']
         italic  = style['italic']
         size_d  = style['size+']
 
-        calc_bg_hex = CALC_BG_MAP.get(s_code, CALC_BG_DEFAULT)
+        if is_dark:
+            calc_bg_hex = CALC_BG_MAP_DARK.get(s_code, CALC_BG_DEFAULT_DARK)
+        else:
+            calc_bg_hex = CALC_BG_MAP.get(s_code, CALC_BG_DEFAULT)
 
         font = QFont()
         font.setBold(bold)
@@ -1822,7 +1895,11 @@ class MainWindow(QMainWindow):
             elif bg_hex:
                 item.setBackground(QBrush(QColor(bg_hex)))
             else:
-                item.setBackground(QBrush(QColor('#ffffff')))
+                # Default rij-achtergrond — palette-conform (light/dark)
+                base = QApplication.palette().color(
+                    QApplication.palette().ColorRole.Base
+                )
+                item.setBackground(QBrush(base))
 
             # Bewerkbaarheid op basis van regeltype:
             # - berekende kolommen blijven altijd read-only

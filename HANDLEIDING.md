@@ -15,21 +15,15 @@ Drie manieren, in volgorde van eenmalige opzet:
 
 ### Eigen app-icoon (optioneel)
 
-In `app/icons/app_icon.svg` staat een eenvoudige bron-SVG. Om er een
-echt macOS-icoon van te maken, in Terminal:
+In `app/icons/app_icon.svg` staat een eenvoudige bron-SVG. Bouwen tot
+een macOS-`.icns` doe je in één commando:
 
 ```bash
-# Eénmalig op macOS — maakt app/icons/app_icon.icns
-mkdir -p AppIcon.iconset
-for SIZE in 16 32 64 128 256 512 1024; do
-    sips -s format png app/icons/app_icon.svg --resampleHeight $SIZE \
-         --out AppIcon.iconset/icon_${SIZE}x${SIZE}.png
-done
-iconutil -c icns AppIcon.iconset -o app/icons/app_icon.icns
-rm -rf AppIcon.iconset
+./make_icon.sh
 ```
 
-Daarna `python3 setup.py py2app` opnieuw — de `.app` heeft nu het icoon.
+Dit script gebruikt `sips` en `iconutil` (standaard op macOS). Daarna
+`python3 setup.py py2app` opnieuw — de `.app` heeft nu het icoon.
 
 ## `.app` bundel bouwen + `.c4y` koppelen aan de app
 
