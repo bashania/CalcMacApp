@@ -929,8 +929,10 @@ class MainWindow(QMainWindow):
 
         # Inspector toggle (⌘I op macOS, Ctrl+I elders)
         self.act_toggle_inspector = QAction(
+            _icon('inspector'),
             'Toon Inspector', self, shortcut='Ctrl+I', checkable=True,
         )
+        self.act_toggle_inspector.setChecked(True)
         self.act_toggle_inspector.triggered.connect(
             self.on_toggle_inspector
         )
@@ -1359,6 +1361,13 @@ class MainWindow(QMainWindow):
         bar.addSeparator()
         bar.addAction(self.act_row_add_below)
         bar.addAction(self.act_row_delete)
+        # Push the inspector toggle naar rechts
+        spacer = QWidget()
+        spacer.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding,
+        )
+        bar.addWidget(spacer)
+        bar.addAction(self.act_toggle_inspector)
         self.addToolBar(bar)
 
     def _build_statusbar(self) -> None:
