@@ -39,16 +39,24 @@ PLIST = {
     }],
 }
 
+import os as _os
+
+_ICONFILE = _os.path.join('app', 'icons', 'app_icon.icns')
+
 OPTIONS = {
     'argv_emulation': False,    # we vangen FileOpen-events zelf op
     'plist':          PLIST,
     'packages':       ['PyQt6'],
     'includes':       [
         'app',
-        'app.c4y_io', 'app.calc', 'app.commands',
+        'app.c4y_io', 'app.calc', 'app.commands', 'app.validations',
         'app.main',   'app.find_bar',
     ],
+    # Sluit de iconen-map en validations-module mee in de bundel
+    'resources': ['app/icons'] if _os.path.isdir('app/icons') else [],
 }
+if _os.path.exists(_ICONFILE):
+    OPTIONS['iconfile'] = _ICONFILE
 
 setup(
     app=APP,

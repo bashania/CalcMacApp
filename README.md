@@ -66,6 +66,16 @@ With). Zie `HANDLEIDING.md` voor details.
 - **`ondersteunend/Handleiding Calc4You v66.pdf`** — originele
   Calc4You-handleiding (referentie)
 
+## Tests
+
+```bash
+pip install pytest
+python3 -m pytest tests/ -q
+```
+
+Levert ~38 tests over getalformaat, XML-mutaties, rij/titel/staart-rekenen
+en logboek-validaties.
+
 ## Modulestructuur
 
 ```

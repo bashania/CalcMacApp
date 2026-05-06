@@ -13,6 +13,18 @@ Drie manieren, in volgorde van eenmalige opzet:
 3. **Echte `.app` bundel** — éénmaal bouwen, daarna gewoon openen vanuit
    `/Applications` en `.c4y`-bestanden koppelen aan de app (zie hieronder)
 
+### Eigen app-icoon (optioneel)
+
+In `app/icons/app_icon.svg` staat een eenvoudige bron-SVG. Bouwen tot
+een macOS-`.icns` doe je in één commando:
+
+```bash
+./make_icon.sh
+```
+
+Dit script gebruikt `sips` en `iconutil` (standaard op macOS). Daarna
+`python3 setup.py py2app` opnieuw — de `.app` heeft nu het icoon.
+
 ## `.app` bundel bouwen + `.c4y` koppelen aan de app
 
 In de map van de repo, in een venv met PyQt6 al geïnstalleerd:
@@ -70,12 +82,15 @@ slepen.
 | Combinatie | Actie |
 |------------|-------|
 | ⌘Z / ⇧⌘Z | Ongedaan / Opnieuw |
+| ⌘X / ⌘C / ⌘V | Knippen / Kopiëren / Plakken van rijen |
 | F9 / ⇧F9 | Rij toevoegen onder / boven |
 | F11 | Rij verwijderen (met bevestiging bij data) |
+| Delete / Backspace | Cel(len) wissen op huidige kolom |
 | ⇧F4 | Rij dupliceren onder |
 | F4 | Cel uit rij erboven kopiëren |
 | ⌘B | Bruto invoeren (totaal → per eenheid) |
 | ⇧⌘F | Kolom met waarde vullen |
+| ⇧⌘I | Kolom indexeren (× percentage) |
 
 ### Navigatie
 | Combinatie | Actie |
@@ -83,6 +98,7 @@ slepen.
 | Tab / ⇧Tab | Volgende / vorige cel |
 | ⌅ Return | Volgende rij in dezelfde kolom (commit + omlaag) |
 | ⇧⌅ Return | Hetzelfde als ↩ |
+| Pijltjes ↑↓←→ | Werkt ook tijdens cel-bewerken: commit + navigeer |
 | F2 | Cel bewerken zonder overschrijven |
 | typen | Direct beginnen te typen overschrijft cel |
 
@@ -100,7 +116,25 @@ slepen.
 | ⌘F | Zoekbalk openen |
 | ⌘G | Volgende match |
 | ⇧⌘G | Vorige match |
+| ⌥⌘F | Zoeken én vervangen (extra Replace-veld) |
 | Esc | Zoekbalk sluiten |
+
+### Voorkeuren (⌘,)
+
+**Bestand → Voorkeuren…** (of ⌘,) opent een venster waar je defaults
+voor nieuwe rijen kunt instellen:
+- Uurloon (€/u)
+- Productie (factor %)
+- BTW (default leeg, laag of verlegd)
+
+Bij elke nieuwe rij worden deze waarden automatisch ingevuld. Bestaande
+rijen blijven ongewijzigd.
+
+### Autocomplete in Omschrijving
+
+Tijdens het bewerken van een Omschrijving-cel worden eerder gebruikte
+omschrijvingen uit dit bestand aangeboden in een dropdown — zodat je
+niet steeds dezelfde tekst hoeft over te typen.
 
 ## Cel-bewerking
 
@@ -118,7 +152,7 @@ bewerkbaar — die rekent de app zelf uit.
 
 | Regeltype | Bewerkbare kolommen |
 |-----------|---------------------|
-| **Hoofdstuk / werksoort / locatie** (S = 1/2/3) | Alleen Code, S, Omschrijving |
+| **Hoofdstuk / werksoort / locatie** (S = 1/2/3) | Code, S, Omschrijving + Hoeveelheid en Eenheid (kophoeveelheid) |
 | **Begrotingsregel** (S leeg, S, V, G, ?, X) | Alle invoervelden |
 | **Staart** (`/`, `%`, `&`, `=`, `+`, `-`, `a`, `b`, `c`) | Code, S, Omschrijving, Hvh, Enh |
 | **Berekende kolommen** | Nooit |
@@ -150,16 +184,41 @@ hoeveel zijn overgeslagen.
 
 ### Kolommen tonen / verbergen / **verplaatsen**
 
-Drie plekken:
+Vier manieren:
 
 1. **Beeld → Kolommen** — submenu met een vinkje per kolom
-2. **Rechtermuisknop op een kolomkop** → "Verberg deze kolom" of submenu
-   "Kolommen…"
+2. **Rechtermuisknop op een kolomkop** → "Verplaats naar links/rechts",
+   "Verberg deze kolom" of submenu "Kolommen…"
 3. **Sleep een kolomkop links of rechts** om de volgorde aan te passen
+   (klik op het label, niet op de resize-rand)
+4. **Vanuit het submenu Kolommen…** elk kolom-vinkje aan/uit
 
 Je instellingen (kolombreedtes, kolomvolgorde, welke kolommen verborgen
 zijn, venstergrootte, Inspector aan/uit) worden bij het afsluiten
 bewaard en weer hersteld als je de app opnieuw opent.
+
+### Kolom indexeren (⇧⌘I)
+
+Verhoog of verlaag een kostensoort met een percentage over alle (of
+geselecteerde) regels:
+
+1. **⇧⌘I** of rechter­muisknop op de kolomkop → "Indexeer …"
+2. Kies de kostensoort (Norm, Uurloon, Materiaal, Materieel, Onderaan.)
+3. Vul percentage in: `5` voor +5%, `-3` voor −3%
+4. Bereik: alle begrotingsregels of alleen geselecteerd
+5. Lege cellen blijven leeg; titels/staart worden overgeslagen
+6. Eén ⌘Z draait alles ineens terug
+
+### Kophoeveelheid op een titel (bv. 2 dezelfde gevels)
+
+Op een titelrij (S=1/2/3) mag je een **Hoeveelheid** invullen — dat is
+de kophoeveelheid. De onderliggende totalen worden hiermee
+vermenigvuldigd. Voorbeeld: zet de gevel-titel op `2`, dan tellen alle
+regels van die gevel **dubbel** in het S=1-totaal en in de bouwkosten.
+
+Werkt geneste: S=1=2 met S=2=2 erin geeft factor 4.
+
+Lege of `1` betekent: geen vermenigvuldiging (standaard gedrag).
 
 ### Bruto invoeren (⌘B)
 
@@ -179,11 +238,28 @@ wijzigingen ineens terug.
 
 ### Begrotingstotalen onderaan
 
-De statusbalk toont twee bedragen:
+De statusbalk toont drie bedragen:
 
+- **Selectie**: som van geselecteerde regels (alleen bij ≥2 selecties)
 - **Bouwkosten**: som van alle hoofdstukken (S=1)
 - **Eindtotaal**: het laatste `=` in de staart, dus inclusief BTW en
   alle staart-opslagen. Verschijnt alleen als er een staart is.
+
+### Logboek-validaties
+
+Naast de Nr-kolom verschijnt een gekleurde dot bij rijen met issues:
+- 🔴 **rood** = fout (bv. negatieve hoeveelheid op een titel)
+- 🟡 **geel** = waarschuwing (bv. begrotingsregel zonder prijs)
+- 🔵 **blauw** = info (bv. onderaanneming zonder Code1)
+
+Hover over de dot voor een tooltip met de melding. In de
+**Inspector → Logboek** zie je alle issues op een rij; klikken springt
+naar de betreffende regel.
+
+### Recente bestanden
+
+**Bestand → Open recent** toont de laatste 10 geopende `.c4y`
+bestanden. Klik om te openen, of "Lijst wissen" onderaan.
 
 ## Stuurcodes (S-kolom)
 

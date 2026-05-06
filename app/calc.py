@@ -121,31 +121,54 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             raw_mee[i]     = res['tot_mee']
             raw_ond[i]     = res['tot_ond']
 
-    # ── Fase 2: titel-rollup (S=1/2/3) ───────────────────────────────────────
-    for i in range(n):
-        if not is_titel[i]:
-            continue
-        niveau = int((rows[i].get('s') or '').strip())
-        som_tot = som_uren = 0.0
-        som_arb = som_maa = som_mee = som_ond = 0.0
-        for j in range(i + 1, n):
+    # ── Fase 2: titel-rollup (S=1/2/3) — bottom-up met kophoeveelheid ────────
+    # Een titel kan een hoeveelheid > 1 hebben (bv. 2 dezelfde gevels):
+    # de optelling van onderliggende regels wordt dan ×N. Bottom-up
+    # verwerken zodat nested vermenigvuldigers (S=2 binnen S=1, beide
+    # met eigen hvh) correct doorvermenigvuldigen.
+    def _block_end(start: int, niveau: int) -> int:
+        j = start + 1
+        while j < n:
             if is_staart[j]:
                 break
             s_j = (rows[j].get('s') or '').strip()
             if s_j in TITEL_NIVEAUS and int(s_j) <= niveau:
                 break
+            j += 1
+        return j
+
+    for i in range(n - 1, -1, -1):
+        if not is_titel[i]:
+            continue
+        niveau = int((rows[i].get('s') or '').strip())
+        end    = _block_end(i, niveau)
+        som_tot = som_uren = 0.0
+        som_arb = som_maa = som_mee = som_ond = 0.0
+        j = i + 1
+        while j < end:
+            s_j = (rows[j].get('s') or '').strip()
             som_tot  += raw_totaal[j]
             som_uren += raw_toturen[j]
             som_arb  += raw_arb[j]
             som_maa  += raw_maa[j]
             som_mee  += raw_mee[j]
             som_ond  += raw_ond[j]
-        raw_totaal[i]  = som_tot
-        raw_toturen[i] = som_uren
-        raw_arb[i]     = som_arb
-        raw_maa[i]     = som_maa
-        raw_mee[i]     = som_mee
-        raw_ond[i]     = som_ond
+            if s_j in TITEL_NIVEAUS:
+                # Spring over de descendants van deze child-titel — die zitten
+                # al verwerkt in zijn raw_totaal[j] en mogen niet dubbel.
+                j = _block_end(j, int(s_j))
+            else:
+                j += 1
+        # Kophoeveelheid: titel-hvh fungeert als vermenigvuldiger
+        kop_hvh = _num(rows[i].get('hvh'))
+        if kop_hvh is None or kop_hvh == 0:
+            kop_hvh = 1.0
+        raw_totaal[i]  = som_tot  * kop_hvh
+        raw_toturen[i] = som_uren * kop_hvh
+        raw_arb[i]     = som_arb  * kop_hvh
+        raw_maa[i]     = som_maa  * kop_hvh
+        raw_mee[i]     = som_mee  * kop_hvh
+        raw_ond[i]     = som_ond  * kop_hvh
 
     # ── Fase 3: staart ────────────────────────────────────────────────────────
     if staart_idx is not None:
@@ -215,20 +238,20 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
 
         if is_titel[i]:
             out.append({
-                'prijspe':  '',
-                'toturen':  format_nl_hvh(tu) if tu else '',
-                'totaal':   format_nl(t),
-                'tot_arb':  format_nl(ar) if ar else '',
-                'tot_maa':  format_nl(ma) if ma else '',
-                'tot_mee':  format_nl(me) if me else '',
-                'tot_ond':  format_nl(on) if on else '',
+                'prijspe':  '',  # titels hebben geen prijs per eenheid
+                'toturen':  format_nl(tu, 2),
+                'totaal':   format_nl(t,  2),
+                'tot_arb':  format_nl(ar, 2),
+                'tot_maa':  format_nl(ma, 2),
+                'tot_mee':  format_nl(me, 2),
+                'tot_ond':  format_nl(on, 2),
                 'is_staart': False,
             })
         elif st:
             out.append({
                 'prijspe':  '',
                 'toturen':  '',
-                'totaal':   format_nl(t) if t != 0 else '',
+                'totaal':   format_nl(t, 2),
                 'tot_arb':  '',
                 'tot_maa':  '',
                 'tot_mee':  '',
@@ -237,13 +260,13 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             })
         else:
             out.append({
-                'prijspe':  format_nl(pp) if pp else '',
-                'toturen':  format_nl_hvh(tu) if tu else '',
-                'totaal':   format_nl(t)  if t  else '',
-                'tot_arb':  format_nl(ar) if ar else '',
-                'tot_maa':  format_nl(ma) if ma else '',
-                'tot_mee':  format_nl(me) if me else '',
-                'tot_ond':  format_nl(on) if on else '',
+                'prijspe':  format_nl(pp, 2),
+                'toturen':  format_nl(tu, 2),
+                'totaal':   format_nl(t,  2),
+                'tot_arb':  format_nl(ar, 2),
+                'tot_maa':  format_nl(ma, 2),
+                'tot_mee':  format_nl(me, 2),
+                'tot_ond':  format_nl(on, 2),
                 'is_staart': False,
             })
     return out

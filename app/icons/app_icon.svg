@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a72b0"/>
+      <stop offset="100%" stop-color="#2c5f8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="220" ry="220" fill="url(#bg)"/>
+  <g fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Helvetica, sans-serif" font-weight="600" text-anchor="middle">
+    <text x="512" y="430" font-size="220" letter-spacing="-12">€</text>
+    <text x="512" y="700" font-size="170" letter-spacing="-6">Calc</text>
+  </g>
+  <rect x="240" y="270" width="544" height="510" rx="40" ry="40" fill="none" stroke="#ffffff" stroke-width="22" stroke-opacity="0.45"/>
+</svg>
