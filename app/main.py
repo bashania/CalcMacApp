@@ -1498,7 +1498,13 @@ class MainWindow(QMainWindow):
                 item.setForeground(QBrush(QColor('#a0a0a4')))
             else:
                 item.setForeground(fg_brush)
-            item.setFont(font)
+            # Prijs/eenheid altijd vetgedrukt voor extra nadruk
+            if tag == '_prijspe':
+                cell_font = QFont(font)
+                cell_font.setBold(True)
+                item.setFont(cell_font)
+            else:
+                item.setFont(font)
 
         # Inspringing en disclosure-driehoekje voor titelniveaus
         oms_item = self.table.item(row, COL_OMS)
