@@ -173,7 +173,16 @@ ROW_STYLE: dict[str, dict] = {
     'b': {'bg': C_BTW_BG,   'fg': '#1a2a6a',   'bold': False, 'italic': False, 'size+': 0},
     'c': {'bg': '#f0f0f4',  'fg': '#555555',   'bold': False, 'italic': True,  'size+': 0},
 }
-STYLE_DEFAULT = {'bg': None, 'fg': '#000000', 'bold': False, 'italic': False, 'size+': 0}
+STYLE_DEFAULT_LIGHT = {'bg': None, 'fg': '#000000', 'bold': False, 'italic': False, 'size+': 0}
+STYLE_DEFAULT_DARK  = {'bg': None, 'fg': '#f2f2f7', 'bold': False, 'italic': False, 'size+': 0}
+
+
+def _style_default() -> dict:
+    return STYLE_DEFAULT_DARK if _is_dark_mode() else STYLE_DEFAULT_LIGHT
+
+
+# Backwards-compat alias
+STYLE_DEFAULT = STYLE_DEFAULT_LIGHT
 
 # Inspringing omschrijving per S-niveau (visualiseert hiërarchie)
 INDENT = {'1': '', '2': '  ', '3': '    '}
@@ -1861,11 +1870,14 @@ class MainWindow(QMainWindow):
 
     # ── Rijstyling ────────────────────────────────────────────────────────────
     def _apply_row_style(self, row: int, s_code: str) -> None:
-        is_dark = _is_dark_mode()
+        is_dark   = _is_dark_mode()
         style_set = ROW_STYLE_DARK if is_dark else ROW_STYLE
-        style = style_set.get(s_code, STYLE_DEFAULT)
+        default   = STYLE_DEFAULT_DARK if is_dark else STYLE_DEFAULT_LIGHT
+        style = style_set.get(s_code, default)
         bg_hex  = style['bg']
-        fg_hex  = style['fg'] or '#1c1c1e'
+        # Default-tekstkleur palette-aware: licht op dark mode, donker op light
+        fg_default = '#f2f2f7' if is_dark else '#1c1c1e'
+        fg_hex  = style['fg'] or fg_default
         bold    = style['bold']
         italic  = style['italic']
         size_d  = style['size+']
@@ -1927,7 +1939,9 @@ class MainWindow(QMainWindow):
                 and col_editable
             )
             if is_locked and style['fg'] is None:
-                item.setForeground(QBrush(QColor('#a0a0a4')))
+                # Disabled-kleur — palette-aware: lichter op dark, donkerder op light
+                disabled_color = '#6e6e73' if is_dark else '#a0a0a4'
+                item.setForeground(QBrush(QColor(disabled_color)))
             else:
                 item.setForeground(fg_brush)
             # Prijs/eenheid altijd vetgedrukt voor extra nadruk
