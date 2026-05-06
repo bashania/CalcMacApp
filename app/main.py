@@ -15,8 +15,10 @@ from PyQt6.QtGui import (
     QBrush,
     QColor,
     QFont,
+    QIcon,
     QKeySequence,
     QPen,
+    QPixmap,
     QUndoStack,
 )
 from PyQt6.QtWidgets import (
@@ -35,6 +37,8 @@ from PyQt6.QtWidgets import (
     QHeaderView,
     QLabel,
     QLineEdit,
+    QListWidget,
+    QListWidgetItem,
     QMainWindow,
     QMenu,
     QMessageBox,
@@ -61,10 +65,14 @@ from app.commands import (
     IndexColumnCommand,
     InsertRowCommand,
     MoveBlockCommand,
+    PasteRowsCommand,
     SetCellCommand,
     SetProjectFieldCommand,
 )
 from app.find_bar import FindBar
+from app.validations import (
+    Issue, issues_by_row, validate, worst_severity,
+)
 
 
 # ── Kolomdefinitie ───────────────────────────────────────────────────────────
@@ -168,6 +176,24 @@ STYLE_DEFAULT = {'bg': None, 'fg': '#000000', 'bold': False, 'italic': False, 's
 
 # Inspringing omschrijving per S-niveau (visualiseert hiërarchie)
 INDENT = {'1': '', '2': '  ', '3': '    '}
+
+# Pad waar de SVG-iconen staan (relatief aan dit bestand)
+_ICON_DIR = Path(__file__).resolve().parent / 'icons'
+
+
+def _icon(name: str, fallback: QStyle.StandardPixmap | None = None) -> QIcon:
+    """Laad een SVG-icoon uit app/icons/. Als het bestand ontbreekt of
+    QtSvg niet beschikbaar is, val terug op de standaard-stijl-icoon.
+    """
+    path = _ICON_DIR / f'{name}.svg'
+    if path.is_file():
+        ic = QIcon(str(path))
+        if not ic.isNull():
+            return ic
+    if fallback is not None:
+        from PyQt6.QtWidgets import QApplication as _QA
+        return _QA.style().standardIcon(fallback)
+    return QIcon()
 
 # Welke velden mag je bewerken afhankelijk van het regeltype?
 # Titelrijen S=1/2/3: alleen identificatie en omschrijving.
@@ -422,6 +448,19 @@ class CellFocusDelegate(QStyledItemDelegate):
     FOCUS_COLOR = QColor('#0a84ff')   # macOS systemBlue
     FOCUS_BG    = QColor('#ffffff')
 
+    SEVERITY_COLOR = {
+        'error':   QColor('#ff3b30'),  # macOS systemRed
+        'warning': QColor('#ffcc00'),  # macOS systemYellow
+        'info':    QColor('#0a84ff'),  # systemBlue
+    }
+
+    def __init__(self, host, parent=None) -> None:
+        super().__init__(parent)
+        self.host = host
+        self.nr_col = next(
+            (i for i, c in enumerate(COLUMNS) if c[0] == 'nr'), 0,
+        )
+
     def paint(self, painter, option, index) -> None:
         if option.state & QStyle.StateFlag.State_HasFocus:
             # Standaard cel paint (bg, evt. selection-overlay, tekst)
@@ -454,6 +493,24 @@ class CellFocusDelegate(QStyledItemDelegate):
             painter.restore()
         else:
             super().paint(painter, option, index)
+        # Logboek-dot in Nr-kolom — buiten focus-branch zodat altijd zichtbaar.
+        if index.column() == self.nr_col and hasattr(self.host, '_issues_by_row'):
+            row_issues = self.host._issues_by_row.get(index.row())
+            if row_issues:
+                sev = worst_severity(row_issues)
+                color = self.SEVERITY_COLOR.get(sev)
+                if color is not None:
+                    painter.save()
+                    painter.setRenderHint(
+                        painter.RenderHint.Antialiasing, True
+                    )
+                    painter.setPen(Qt.PenStyle.NoPen)
+                    painter.setBrush(color)
+                    cy = option.rect.center().y()
+                    painter.drawEllipse(
+                        option.rect.left() + 4, cy - 4, 8, 8,
+                    )
+                    painter.restore()
 
 
 class FillColumnDialog(QDialog):
@@ -752,6 +809,14 @@ class MainWindow(QMainWindow):
         self._find_matches: list[tuple[int, int]] = []  # (row, col)
         self._find_active: int = -1   # index in _find_matches
 
+        # Rij-clipboard voor knippen/kopiëren/plakken
+        import xml.etree.ElementTree as _ET2
+        self._row_clipboard: list[_ET2.Element] = []
+
+        # Validaties — gevuld door _revalidate() na elke recompute
+        self._issues: list[Issue] = []
+        self._issues_by_row: dict[int, list[Issue]] = {}
+
         self._build_actions()
         self._build_ui()
         self._build_menu()
@@ -771,21 +836,20 @@ class MainWindow(QMainWindow):
 
     # ── Gedeelde acties ──────────────────────────────────────────────────────
     def _build_actions(self) -> None:
-        sp = self.style()
         self.act_open = QAction(
-            sp.standardIcon(QStyle.StandardPixmap.SP_DialogOpenButton),
+            _icon('open', QStyle.StandardPixmap.SP_DialogOpenButton),
             'Openen', self, shortcut=QKeySequence.StandardKey.Open,
         )
         self.act_open.triggered.connect(self.on_open)
 
         self.act_save = QAction(
-            sp.standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton),
+            _icon('save', QStyle.StandardPixmap.SP_DialogSaveButton),
             'Opslaan', self, shortcut=QKeySequence.StandardKey.Save,
         )
         self.act_save.triggered.connect(self.on_save)
 
         self.act_save_as = QAction(
-            sp.standardIcon(QStyle.StandardPixmap.SP_DriveFDIcon),
+            _icon('save_as', QStyle.StandardPixmap.SP_DriveFDIcon),
             'Opslaan als', self, shortcut=QKeySequence.StandardKey.SaveAs,
         )
         self.act_save_as.triggered.connect(self.on_save_as)
@@ -798,12 +862,32 @@ class MainWindow(QMainWindow):
         # Undo / Redo via QUndoStack
         self.act_undo = self.undo_stack.createUndoAction(self, 'Ongedaan maken')
         self.act_undo.setShortcut(QKeySequence.StandardKey.Undo)
+        self.act_undo.setIcon(_icon('undo'))
         self.act_redo = self.undo_stack.createRedoAction(self, 'Opnieuw')
         self.act_redo.setShortcut(QKeySequence.StandardKey.Redo)
+        self.act_redo.setIcon(_icon('redo'))
+
+        # Knippen / Kopiëren / Plakken van rijen (⌘X / ⌘C / ⌘V)
+        self.act_cut = QAction(
+            'Knippen', self, shortcut=QKeySequence.StandardKey.Cut,
+        )
+        self.act_cut.triggered.connect(self.on_cut_rows)
+
+        self.act_copy = QAction(
+            'Kopiëren', self, shortcut=QKeySequence.StandardKey.Copy,
+        )
+        self.act_copy.triggered.connect(self.on_copy_rows)
+
+        self.act_paste = QAction(
+            'Plakken', self, shortcut=QKeySequence.StandardKey.Paste,
+        )
+        self.act_paste.triggered.connect(self.on_paste_rows)
 
         # Rijbewerkingen
-        self.act_row_add_below = QAction('Rij toevoegen', self,
-                                         shortcut=Qt.Key.Key_F9)
+        self.act_row_add_below = QAction(
+            _icon('row_add'),
+            'Rij toevoegen', self, shortcut=Qt.Key.Key_F9,
+        )
         self.act_row_add_below.triggered.connect(self.on_row_add_below)
 
         self.act_row_add_above = QAction('Rij toevoegen boven', self,
@@ -811,7 +895,7 @@ class MainWindow(QMainWindow):
         self.act_row_add_above.triggered.connect(self.on_row_add_above)
 
         self.act_row_delete = QAction(
-            sp.standardIcon(QStyle.StandardPixmap.SP_TrashIcon),
+            _icon('row_delete', QStyle.StandardPixmap.SP_TrashIcon),
             'Rij verwijderen', self, shortcut=Qt.Key.Key_F11,
         )
         self.act_row_delete.triggered.connect(self.on_row_delete)
@@ -961,9 +1045,12 @@ class MainWindow(QMainWindow):
         self.table.clearCellsRequested.connect(self.on_clear_cells)
         # Aangepaste cel-focus-rand (macOS systemBlue) zodat de actieve cel
         # binnen een SelectRows-selectie duidelijk te zien is.
-        self.table.setItemDelegate(CellFocusDelegate(self.table))
+        self.table.setItemDelegate(CellFocusDelegate(self, self.table))
 
         self.table.itemChanged.connect(self._on_cell_changed)
+        self.table.selectionModel().selectionChanged.connect(
+            self._update_selection_total
+        )
         root.addWidget(self.table)
 
         self.setCentralWidget(central)
@@ -995,7 +1082,16 @@ class MainWindow(QMainWindow):
         v.addWidget(gb_proj)
         v.addWidget(gb_loc)
         v.addWidget(gb_omschr)
-        v.addStretch(1)
+
+        # Logboek-paneel
+        gb_log = QGroupBox('Logboek')
+        log_v = QVBoxLayout(gb_log)
+        self._logboek_list = QListWidget()
+        self._logboek_list.itemActivated.connect(self._on_logboek_item)
+        self._logboek_list.itemDoubleClicked.connect(self._on_logboek_item)
+        log_v.addWidget(self._logboek_list)
+        v.addWidget(gb_log, 1)
+        v.addStretch(0)
 
         self.inspector = QDockWidget('Inspector', self)
         self.inspector.setObjectName('inspector')
@@ -1209,6 +1305,9 @@ class MainWindow(QMainWindow):
         m = self.menuBar()
         f = m.addMenu('&Bestand')
         f.addAction(self.act_open)
+        # Recente bestanden — submenu wordt dynamisch opgebouwd
+        self._recent_menu = f.addMenu('Open recent')
+        self._recent_menu.aboutToShow.connect(self._populate_recent_menu)
         f.addAction(self.act_save)
         f.addAction(self.act_save_as)
         f.addSeparator()
@@ -1217,6 +1316,10 @@ class MainWindow(QMainWindow):
         b = m.addMenu('Be&werken')
         b.addAction(self.act_undo)
         b.addAction(self.act_redo)
+        b.addSeparator()
+        b.addAction(self.act_cut)
+        b.addAction(self.act_copy)
+        b.addAction(self.act_paste)
         b.addSeparator()
         b.addAction(self.act_row_add_below)
         b.addAction(self.act_row_add_above)
@@ -1261,7 +1364,10 @@ class MainWindow(QMainWindow):
     def _build_statusbar(self) -> None:
         sb = QStatusBar(self)
         self.setStatusBar(sb)
-        # Bouwkosten subtiel; eindtotaal vetgedrukt rechts ervan.
+        # Bouwkosten subtiel; eindtotaal vetgedrukt; selectie-totaal links.
+        self._lbl_selectie = QLabel('')
+        self._lbl_selectie.setStyleSheet('color: palette(highlight);')
+        self._lbl_selectie.setVisible(False)
         self._lbl_bouwkosten = QLabel('Geen bestand geopend')
         self._lbl_bouwkosten.setStyleSheet('color: palette(mid);')
         self._lbl_eindtotaal = QLabel('')
@@ -1269,6 +1375,7 @@ class MainWindow(QMainWindow):
         self._lbl_eindtotaal.setFont(f)
         # Compatibiliteit met oudere code: alias
         self._lbl_totaal = self._lbl_bouwkosten
+        sb.addPermanentWidget(self._lbl_selectie)
         sb.addPermanentWidget(self._lbl_bouwkosten)
         sb.addPermanentWidget(self._lbl_eindtotaal)
 
@@ -1334,6 +1441,48 @@ class MainWindow(QMainWindow):
         self.undo_stack.setClean()
         self._update_title()
         self._update_action_state()
+        self._add_to_recent(path)
+
+    # ── Recente bestanden ────────────────────────────────────────────────────
+    RECENT_MAX = 10
+
+    def _recent_paths(self) -> list[str]:
+        s = self._settings()
+        raw = s.value('recent/paths', '')
+        if not raw:
+            return []
+        try:
+            import json as _json
+            return list(_json.loads(raw))
+        except Exception:
+            return []
+
+    def _save_recent_paths(self, paths: list[str]) -> None:
+        import json as _json
+        self._settings().setValue(
+            'recent/paths', _json.dumps(paths[: self.RECENT_MAX])
+        )
+
+    def _add_to_recent(self, path: str) -> None:
+        paths = [p for p in self._recent_paths() if p != path]
+        paths.insert(0, str(path))
+        self._save_recent_paths(paths)
+
+    def _populate_recent_menu(self) -> None:
+        self._recent_menu.clear()
+        paths = [p for p in self._recent_paths() if Path(p).exists()]
+        if not paths:
+            empty = self._recent_menu.addAction('(geen recente bestanden)')
+            empty.setEnabled(False)
+            return
+        for p in paths:
+            name = Path(p).name
+            act = self._recent_menu.addAction(name)
+            act.setStatusTip(p)
+            act.triggered.connect(lambda _checked=False, _p=p: self.load_path(_p))
+        self._recent_menu.addSeparator()
+        clr = self._recent_menu.addAction('Lijst wissen')
+        clr.triggered.connect(lambda: self._save_recent_paths([]))
 
     def on_save(self) -> None:
         if not self.doc:
@@ -1364,6 +1513,7 @@ class MainWindow(QMainWindow):
         try:
             self.doc.save(path)
             self.undo_stack.setClean()
+            self._add_to_recent(path)
             self.statusBar().showMessage(
                 f'Opgeslagen: {Path(self.doc.path).name}', 3000
             )
@@ -1567,7 +1717,119 @@ class MainWindow(QMainWindow):
             self._lbl_eindtotaal.setText('')
             self._lbl_eindtotaal.setVisible(False)
 
+        # Onthoud laatste calc-output zodat selection-handler ook telt
+        self._last_calc_results = results
+        self._last_calc_rows = rows_in
+        self._update_selection_total()
+        self._revalidate()
+
+    def _revalidate(self) -> None:
+        """Herbereken issues en werk Nr-tooltips, Inspector en statusbar bij."""
+        if not self.doc:
+            self._issues = []
+            self._issues_by_row = {}
+        else:
+            self._issues = validate(self.doc)
+            self._issues_by_row = issues_by_row(self._issues)
+        # Tooltip per rij op de Nr-cel
+        col_nr = next(i for i, c in enumerate(COLUMNS) if c[0] == 'nr')
+        self.table.blockSignals(True)
+        try:
+            for r in range(self.table.rowCount()):
+                item = self.table.item(r, col_nr)
+                if item is None:
+                    continue
+                items_for_row = self._issues_by_row.get(r, [])
+                if items_for_row:
+                    msg = '\n'.join(f'• {it.message}' for it in items_for_row)
+                    item.setToolTip(msg)
+                else:
+                    item.setToolTip('')
+        finally:
+            self.table.blockSignals(False)
+        # Repaint zodat de delegate opnieuw kan tekenen
+        if hasattr(self, 'table'):
+            self.table.viewport().update()
+        # Statusbalk-badge en Inspector bijwerken
+        self._update_issues_badge()
+        self._refresh_logboek_panel()
+
+    def _update_issues_badge(self) -> None:
+        n_err = sum(1 for it in self._issues if it.severity == 'error')
+        n_warn = sum(1 for it in self._issues if it.severity == 'warning')
+        if n_err or n_warn:
+            parts = []
+            if n_err:
+                parts.append(f'{n_err} fout' + ('' if n_err == 1 else 'en'))
+            if n_warn:
+                parts.append(
+                    f'{n_warn} waarschuwing' + ('' if n_warn == 1 else 'en')
+                )
+            self.statusBar().showMessage('⚠ ' + ' · '.join(parts), 0)
+        else:
+            # Tijdelijke melding wissen alleen als er geen actieve melding is
+            self.statusBar().clearMessage()
+
+    def _refresh_logboek_panel(self) -> None:
+        if not hasattr(self, '_logboek_list'):
+            return
+        self._logboek_list.clear()
+        if not self._issues:
+            empty = QListWidgetItem('Geen issues. ✓')
+            empty.setData(Qt.ItemDataRole.UserRole, -1)
+            self._logboek_list.addItem(empty)
+            return
+        for it in self._issues:
+            sev = {'error': '⛔', 'warning': '⚠', 'info': 'ℹ'}.get(
+                it.severity, '·'
+            )
+            list_item = QListWidgetItem(
+                f'{sev} rij {it.row_idx + 1}: {it.message}'
+            )
+            list_item.setData(Qt.ItemDataRole.UserRole, it.row_idx)
+            list_item.setToolTip(it.message)
+            self._logboek_list.addItem(list_item)
+
+    def _on_logboek_item(self, item) -> None:
+        row = item.data(Qt.ItemDataRole.UserRole)
+        if isinstance(row, int) and 0 <= row < self.table.rowCount():
+            self.table.setCurrentCell(row, 0)
+            self.table.scrollToItem(self.table.item(row, 0))
+
     # ── Celwijzigingen ───────────────────────────────────────────────────────
+    def _update_selection_total(self, *_args) -> None:
+        """Statusbar: som van geselecteerde rijen.
+
+        Telt alleen begrotingsregels en stelposten/X-posten — titels worden
+        overgeslagen om dubbeltelling te voorkomen. Verbergt zich bij minder
+        dan twee geselecteerde rijen.
+        """
+        if not getattr(self, '_last_calc_results', None):
+            self._lbl_selectie.setVisible(False)
+            return
+        rows = self._selected_row_indices()
+        if len(rows) < 2:
+            self._lbl_selectie.setVisible(False)
+            return
+        som = 0.0
+        n = 0
+        for r in rows:
+            s_code = (self._last_calc_rows[r].get('s') or '').strip()
+            if s_code in ('1', '2', '3'):
+                continue   # titel overslaan
+            res = self._last_calc_results[r]
+            v = parse_nl_number(res.get('totaal'))
+            if v is not None and v != 0:
+                som += v
+                n += 1
+        if n == 0:
+            self._lbl_selectie.setVisible(False)
+            return
+        self._lbl_selectie.setText(
+            f'Selectie: € {format_nl(som)} ({n} regels)'
+        )
+        self._lbl_selectie.setVisible(True)
+
     def _on_project_edit(self) -> None:
         if not self.doc:
             return
@@ -1920,6 +2182,57 @@ class MainWindow(QMainWindow):
                     )
         finally:
             self.undo_stack.endMacro()
+
+    # ── Cut / Copy / Paste van rijen ─────────────────────────────────────────
+    def on_copy_rows(self) -> None:
+        """Kopieer geselecteerde rijen naar interne clipboard."""
+        if not self.doc:
+            return
+        rows = self._selected_row_indices() or [self._current_row()]
+        if not rows:
+            return
+        import copy as _copy
+        self._row_clipboard = [
+            _copy.deepcopy(self.doc.begrotingen[r]) for r in rows
+        ]
+        # Wis nr — wordt door renumber gezet bij plakken
+        for el in self._row_clipboard:
+            nr_el = el.find('nr')
+            if nr_el is not None:
+                nr_el.text = None
+        self.statusBar().showMessage(
+            f'{len(self._row_clipboard)} rij(en) gekopieerd', 2500,
+        )
+
+    def on_cut_rows(self) -> None:
+        """Knippen = kopiëren + verwijderen."""
+        if not self.doc:
+            return
+        rows = self._selected_row_indices() or [self._current_row()]
+        if not rows:
+            return
+        self.on_copy_rows()
+        # Verwijder van achteren naar voren in één undo-macro
+        self.undo_stack.beginMacro(f'Knip {len(rows)} rijen')
+        try:
+            for r in sorted(rows, reverse=True):
+                self.undo_stack.push(DeleteRowCommand(self, r))
+        finally:
+            self.undo_stack.endMacro()
+
+    def on_paste_rows(self) -> None:
+        """Plak interne clipboard direct onder de huidige rij."""
+        if not self.doc or not self._row_clipboard:
+            return
+        # Deepcopy uit clipboard zodat het clipboard intact blijft
+        # (kan meerdere keren plakken)
+        import copy as _copy
+        elements = [_copy.deepcopy(el) for el in self._row_clipboard]
+        if self.doc.row_count() == 0:
+            idx = 0
+        else:
+            idx = self._current_row() + 1
+        self.undo_stack.push(PasteRowsCommand(self, idx, elements))
 
     def _on_header_context_menu(self, pos) -> None:
         """Rechtermuisklik op een kolomkop → contextmenu met

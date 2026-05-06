@@ -13,6 +13,24 @@ Drie manieren, in volgorde van eenmalige opzet:
 3. **Echte `.app` bundel** — éénmaal bouwen, daarna gewoon openen vanuit
    `/Applications` en `.c4y`-bestanden koppelen aan de app (zie hieronder)
 
+### Eigen app-icoon (optioneel)
+
+In `app/icons/app_icon.svg` staat een eenvoudige bron-SVG. Om er een
+echt macOS-icoon van te maken, in Terminal:
+
+```bash
+# Eénmalig op macOS — maakt app/icons/app_icon.icns
+mkdir -p AppIcon.iconset
+for SIZE in 16 32 64 128 256 512 1024; do
+    sips -s format png app/icons/app_icon.svg --resampleHeight $SIZE \
+         --out AppIcon.iconset/icon_${SIZE}x${SIZE}.png
+done
+iconutil -c icns AppIcon.iconset -o app/icons/app_icon.icns
+rm -rf AppIcon.iconset
+```
+
+Daarna `python3 setup.py py2app` opnieuw — de `.app` heeft nu het icoon.
+
 ## `.app` bundel bouwen + `.c4y` koppelen aan de app
 
 In de map van de repo, in een venv met PyQt6 al geïnstalleerd:
@@ -70,6 +88,7 @@ slepen.
 | Combinatie | Actie |
 |------------|-------|
 | ⌘Z / ⇧⌘Z | Ongedaan / Opnieuw |
+| ⌘X / ⌘C / ⌘V | Knippen / Kopiëren / Plakken van rijen |
 | F9 / ⇧F9 | Rij toevoegen onder / boven |
 | F11 | Rij verwijderen (met bevestiging bij data) |
 | Delete / Backspace | Cel(len) wissen op huidige kolom |
@@ -196,11 +215,28 @@ wijzigingen ineens terug.
 
 ### Begrotingstotalen onderaan
 
-De statusbalk toont twee bedragen:
+De statusbalk toont drie bedragen:
 
+- **Selectie**: som van geselecteerde regels (alleen bij ≥2 selecties)
 - **Bouwkosten**: som van alle hoofdstukken (S=1)
 - **Eindtotaal**: het laatste `=` in de staart, dus inclusief BTW en
   alle staart-opslagen. Verschijnt alleen als er een staart is.
+
+### Logboek-validaties
+
+Naast de Nr-kolom verschijnt een gekleurde dot bij rijen met issues:
+- 🔴 **rood** = fout (bv. negatieve hoeveelheid op een titel)
+- 🟡 **geel** = waarschuwing (bv. begrotingsregel zonder prijs)
+- 🔵 **blauw** = info (bv. onderaanneming zonder Code1)
+
+Hover over de dot voor een tooltip met de melding. In de
+**Inspector → Logboek** zie je alle issues op een rij; klikken springt
+naar de betreffende regel.
+
+### Recente bestanden
+
+**Bestand → Open recent** toont de laatste 10 geopende `.c4y`
+bestanden. Klik om te openen, of "Lijst wissen" onderaan.
 
 ## Stuurcodes (S-kolom)
 

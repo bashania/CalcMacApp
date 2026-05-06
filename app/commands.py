@@ -248,6 +248,43 @@ class FillColumnCommand(QUndoCommand):
         self.host.refresh()
 
 
+# ── Rijen plakken ─────────────────────────────────────────────────────────────
+class PasteRowsCommand(QUndoCommand):
+    """Plak vooraf gekopieerde <begroting>-elementen op positie idx.
+
+    De host levert deepcopies van de elementen aan; deze commando-klasse
+    plaatst ze in volgorde, en undo verwijdert ze weer (het clipboard van
+    de host blijft daarbij intact).
+    """
+
+    def __init__(
+        self, host: _Host, idx: int, elements: list[ET.Element],
+    ) -> None:
+        n = len(elements)
+        super().__init__(f'Plak {n} rijen')
+        self.host = host
+        self.idx = idx
+        self.elements = list(elements)
+
+    def redo(self) -> None:
+        if self.host.doc is None:
+            return
+        for offset, el in enumerate(self.elements):
+            self.host.doc.restore_row(self.idx + offset, el)
+        self.host.doc.renumber()
+        self.host.refresh()
+        self.host.select_row(self.idx)
+
+    def undo(self) -> None:
+        if self.host.doc is None:
+            return
+        # Verwijder van achteren naar voren — indices blijven kloppen
+        for offset in range(len(self.elements) - 1, -1, -1):
+            self.host.doc.delete_row(self.idx + offset)
+        self.host.doc.renumber()
+        self.host.refresh()
+
+
 # ── Kolom indexeren ───────────────────────────────────────────────────────────
 class IndexColumnCommand(QUndoCommand):
     """Vermenigvuldigt waarden in één kolom met een factor (1 + pct/100).
