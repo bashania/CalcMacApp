@@ -213,6 +213,7 @@ class DnDTableWidget(QTableWidget):
 
     blockMoveRequested  = pyqtSignal(int, int, int)  # (src, count, dst)
     disclosureClicked   = pyqtSignal(int)            # row index
+    clearCellsRequested = pyqtSignal()                # Delete/Backspace
 
     DISCLOSURE_HIT_PX = 18
 
@@ -260,6 +261,15 @@ class DnDTableWidget(QTableWidget):
                 self._drag_src_row = -1
                 self._drag_block_count = 1
         super().mousePressEvent(event)
+
+    # ── Delete / Backspace buiten edit-mode → cellen wissen ──────────────────
+    def keyPressEvent(self, event):
+        if event.key() in (Qt.Key.Key_Delete, Qt.Key.Key_Backspace) \
+                and self.state() != QAbstractItemView.State.EditingState:
+            self.clearCellsRequested.emit()
+            event.accept()
+            return
+        super().keyPressEvent(event)
 
     # ── Drop: bereken (src, count, dst), defer move tot na event ─────────────
     def dropEvent(self, event):
@@ -859,6 +869,7 @@ class MainWindow(QMainWindow):
         )
         self.table.blockMoveRequested.connect(self._on_block_move)
         self.table.disclosureClicked.connect(self._on_disclosure_clicked)
+        self.table.clearCellsRequested.connect(self.on_clear_cells)
         # Aangepaste cel-focus-rand (macOS systemBlue) zodat de actieve cel
         # binnen een SelectRows-selectie duidelijk te zien is.
         self.table.setItemDelegate(CellFocusDelegate(self.table))
@@ -1591,6 +1602,51 @@ class MainWindow(QMainWindow):
         if old == new:
             return
         self.undo_stack.push(SetCellCommand(self, row, tag, old, new))
+
+    # ── Cel(en) wissen via Delete / Backspace ────────────────────────────────
+    def on_clear_cells(self) -> None:
+        """Wis de inhoud van de actieve kolom op alle geselecteerde rijen.
+
+        - Alleen bewerkbare cellen (niet berekend, niet structureel
+          read-only voor het regeltype) worden gewist.
+        - Lege cellen worden overgeslagen.
+        - Eén ⌘Z draait alles tegelijk terug.
+        """
+        if not self.doc:
+            return
+        col = self.table.currentColumn()
+        if col < 0:
+            return
+        tag, _label, _w, col_editable = COLUMNS[col]
+        if not col_editable or tag.startswith('_'):
+            return  # berekende of read-only kolom
+        sel = self._selected_row_indices()
+        rows = sel if sel else [self._current_row()]
+        affected: list[tuple[int, str]] = []
+        for r in rows:
+            s_code = self.doc.get_row_field(r, 's').strip()
+            allowed = _editable_tags_for_s_code(s_code)
+            if allowed is not None and tag not in allowed:
+                continue
+            old = self.doc.get_row_field(r, tag)
+            if old:
+                affected.append((r, old))
+        if not affected:
+            return
+        if len(affected) == 1:
+            r, old = affected[0]
+            self.undo_stack.push(SetCellCommand(self, r, tag, old, ''))
+        else:
+            self.undo_stack.beginMacro(
+                f'Cellen wissen ({len(affected)})'
+            )
+            try:
+                for r, old in affected:
+                    self.undo_stack.push(
+                        SetCellCommand(self, r, tag, old, '')
+                    )
+            finally:
+                self.undo_stack.endMacro()
 
     # ── Kolom vullen ─────────────────────────────────────────────────────────
     def _editable_columns_for_dialog(self) -> list[tuple[str, str]]:

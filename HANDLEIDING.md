@@ -72,6 +72,7 @@ slepen.
 | ⌘Z / ⇧⌘Z | Ongedaan / Opnieuw |
 | F9 / ⇧F9 | Rij toevoegen onder / boven |
 | F11 | Rij verwijderen (met bevestiging bij data) |
+| Delete / Backspace | Cel(len) wissen op huidige kolom |
 | ⇧F4 | Rij dupliceren onder |
 | F4 | Cel uit rij erboven kopiëren |
 | ⌘B | Bruto invoeren (totaal → per eenheid) |
