@@ -128,8 +128,25 @@ de S-code? Dan worden de bewerkbare velden direct opnieuw bepaald.
 
 ### Actieve cel zichtbaar
 
-De cel waar je in staat heeft een **systemBlue rand** rondom — ook als de
-hele rij geselecteerd is. Zo zie je altijd waar je intypt.
+De cel waar je in staat is **wit met een dikke macOS-blauwe rand** — ook
+als de hele rij geselecteerd is of de rij een donkere kleur heeft (zoals
+een hoofdstuk). Zo zie je altijd in welke cel je intypt.
+
+### Meerdere rijen selecteren
+
+- **⇧-klik** een tweede rij om een aaneengesloten bereik te selecteren
+- **⌘-klik** voor een losse extra rij toevoegen aan de selectie
+- **⌘A** om alle rijen te selecteren
+
+Selectie werkt samen met **Kolom vullen** (alleen die rijen) en met
+**Rij verwijderen**.
+
+### Kolom-vullen slaat titels en staart over
+
+Vul je een kolom als Uurloon of Factor, dan worden titel-rijen (S=1/2/3)
+en staart-rijen automatisch overgeslagen — die hebben dat veld niet.
+Een melding in de statusbalk zegt hoeveel rijen zijn aangeraakt en
+hoeveel zijn overgeslagen.
 
 ### Kolommen tonen / verbergen / **verplaatsen**
 

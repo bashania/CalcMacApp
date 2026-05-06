@@ -359,23 +359,46 @@ class _ReturnNextRowFilter(QObject):
 
 
 class CellFocusDelegate(QStyledItemDelegate):
-    """Tekent een duidelijke macOS-systemBlue rand om de cel met focus,
-    bovenop de standaard rij-selectie. Anders is op SelectRows-modus
-    nauwelijks te zien welke cel actief is.
+    """Tekent de actieve cel als een wit blokje met dikke macOS-blue rand,
+    bovenop de eventuele rij-kleur. Anders is op SelectRows nauwelijks te
+    zien welke cel actief is — zeker niet op een donkere hoofdstuk-rij.
     """
 
     FOCUS_COLOR = QColor('#0a84ff')   # macOS systemBlue
+    FOCUS_BG    = QColor('#ffffff')
 
     def paint(self, painter, option, index) -> None:
-        super().paint(painter, option, index)
         if option.state & QStyle.StateFlag.State_HasFocus:
+            # Standaard cel paint (bg, evt. selection-overlay, tekst)
+            super().paint(painter, option, index)
             painter.save()
+            painter.setRenderHint(painter.RenderHint.Antialiasing, False)
+            # Witte vulling overschilderen voor maximale leesbaarheid
+            inner = option.rect.adjusted(1, 1, -1, -1)
+            painter.fillRect(inner, self.FOCUS_BG)
+            # Tekst opnieuw tekenen in originele uitlijning + font + kleur
+            text = index.data(Qt.ItemDataRole.DisplayRole) or ''
+            font = index.data(Qt.ItemDataRole.FontRole) or option.font
+            align_data = index.data(Qt.ItemDataRole.TextAlignmentRole)
+            if align_data is None:
+                align = (
+                    Qt.AlignmentFlag.AlignLeft
+                    | Qt.AlignmentFlag.AlignVCenter
+                )
+            else:
+                align = Qt.AlignmentFlag(int(align_data))
+            painter.setFont(font)
+            painter.setPen(QColor('#000000'))
+            text_rect = inner.adjusted(4, 0, -4, 0)
+            painter.drawText(text_rect, int(align), str(text))
+            # Blauwe rand erboven
             pen = QPen(self.FOCUS_COLOR, 2)
             painter.setPen(pen)
             painter.setBrush(Qt.BrushStyle.NoBrush)
-            # 1 px naar binnen zodat de rand binnen de cel valt
             painter.drawRect(option.rect.adjusted(1, 1, -2, -2))
             painter.restore()
+        else:
+            super().paint(painter, option, index)
 
 
 class FillColumnDialog(QDialog):
@@ -744,6 +767,10 @@ class MainWindow(QMainWindow):
         hh.setStretchLastSection(False)
         # Sleep om kolommen te herordenen — saveState() onthoudt de volgorde
         hh.setSectionsMovable(True)
+        hh.setSectionsClickable(True)
+        hh.setDragEnabled(True)
+        hh.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
+        hh.setFirstSectionMovable(True)
         # Rechtermuisklik op een kolomkop → snel-menu
         hh.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         hh.customContextMenuRequested.connect(self._on_header_context_menu)
@@ -755,7 +782,7 @@ class MainWindow(QMainWindow):
             QAbstractItemView.SelectionBehavior.SelectRows
         )
         self.table.setSelectionMode(
-            QAbstractItemView.SelectionMode.SingleSelection
+            QAbstractItemView.SelectionMode.ExtendedSelection
         )
         self.table.setAlternatingRowColors(False)
         self.table.setTabKeyNavigation(True)   # Tab → volgende cel
@@ -1545,12 +1572,31 @@ class MainWindow(QMainWindow):
             return
         tag = dlg.selected_tag
         value = dlg.selected_value
-        rows = sel_rows if dlg.use_selection else list(range(
+        candidate_rows = sel_rows if dlg.use_selection else list(range(
             self.doc.row_count()
         ))
+        # Sla rijen over waar dit veld niet bewerkbaar is voor het regeltype
+        # (bv. titels en staart-rijen voor een Uurloon-vulling).
+        rows: list[int] = []
+        for r in candidate_rows:
+            s_code = self.doc.get_row_field(r, 's').strip()
+            allowed = _editable_tags_for_s_code(s_code)
+            if allowed is None or tag in allowed:
+                rows.append(r)
         if not rows:
+            QMessageBox.information(
+                self, 'Kolom vullen',
+                'Geen rijen om in te vullen — alle kandidaten zijn titels '
+                'of staart-rijen waar dit veld niet relevant is.',
+            )
             return
+        skipped = len(candidate_rows) - len(rows)
         self.undo_stack.push(FillColumnCommand(self, tag, value, rows))
+        if skipped:
+            self.statusBar().showMessage(
+                f'Kolom gevuld op {len(rows)} regels — '
+                f'{skipped} titel/staart-rijen overgeslagen.', 4000,
+            )
 
     # ── Bruto-invoer ─────────────────────────────────────────────────────────
     def on_bruto_invoeren(self) -> None:
