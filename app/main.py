@@ -196,8 +196,9 @@ def _icon(name: str, fallback: QStyle.StandardPixmap | None = None) -> QIcon:
     return QIcon()
 
 # Welke velden mag je bewerken afhankelijk van het regeltype?
-# Titelrijen S=1/2/3: alleen identificatie en omschrijving.
-TITEL_EDITABLE_TAGS = frozenset({'code', 's', 'oms'})
+# Titelrijen S=1/2/3: identificatie, omschrijving + hoeveelheid/eenheid
+# (kophoeveelheid uit Calc4You — vermenigvuldigt onderliggende totalen).
+TITEL_EDITABLE_TAGS = frozenset({'code', 's', 'oms', 'hvh', 'enh'})
 # Staartrijen: ook hvh (bevat %) en enh nog zinvol; geen kosten of codes.
 STAART_EDITABLE_TAGS = frozenset({'code', 's', 'oms', 'hvh', 'enh'})
 

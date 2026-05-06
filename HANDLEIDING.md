@@ -140,7 +140,7 @@ bewerkbaar — die rekent de app zelf uit.
 
 | Regeltype | Bewerkbare kolommen |
 |-----------|---------------------|
-| **Hoofdstuk / werksoort / locatie** (S = 1/2/3) | Alleen Code, S, Omschrijving |
+| **Hoofdstuk / werksoort / locatie** (S = 1/2/3) | Code, S, Omschrijving + Hoeveelheid en Eenheid (kophoeveelheid) |
 | **Begrotingsregel** (S leeg, S, V, G, ?, X) | Alle invoervelden |
 | **Staart** (`/`, `%`, `&`, `=`, `+`, `-`, `a`, `b`, `c`) | Code, S, Omschrijving, Hvh, Enh |
 | **Berekende kolommen** | Nooit |
@@ -196,6 +196,17 @@ geselecteerde) regels:
 4. Bereik: alle begrotingsregels of alleen geselecteerd
 5. Lege cellen blijven leeg; titels/staart worden overgeslagen
 6. Eén ⌘Z draait alles ineens terug
+
+### Kophoeveelheid op een titel (bv. 2 dezelfde gevels)
+
+Op een titelrij (S=1/2/3) mag je een **Hoeveelheid** invullen — dat is
+de kophoeveelheid. De onderliggende totalen worden hiermee
+vermenigvuldigd. Voorbeeld: zet de gevel-titel op `2`, dan tellen alle
+regels van die gevel **dubbel** in het S=1-totaal en in de bouwkosten.
+
+Werkt geneste: S=1=2 met S=2=2 erin geeft factor 4.
+
+Lege of `1` betekent: geen vermenigvuldiging (standaard gedrag).
 
 ### Bruto invoeren (⌘B)
 

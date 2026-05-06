@@ -55,17 +55,19 @@ def validate(doc: C4YDocument) -> list[Issue]:
         code1 = (el.findtext('code1') or '').strip()
 
         if s in TITEL_S_CODES:
-            # Titels horen hvh=1 te hebben
-            if hvh is not None and hvh != 1.0:
-                issues.append(Issue(
-                    i, SEVERITY_WARNING,
-                    f'Titel ({s}) heeft hoeveelheid '
-                    f'{el.findtext("hvh")} — verwacht 1.',
-                ))
+            # Titels mogen een kophoeveelheid > 1 hebben (Calc4You: bij
+            # bv. "2 dezelfde gevels"). Negatief is wel een fout.
             if hvh is not None and hvh < 0:
                 issues.append(Issue(
                     i, SEVERITY_ERROR,
                     'Titel heeft negatieve hoeveelheid.',
+                ))
+            if hvh is not None and hvh > 1:
+                issues.append(Issue(
+                    i, SEVERITY_INFO,
+                    f'Titel ({s}) heeft kophoeveelheid '
+                    f'{el.findtext("hvh")} — onderliggende totalen '
+                    f'worden hiermee vermenigvuldigd.',
                 ))
             # Geen prijzen op een titel
             if any(v is not None and v != 0
