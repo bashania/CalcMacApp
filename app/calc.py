@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from app.c4y_io import format_nl, format_nl_hvh, parse_nl_number
+from app.c4y_io import format_nl, format_nl_hvh, parse_nl_number  # noqa: F401
 
 
 # ── S-code classificatie ──────────────────────────────────────────────────────
@@ -30,8 +30,21 @@ def _num(value) -> float:
     return parsed if parsed is not None else 0.0
 
 
-def _bereken_regel(row: dict) -> tuple[float, float, float]:
-    """(prijspe, toturen, totaal) voor een gewone begrotingsregel."""
+def _bereken_regel(row: dict) -> dict:
+    """Bereken alle afgeleide bedragen voor één begrotingsregel.
+
+    De Factor (productie) is een percentage opslag dat over de hele regel
+    wordt gezet — niet alleen op arbeid. Resulteert in:
+
+        basis_pe   = arb * uurloon + maa + mee + ond
+        prijspe    = basis_pe * (1 + factor/100)
+        tot_arb    = hvh * arb * uurloon * (1 + factor/100)
+        tot_maa    = hvh * maa            * (1 + factor/100)
+        tot_mee    = hvh * mee            * (1 + factor/100)
+        tot_ond    = hvh * ond            * (1 + factor/100)
+        toturen    = hvh * arb            (uren tellen niet mee in de opslag)
+        totaal     = hvh * prijspe        (= som van tot_arb..tot_ond)
+    """
     arb       = _num(row.get('arb'))
     maa       = _num(row.get('maa'))
     mee       = _num(row.get('mee'))
@@ -39,9 +52,19 @@ def _bereken_regel(row: dict) -> tuple[float, float, float]:
     hvh       = _num(row.get('hvh'))
     uurloon   = _num(row.get('uurloon'))
     productie = _num(row.get('productie'))
+    fac       = 1.0 + productie / 100.0
 
-    prijspe = arb * uurloon * (1.0 + productie / 100.0) + maa + mee + ond
-    return prijspe, hvh * arb, hvh * prijspe
+    basis_pe = arb * uurloon + maa + mee + ond
+    prijspe  = basis_pe * fac
+    return {
+        'prijspe': prijspe,
+        'toturen': hvh * arb,
+        'totaal':  hvh * prijspe,
+        'tot_arb': hvh * arb * uurloon * fac,
+        'tot_maa': hvh * maa * fac,
+        'tot_mee': hvh * mee * fac,
+        'tot_ond': hvh * ond * fac,
+    }
 
 
 def recompute(rows: Iterable[dict]) -> list[dict]:
@@ -66,6 +89,10 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
     raw_totaal  = [0.0] * n
     raw_toturen = [0.0] * n
     raw_prijspe = [0.0] * n
+    raw_arb     = [0.0] * n   # totaal arbeid €
+    raw_maa     = [0.0] * n   # totaal materiaal €
+    raw_mee     = [0.0] * n   # totaal materieel €
+    raw_ond     = [0.0] * n   # totaal onderaanneming €
     is_titel    = [False] * n
     is_staart   = [False] * n
 
@@ -85,8 +112,14 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
         if s in TITEL_NIVEAUS:
             is_titel[i] = True
         elif s in BEGROTING_S_CODES:
-            p, t, tot = _bereken_regel(r)
-            raw_prijspe[i], raw_toturen[i], raw_totaal[i] = p, t, tot
+            res = _bereken_regel(r)
+            raw_prijspe[i] = res['prijspe']
+            raw_toturen[i] = res['toturen']
+            raw_totaal[i]  = res['totaal']
+            raw_arb[i]     = res['tot_arb']
+            raw_maa[i]     = res['tot_maa']
+            raw_mee[i]     = res['tot_mee']
+            raw_ond[i]     = res['tot_ond']
 
     # ── Fase 2: titel-rollup (S=1/2/3) ───────────────────────────────────────
     for i in range(n):
@@ -94,6 +127,7 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             continue
         niveau = int((rows[i].get('s') or '').strip())
         som_tot = som_uren = 0.0
+        som_arb = som_maa = som_mee = som_ond = 0.0
         for j in range(i + 1, n):
             if is_staart[j]:
                 break
@@ -102,8 +136,16 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 break
             som_tot  += raw_totaal[j]
             som_uren += raw_toturen[j]
+            som_arb  += raw_arb[j]
+            som_maa  += raw_maa[j]
+            som_mee  += raw_mee[j]
+            som_ond  += raw_ond[j]
         raw_totaal[i]  = som_tot
         raw_toturen[i] = som_uren
+        raw_arb[i]     = som_arb
+        raw_maa[i]     = som_maa
+        raw_mee[i]     = som_mee
+        raw_ond[i]     = som_ond
 
     # ── Fase 3: staart ────────────────────────────────────────────────────────
     if staart_idx is not None:
@@ -143,8 +185,15 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 delta = running * pct / 100.0
                 raw_totaal[i] = delta
                 running += delta
-            elif s in ('S', 'V', 'G', 'X'):
+            elif s in ('S', 'V', 'G'):
+                # Stelposten/verrekenposten/geschatte posten zitten al in
+                # directe kosten — alleen tonen, niet nogmaals optellen.
                 raw_totaal[i] = _sub.get(s, 0.0)
+            elif s == 'X':
+                # X-posten zijn juist BUITEN directe kosten — nu wel optellen.
+                delta = _sub.get('X', 0.0)
+                raw_totaal[i] = delta
+                running += delta
             elif s == '&':
                 # Vereenvoudigd: behandel als %-opslag
                 delta = running * hvh / 100.0
@@ -159,11 +208,20 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
         pp = raw_prijspe[i]
         st = is_staart[i]
 
+        ar = raw_arb[i]
+        ma = raw_maa[i]
+        me = raw_mee[i]
+        on = raw_ond[i]
+
         if is_titel[i]:
             out.append({
                 'prijspe':  '',
                 'toturen':  format_nl_hvh(tu) if tu else '',
                 'totaal':   format_nl(t),
+                'tot_arb':  format_nl(ar) if ar else '',
+                'tot_maa':  format_nl(ma) if ma else '',
+                'tot_mee':  format_nl(me) if me else '',
+                'tot_ond':  format_nl(on) if on else '',
                 'is_staart': False,
             })
         elif st:
@@ -171,6 +229,10 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 'prijspe':  '',
                 'toturen':  '',
                 'totaal':   format_nl(t) if t != 0 else '',
+                'tot_arb':  '',
+                'tot_maa':  '',
+                'tot_mee':  '',
+                'tot_ond':  '',
                 'is_staart': True,
             })
         else:
@@ -178,6 +240,10 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 'prijspe':  format_nl(pp) if pp else '',
                 'toturen':  format_nl_hvh(tu) if tu else '',
                 'totaal':   format_nl(t)  if t  else '',
+                'tot_arb':  format_nl(ar) if ar else '',
+                'tot_maa':  format_nl(ma) if ma else '',
+                'tot_mee':  format_nl(me) if me else '',
+                'tot_ond':  format_nl(on) if on else '',
                 'is_staart': False,
             })
     return out
@@ -190,3 +256,20 @@ def totaal_begroting(calc_rows: list[dict], rows: list[dict]) -> float:
         for c, r in zip(calc_rows, rows)
         if (r.get('s') or '').strip() == '1'
     )
+
+
+def eindtotaal_begroting(
+    calc_rows: list[dict], rows: list[dict],
+) -> float | None:
+    """Eindbedrag = laatste '=' in de staart, of None als er geen staart is.
+
+    Een '=' rij toont het lopend totaal, dus de laatste '=' is het
+    eindtotaal van de begroting incl. BTW.
+    """
+    last: float | None = None
+    for c, r in zip(calc_rows, rows):
+        if (r.get('s') or '').strip() == '=':
+            v = parse_nl_number(c['totaal'])
+            if v is not None:
+                last = v
+    return last

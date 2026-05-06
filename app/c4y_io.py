@@ -9,6 +9,7 @@ punt als duizendtalscheider).
 
 from __future__ import annotations
 
+import copy
 import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -48,10 +49,14 @@ def _clean_xml(text: str) -> str:
 
 # ── Getalconversie NL ↔ float ─────────────────────────────────────────────────
 def parse_nl_number(value: Optional[str]) -> Optional[float]:
-    """'1.234,56' → 1234.56. Lege string → None."""
+    """'1.234,56' → 1234.56. Lege string → None.
+
+    Tolerant voor `%`-teken (bv. '21%' of '21 %' uit een BTW-rij) en
+    omringende whitespace. Niet-numerieke input geeft None.
+    """
     if value is None:
         return None
-    s = str(value).strip()
+    s = str(value).strip().rstrip('%').strip()
     if not s:
         return None
     cleaned = s.replace('.', '').replace(',', '.')
@@ -89,17 +94,38 @@ def format_nl_hvh(value) -> str:
     return format_nl(v, 2)
 
 
+# ── Begroting-element layout ──────────────────────────────────────────────────
+# Volgorde van sub-tags in een <begroting>. Identiek aan
+# c4y-writer/scripts/schrijf_c4y.py:96-140 zodat door onze app aangemaakte
+# bestanden compatibel blijven met de originele Calc4You-software.
+BEGROTING_TAG_ORDER: tuple[str, ...] = (
+    'nr', 'code', 's', 'oms', 'hvh', 'enh',
+    'arb', 'maa', 'mee', 'ond',
+    'totaal', 'toturen', 'prijspe',
+    'bestekc',
+    'admi', 'admi_ar', 'admi_ma', 'admi_me', 'admi_oa',
+    'meet', 'totarbeid', 'totuur',
+    'code1', 'code2', 'code3', 'code4',
+    'uurloon', 'mnr', 'btw', 'rsu', 'aard',
+    'productie', 'ouder', 'althv',
+    'startjr', 'cyclus', 'stopjr', 'prioriteit',
+    'dccode', 'dcbedrag', 'link',
+)
+
+# Vaste defaults die Calc4You ook altijd schrijft.
+BEGROTING_FIXED_DEFAULTS: dict[str, str] = {
+    'admi_oa': '0',
+}
+
+TITEL_NIVEAUS: frozenset[str] = frozenset({'1', '2', '3'})
+
+
 # ── Document ──────────────────────────────────────────────────────────────────
 class C4YDocument:
     """Een geladen .c4y bestand met directe edit-toegang tot de XML-tree."""
 
     PROJECT_FIELDS = ('kop', 'r1', 'r2', 'r3', 'r4', 'r5', 'ul')
-    ROW_FIELDS = (
-        'nr', 'code', 's', 'oms', 'hvh', 'enh',
-        'arb', 'maa', 'ond',
-        'code1', 'code2', 'code3', 'code4',
-        'uurloon', 'productie',
-    )
+    ROW_FIELDS = BEGROTING_TAG_ORDER
 
     def __init__(self, tree: ET.ElementTree, path: Optional[str] = None):
         self.tree = tree
@@ -163,6 +189,151 @@ class C4YDocument:
         if child is None:
             child = ET.SubElement(b, tag)
         child.text = value if value else None
+
+    # ── Structurele mutaties ─────────────────────────────────────────────────
+    def _root_index_of(self, element: ET.Element) -> int:
+        """Geef de positie van `element` binnen self.root."""
+        for i, child in enumerate(self.root):
+            if child is element:
+                return i
+        raise ValueError("element niet gevonden in root")
+
+    def _root_anchor_for(self, idx: int) -> int:
+        """Bepaal de root-positie waar een nieuwe begroting op begroting-index
+        `idx` ingevoegd zou moeten worden.
+
+        Als er nog geen begrotingen zijn, val terug op direct na <alginfo>.
+        """
+        n = self.row_count()
+        if idx < n:
+            return self._root_index_of(self.begrotingen[idx])
+        if n > 0:
+            return self._root_index_of(self.begrotingen[n - 1]) + 1
+        # Geen bestaande begrotingen: na alginfo (positie 0 of 1)
+        ai = self.alginfo
+        return (self._root_index_of(ai) + 1) if ai is not None else 0
+
+    def make_empty_begroting(
+        self, defaults: Optional[dict[str, str]] = None
+    ) -> ET.Element:
+        """Maak een nieuw <begroting> met alle Calc4You sub-tags in volgorde.
+
+        Velden zijn leeg tenzij in `defaults` of in BEGROTING_FIXED_DEFAULTS.
+        """
+        el = ET.Element('begroting')
+        defaults = defaults or {}
+        for tag in BEGROTING_TAG_ORDER:
+            child = ET.SubElement(el, tag)
+            value = defaults.get(tag, BEGROTING_FIXED_DEFAULTS.get(tag))
+            if value:
+                child.text = value
+        return el
+
+    def insert_row(
+        self, idx: int, defaults: Optional[dict[str, str]] = None,
+    ) -> ET.Element:
+        """Voeg een nieuwe lege rij in op begroting-positie `idx`.
+
+        Geeft het nieuw aangemaakte element terug. Roep `renumber()` aan
+        nadat alle structurele mutaties klaar zijn.
+        """
+        n = self.row_count()
+        if not 0 <= idx <= n:
+            raise IndexError(f"insert_row idx={idx} buiten bereik 0..{n}")
+        el = self.make_empty_begroting(defaults)
+        self.root.insert(self._root_anchor_for(idx), el)
+        return el
+
+    def delete_row(self, idx: int) -> ET.Element:
+        """Verwijder rij `idx` en geef het verwijderde element terug.
+
+        Het teruggegeven element kan via `restore_row` weer ingevoegd worden
+        (bv. voor undo).
+        """
+        el = self.begrotingen[idx]
+        self.root.remove(el)
+        return el
+
+    def restore_row(self, idx: int, element: ET.Element) -> None:
+        """Plaats een eerder verwijderd element terug op positie `idx`."""
+        n = self.row_count()
+        if not 0 <= idx <= n:
+            raise IndexError(f"restore_row idx={idx} buiten bereik 0..{n}")
+        self.root.insert(self._root_anchor_for(idx), element)
+
+    def duplicate_row(self, idx: int) -> ET.Element:
+        """Maak een diepe kopie van rij `idx` en plaats hem direct eronder."""
+        src = self.begrotingen[idx]
+        copy_el = copy.deepcopy(src)
+        nr_el = copy_el.find('nr')
+        if nr_el is not None:
+            nr_el.text = None      # renumber vult dit later
+        self.root.insert(self._root_index_of(src) + 1, copy_el)
+        return copy_el
+
+    def move_block(self, src: int, count: int, dst: int) -> None:
+        """Verplaats `count` opeenvolgende rijen vanaf `src` naar `dst`.
+
+        `dst` is de doelpositie *ná* verwijdering van het blok — dus geldt
+        0 ≤ dst ≤ row_count() − count.
+        """
+        if count < 1 or src == dst:
+            return
+        n = self.row_count()
+        if not (0 <= src < n and src + count <= n):
+            raise IndexError(f"move_block src={src} count={count} buiten bereik")
+        if not 0 <= dst <= n - count:
+            raise IndexError(f"move_block dst={dst} buiten bereik")
+
+        # Snapshot van de te verplaatsen elementen
+        block = [self.begrotingen[src + i] for i in range(count)]
+        for el in block:
+            self.root.remove(el)
+
+        # Bepaal anchor in root op basis van begroting-index na verwijdering
+        anchor = self._root_anchor_for(dst)
+        for i, el in enumerate(block):
+            self.root.insert(anchor + i, el)
+
+    def renumber(self) -> None:
+        """Hernummert <nr> in document-volgorde (00001, 00002, …)."""
+        for i, el in enumerate(self.begrotingen):
+            nr_el = el.find('nr')
+            if nr_el is None:
+                # Maak in juiste positie aan (eerste sub-tag)
+                nr_el = ET.Element('nr')
+                el.insert(0, nr_el)
+            nr_el.text = f"{i + 1:05d}"
+
+    def block_size(self, idx: int) -> int:
+        """Aantal rijen in het 'blok' beginnend bij `idx`.
+
+        Voor titelrijen (S=1/2/3): titel + alle children tot de volgende
+        titel van gelijk of hoger niveau (of '/' of einde).
+        Voor alle andere rijen: 1.
+        """
+        rows = self.begrotingen
+        n = len(rows)
+        if not 0 <= idx < n:
+            return 0
+        s = (rows[idx].findtext('s') or '').strip()
+        if s not in TITEL_NIVEAUS:
+            return 1
+        niveau = int(s)
+        cnt = 1
+        for j in range(idx + 1, n):
+            s_j = (rows[j].findtext('s') or '').strip()
+            if s_j == '/':
+                break
+            if s_j in TITEL_NIVEAUS and int(s_j) <= niveau:
+                break
+            cnt += 1
+        return cnt
+
+    def children_indices(self, idx: int) -> list[int]:
+        """Indices van direct-onderliggende rijen voor titel `idx`."""
+        cnt = self.block_size(idx)
+        return list(range(idx + 1, idx + cnt)) if cnt > 1 else []
 
     # ── Opslaan ──────────────────────────────────────────────────────────────
     def save(self, path: Optional[str | Path] = None) -> None:
