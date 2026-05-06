@@ -218,9 +218,9 @@ Het label is altijd zichtbaar zodra een bestand open is:
 | `&` | Opslag (vereenvoudigd: zoals %) |
 | `=` | Tussentotaal (toont lopend totaal, geen reset) |
 | `+` / `-` | Handmatig bedrag erbij / eraf |
-| `a` | BTW hoog (default 21 %, of vul percentage in Hvh) |
-| `b` | BTW laag (default 9 %) |
-| `c` | BTW verlegd (default 0 %) |
+| `a` | BTW hoog — over de subset begrotingsregels met `btw='h'` (of leeg). Bij invoer worden oms en Hvh automatisch ingevuld; pas Hvh aan om te overschrijven. |
+| `b` | BTW laag — over de subset met `btw='l'`. Auto-vulling idem. |
+| `c` | BTW verlegd — over de subset met `btw='v'`. Auto-vulling idem. |
 | `S` / `V` / `G` | Subtotaal stelposten / verrekenposten / geschatte posten — **alleen tonen**, telt niet (nogmaals) bij het lopend totaal |
 | `X` | Subtotaal X-posten — telt **wel** bij het lopend totaal omdat X-posten buiten directe kosten vallen |
 
@@ -246,12 +246,37 @@ G   Geschatte posten (informatief)
 =   Eindtotaal herhaald (Calc4You-conventie)
 ```
 
+#### BTW-kenmerk per begrotingsregel
+
+De `btw`-kolom op begrotingsregels stuurt onder welk BTW-tarief de regel
+valt:
+
+- `h` of leeg → hoog tarief (a-rij)
+- `l` → laag tarief (b-rij)
+- `v` → verlegd (c-rij)
+
+Hoofdletters `H`/`L`/`V` worden óók geaccepteerd. De grondslag voor de
+a-rij is de som van de h-regels, voor de b-rij de l-regels, enzovoort.
+Eventuele %-opslagen tussen `/` en de eerste a/b/c-rij (Onvoorzien, AK,
+W&R) schalen alle grondslagen proportioneel mee — de a- en b-rij delen
+dezelfde "ex BTW"-grondslag.
+
+#### Auto-vulling op a/b/c
+
+Typ je `a`, `b` of `c` in de S-kolom van een staart-rij, dan vult
+CalcMacApp automatisch de oms ("BTW hoog/laag tarief" / "BTW verlegd")
+en de Hvh met het huidige percentage. Bestaande waarden worden niet
+overschreven. Eén ⌘Z herstelt de hele rij in één stap.
+
+De percentages zelf zijn instelbaar via **Bewerken → Voorkeuren…**
+(⌘,) — handig wanneer de overheid de tarieven wijzigt.
+
 #### Lege Hvh op BTW-rijen
 
 Vul je geen Hvh op een `a`/`b`/`c`-rij, dan past CalcMacApp het standaard
-percentage toe (21 / 9 / 0 %). De Hvh-cel staat dan cursief en een tooltip
-op de S-cel meldt _"Default … % gebruikt"_. Vul een waarde in om dat te
-overschrijven.
+percentage toe (uit voorkeuren, default 21 / 9 / 0 %). De Hvh-cel staat
+dan cursief en een tooltip op de S-cel meldt _"Default … % gebruikt"_.
+Vul een waarde in om dat te overschrijven.
 
 #### Waarschuwingen op staart-rijen
 

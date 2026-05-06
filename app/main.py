@@ -28,6 +28,7 @@ from PyQt6.QtWidgets import (
     QDialog,
     QDialogButtonBox,
     QDockWidget,
+    QDoubleSpinBox,
     QFileDialog,
     QFormLayout,
     QGroupBox,
@@ -600,6 +601,68 @@ class BrutoInputDialog(QDialog):
         return out
 
 
+class PreferencesDialog(QDialog):
+    """Voorkeuren — 3 BTW-percentages instelbaar (hoog/laag/verlegd).
+
+    Wordt opgeslagen via QSettings('CalcMacApp', 'CalcMacApp') onder de keys
+    `btw/hoog`, `btw/laag`, `btw/verlegd`. Bij sluiten met OK wordt het
+    eindtotaal-label automatisch herberekend door de aanroeper.
+    """
+
+    def __init__(self, parent=None) -> None:
+        super().__init__(parent)
+        self.setWindowTitle('Voorkeuren')
+        self.setModal(True)
+
+        s = QSettings('CalcMacApp', 'CalcMacApp')
+
+        def _spin(default: float, key: str) -> QDoubleSpinBox:
+            sb = QDoubleSpinBox()
+            sb.setRange(0.0, 100.0)
+            sb.setDecimals(1)
+            sb.setSingleStep(0.5)
+            sb.setSuffix(' %')
+            try:
+                sb.setValue(float(s.value(key, default)))
+            except (TypeError, ValueError):
+                sb.setValue(default)
+            return sb
+
+        self.sp_hoog = _spin(21.0, 'btw/hoog')
+        self.sp_laag = _spin(9.0, 'btw/laag')
+        self.sp_verlegd = _spin(0.0, 'btw/verlegd')
+
+        layout = QVBoxLayout(self)
+        intro = QLabel(
+            'BTW-percentages voor staart-rijen <b>a</b>, <b>b</b> en <b>c</b>. '
+            'Wordt automatisch ingevuld op nieuwe BTW-rijen en gebruikt als '
+            'fallback wanneer Hvh leeg is.'
+        )
+        intro.setWordWrap(True)
+        layout.addWidget(intro)
+
+        form = QFormLayout()
+        form.addRow('BTW hoog (a):', self.sp_hoog)
+        form.addRow('BTW laag (b):', self.sp_laag)
+        form.addRow('BTW verlegd (c):', self.sp_verlegd)
+        layout.addLayout(form)
+
+        bb = QDialogButtonBox(
+            QDialogButtonBox.StandardButton.Ok
+            | QDialogButtonBox.StandardButton.Cancel
+        )
+        bb.accepted.connect(self._save_and_accept)
+        bb.rejected.connect(self.reject)
+        layout.addWidget(bb)
+
+    def _save_and_accept(self) -> None:
+        s = QSettings('CalcMacApp', 'CalcMacApp')
+        s.setValue('btw/hoog', self.sp_hoog.value())
+        s.setValue('btw/laag', self.sp_laag.value())
+        s.setValue('btw/verlegd', self.sp_verlegd.value())
+        self.accept()
+
+
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
@@ -662,6 +725,11 @@ class MainWindow(QMainWindow):
             'Afsluiten', self, shortcut=QKeySequence.StandardKey.Quit,
         )
         self.act_quit.triggered.connect(self.close)
+
+        self.act_preferences = QAction('Voorkeuren…', self)
+        self.act_preferences.setShortcut(QKeySequence.StandardKey.Preferences)
+        self.act_preferences.setMenuRole(QAction.MenuRole.PreferencesRole)
+        self.act_preferences.triggered.connect(self.on_preferences)
 
         # Undo / Redo via QUndoStack
         self.act_undo = self.undo_stack.createUndoAction(self, 'Ongedaan maken')
@@ -893,9 +961,29 @@ class MainWindow(QMainWindow):
     def on_toggle_inspector(self) -> None:
         self.inspector.setVisible(not self.inspector.isVisible())
 
+    def on_preferences(self) -> None:
+        dlg = PreferencesDialog(self)
+        if dlg.exec() == QDialog.DialogCode.Accepted:
+            self._recompute_and_refresh()
+
     # ── Persistente instellingen ─────────────────────────────────────────────
     def _settings(self) -> QSettings:
         return QSettings('CalcMacApp', 'CalcMacApp')
+
+    def _get_btw_pct(self, s_code: str) -> float:
+        """BTW-percentage voor 'a'/'b'/'c' uit voorkeuren, of fallback."""
+        from app.calc import BTW_DEFAULTS
+        key = {'a': 'btw/hoog', 'b': 'btw/laag', 'c': 'btw/verlegd'}.get(s_code)
+        if key is None:
+            return 0.0
+        default = BTW_DEFAULTS.get(s_code, 0.0)
+        try:
+            return float(self._settings().value(key, default))
+        except (TypeError, ValueError):
+            return default
+
+    def _btw_defaults_dict(self) -> dict[str, float]:
+        return {s: self._get_btw_pct(s) for s in ('a', 'b', 'c')}
 
     def _save_settings(self) -> None:
         s = self._settings()
@@ -1084,6 +1172,8 @@ class MainWindow(QMainWindow):
         b.addSeparator()
         b.addAction(self.act_collapse)
         b.addAction(self.act_collapse_level)
+        b.addSeparator()
+        b.addAction(self.act_preferences)
 
         # Beeld-menu
         v = m.addMenu('&Beeld')
@@ -1348,7 +1438,7 @@ class MainWindow(QMainWindow):
             {t: self.doc.get_row_field(i, t) for t in input_tags}
             for i in range(n)
         ]
-        results = recompute(rows_in)
+        results = recompute(rows_in, btw_defaults=self._btw_defaults_dict())
 
         calc_map = {
             '_prijspe': 'prijspe',
@@ -1505,13 +1595,66 @@ class MainWindow(QMainWindow):
         if tag == 'oms':
             new_value = _strip_oms_chrome(new_value)
 
-        old_value = self.doc.get_row_field(item.row(), tag)
+        row = item.row()
+        old_value = self.doc.get_row_field(row, tag)
         if old_value == new_value:
             return  # geen echte wijziging — geen undo-entry
 
-        self.undo_stack.push(SetCellCommand(
-            self, item.row(), tag, old_value, new_value,
-        ))
+        # Auto-vulling op a/b/c-staartrijen: oms + hvh als de gebruiker net
+        # 'a', 'b' of 'c' in de S-kolom typt en die velden nog leeg zijn.
+        # Alle drie wijzigingen in één undo-macro zodat ⌘Z ze samen herstelt.
+        auto_oms, auto_hvh = self._abc_autofill(row, tag, new_value)
+        if auto_oms is not None or auto_hvh is not None:
+            self.undo_stack.beginMacro(f'{tag} → {new_value}')
+            self.undo_stack.push(SetCellCommand(
+                self, row, tag, old_value, new_value,
+            ))
+            if auto_oms is not None:
+                self.undo_stack.push(SetCellCommand(
+                    self, row, 'oms', '', auto_oms,
+                ))
+            if auto_hvh is not None:
+                self.undo_stack.push(SetCellCommand(
+                    self, row, 'hvh', '', auto_hvh,
+                ))
+            self.undo_stack.endMacro()
+        else:
+            self.undo_stack.push(SetCellCommand(
+                self, row, tag, old_value, new_value,
+            ))
+
+    def _abc_autofill(
+        self, row: int, tag: str, new_value: str,
+    ) -> tuple[str | None, str | None]:
+        """Bepaal eventuele auto-vulling voor oms en hvh op a/b/c-staartrijen.
+
+        Geeft (oms, hvh) terug; elk None als die niet ingevuld moet worden.
+        Vereisten: tag == 's', new_value ∈ {a,b,c}, rij staat in de staart
+        (ná een /-rij), en oms/hvh op die rij zijn momenteel leeg.
+        """
+        if tag != 's' or new_value not in ('a', 'b', 'c'):
+            return (None, None)
+        # Staat deze rij in de staart? Zoek een /-rij ergens vóór deze.
+        in_staart = any(
+            (self.doc.get_row_field(i, 's') or '').strip() == '/'
+            for i in range(row)
+        )
+        if not in_staart:
+            return (None, None)
+        oms_val = (self.doc.get_row_field(row, 'oms') or '').strip()
+        hvh_val = (self.doc.get_row_field(row, 'hvh') or '').strip()
+        oms_default = {
+            'a': 'BTW hoog tarief',
+            'b': 'BTW laag tarief',
+            'c': 'BTW verlegd',
+        }[new_value]
+        pct = self._get_btw_pct(new_value)
+        # Format zonder onnodige decimalen — 21 → "21", 9,5 → "9,5"
+        hvh_default = format_nl_hvh(pct) if pct else '0'
+        return (
+            oms_default if not oms_val else None,
+            hvh_default if not hvh_val else None,
+        )
 
     # ── Helpers voor commando's en DnDTableWidget ────────────────────────────
     def _safe_block_size(self, idx: int) -> int:

@@ -26,7 +26,7 @@ from app.calc import (  # noqa: E402
 
 def make_row(**kwargs) -> dict:
     base = {k: '' for k in (
-        's', 'hvh', 'arb', 'maa', 'mee', 'ond', 'uurloon', 'productie',
+        's', 'hvh', 'arb', 'maa', 'mee', 'ond', 'uurloon', 'productie', 'btw',
     )}
     base.update(kwargs)
     return base
@@ -61,8 +61,8 @@ def test_btw_default_geen_hvh():
 
 def test_x_post_telt_in_staart():
     rows = [
-        make_row(maa='100', hvh='1'),       # DK = 100
-        make_row(s='X', maa='50', hvh='1'),  # X-post: 50, BUITEN DK
+        make_row(maa='100', hvh='1', btw='h'),       # DK = 100, hoog
+        make_row(s='X', maa='50', hvh='1', btw='h'),  # X-post: 50, BUITEN DK
         make_row(s='/'),
         make_row(s='='),                     # = 100 (alleen DK)
         make_row(s='X'),                     # +50
@@ -141,6 +141,117 @@ def test_eindtotaal_geen_staart():
     assert eindtotaal_begroting(res, rows) is None
 
 
+# ── BTW-differentiatie (h/l/v per regel) ──────────────────────────────────────
+def test_btw_alleen_hoog_default():
+    """Lege btw-velden vallen onder 'h' (hoog). Grondslag a-rij = directe kosten."""
+    rows = [
+        make_row(maa='100', hvh='1'),  # btw leeg → h
+        make_row(maa='200', hvh='1'),  # btw leeg → h
+        make_row(s='/'),
+        make_row(s='a', hvh='21'),
+        make_row(s='='),
+    ]
+    res = recompute(rows)
+    # 300 directe kosten, 100% h → BTW 21% over 300 = 63
+    assert parse_nl_number(res[3]['totaal']) == pytest.approx(63.0)
+    assert parse_nl_number(res[4]['totaal']) == pytest.approx(363.0)
+
+
+def test_btw_gemixt_h_en_l():
+    """Twee regels h (€100), één regel l (€50). Geen %-opslag tussen / en a/b."""
+    rows = [
+        make_row(maa='40', hvh='1', btw='h'),
+        make_row(maa='60', hvh='1', btw='h'),
+        make_row(maa='50', hvh='1', btw='l'),
+        make_row(s='/'),
+        make_row(s='a', hvh='21'),  # 21% over 100 = 21
+        make_row(s='b', hvh='9'),   # 9% over 50 = 4,50
+        make_row(s='='),
+    ]
+    res = recompute(rows)
+    assert parse_nl_number(res[4]['totaal']) == pytest.approx(21.0)
+    assert parse_nl_number(res[5]['totaal']) == pytest.approx(4.50)
+    assert parse_nl_number(res[6]['totaal']) == pytest.approx(175.50)
+
+
+def test_btw_alleen_laag():
+    """Alleen laag-tarief regels: a-rij geeft 0, b-rij krijgt de volledige grondslag."""
+    rows = [
+        make_row(maa='200', hvh='1', btw='l'),
+        make_row(s='/'),
+        make_row(s='a', hvh='21'),  # 21% over 0 (geen h) = 0
+        make_row(s='b', hvh='9'),   # 9% over 200 = 18
+        make_row(s='='),
+    ]
+    res = recompute(rows)
+    assert parse_nl_number(res[2]['totaal']) == pytest.approx(0.0) or \
+        res[2]['totaal'] == ''  # 0 wordt mogelijk als '' geformatteerd
+    assert parse_nl_number(res[3]['totaal']) == pytest.approx(18.0)
+    assert parse_nl_number(res[4]['totaal']) == pytest.approx(218.0)
+
+
+def test_btw_verlegd():
+    """btw='v' regel hoort onder de c-staartrij, niet a of b."""
+    rows = [
+        make_row(maa='100', hvh='1', btw='v'),
+        make_row(s='/'),
+        make_row(s='a', hvh='21'),  # geen h-regels → 0
+        make_row(s='b', hvh='9'),   # geen l-regels → 0
+        make_row(s='c', hvh='0'),   # 0% over 100 = 0
+        make_row(s='='),
+    ]
+    res = recompute(rows)
+    # Eindtotaal blijft directe kosten, want alle BTW over verlegd is 0%
+    assert parse_nl_number(res[5]['totaal']) == pytest.approx(100.0)
+
+
+def test_btw_case_insensitive():
+    """Hoofdletters 'H'/'L'/'V' werken hetzelfde als kleine letters."""
+    rows = [
+        make_row(maa='100', hvh='1', btw='H'),
+        make_row(maa='50', hvh='1', btw='L'),
+        make_row(s='/'),
+        make_row(s='a', hvh='21'),
+        make_row(s='b', hvh='9'),
+        make_row(s='='),
+    ]
+    res = recompute(rows)
+    assert parse_nl_number(res[3]['totaal']) == pytest.approx(21.0)
+    assert parse_nl_number(res[4]['totaal']) == pytest.approx(4.50)
+
+
+def test_btw_proportioneel_na_pct_opslag():
+    """%-opslagen vóór BTW schalen alle BTW-grondslagen mee."""
+    rows = [
+        make_row(maa='100', hvh='1', btw='h'),
+        make_row(maa='100', hvh='1', btw='l'),
+        make_row(s='/'),
+        make_row(s='%', hvh='5'),    # +5% Onvoorzien op 200 = 10
+        make_row(s='='),              # 210
+        make_row(s='a', hvh='21'),    # 21% over (100*1.05) = 22,05
+        make_row(s='b', hvh='9'),     # 9% over (100*1.05) = 9,45
+        make_row(s='='),
+    ]
+    res = recompute(rows)
+    assert parse_nl_number(res[5]['totaal']) == pytest.approx(22.05)
+    assert parse_nl_number(res[6]['totaal']) == pytest.approx(9.45)
+    # Eindtotaal: 210 + 22,05 + 9,45 = 241,50
+    assert parse_nl_number(res[7]['totaal']) == pytest.approx(241.50)
+
+
+def test_btw_default_via_parameter():
+    """btw_defaults override de module-constante (settings → recompute)."""
+    rows = [
+        make_row(maa='100', hvh='1', btw='h'),
+        make_row(s='/'),
+        make_row(s='a'),  # leeg hvh → default uit parameter (25)
+        make_row(s='='),
+    ]
+    res = recompute(rows, btw_defaults={'a': 25.0})
+    assert parse_nl_number(res[2]['totaal']) == pytest.approx(25.0)
+    assert parse_nl_number(res[3]['totaal']) == pytest.approx(125.0)
+
+
 # ── Validate-cases ────────────────────────────────────────────────────────────
 def test_validate_geen_slash_met_staart_codes():
     rows = [make_row(s='%', hvh='5')]
@@ -201,7 +312,9 @@ def test_parse_nl_number_pct_input():
 def _load_rows(path: Path) -> list[dict]:
     from app.c4y_io import C4YDocument
     doc = C4YDocument.load(str(path))
-    fields = ('s', 'hvh', 'arb', 'maa', 'mee', 'ond', 'uurloon', 'productie')
+    fields = (
+        's', 'hvh', 'arb', 'maa', 'mee', 'ond', 'uurloon', 'productie', 'btw',
+    )
     return [
         {t: doc.get_row_field(i, t) for t in fields}
         for i in range(doc.row_count())

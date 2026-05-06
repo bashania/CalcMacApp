@@ -25,6 +25,22 @@ STAART_S_CODES     = frozenset({'/', '%', '&', '=', '+', '-', 'a', 'b', 'c'})
 # Standaard BTW-percentages als hvh leeg is
 BTW_DEFAULTS: dict[str, float] = {'a': 21.0, 'b': 9.0, 'c': 0.0}
 
+# BTW-kenmerken op begrotingsregels: 'h' = hoog, 'l' = laag, 'v' = verlegd.
+# Leeg of onbekend wordt als 'h' (hoog) behandeld. Map a/b/c-staartcodes
+# naar hun bijbehorende kenmerk.
+BTW_KENMERKEN = ('h', 'l', 'v')
+ABC_NAAR_KENMERK: dict[str, str] = {'a': 'h', 'b': 'l', 'c': 'v'}
+
+
+def _btw_kenmerk(row: dict) -> str:
+    """Geef het BTW-kenmerk van een begrotingsregel terug ('h'|'l'|'v').
+
+    Leeg, onbekend of een afwijkende waarde valt terug op 'h' (hoog) —
+    de Nederlandse standaard voor goederen en diensten.
+    """
+    raw = (row.get('btw') or '').strip().lower()
+    return raw if raw in BTW_KENMERKEN else 'h'
+
 
 def _num(value) -> float:
     parsed = parse_nl_number(value)
@@ -68,14 +84,21 @@ def _bereken_regel(row: dict) -> dict:
     }
 
 
-def recompute(rows: Iterable[dict]) -> list[dict]:
+def recompute(
+    rows: Iterable[dict],
+    btw_defaults: dict[str, float] | None = None,
+) -> list[dict]:
     """Bereken per rij (prijspe, toturen, totaal, is_staart).
 
     Argumenten
     ----------
     rows : iterabel van dicts met keys
-        s, hvh, arb, maa, mee, ond, uurloon, productie
+        s, hvh, arb, maa, mee, ond, uurloon, productie, btw
         Waarden zijn strings in Nederlands getalformaat of leeg.
+    btw_defaults : optioneel
+        Override op de module-constante `BTW_DEFAULTS` (a/b/c → percentage).
+        Bedoeld voor app-instellingen die de overheidstarieven volgen.
+        Ontbrekende keys vallen terug op `BTW_DEFAULTS`.
 
     Resultaat
     ---------
@@ -162,9 +185,29 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                       if (rows[i].get('s') or '').strip() == code)
             for code in ('S', 'V', 'G', 'X')
         }
+        # Subtotalen per BTW-kenmerk: directe kosten gesplitst in h/l/v.
+        # X-posten en titels uitgesloten, identiek aan directe_kosten.
+        _btw_sub = {
+            cat: sum(
+                raw_totaal[i] for i in range(staart_idx)
+                if not is_titel[i]
+                and (rows[i].get('s') or '').strip() != 'X'
+                and _btw_kenmerk(rows[i]) == cat
+            )
+            for cat in BTW_KENMERKEN
+        }
+
+        # Overheid-percentages (uit settings) of module-defaults
+        btw_pcts = dict(BTW_DEFAULTS)
+        if btw_defaults:
+            btw_pcts.update(btw_defaults)
 
         running = directe_kosten
         raw_totaal[staart_idx] = directe_kosten  # '/' rij
+        # Snapshot van running op het moment dat de eerste a/b/c-rij langskomt;
+        # alle a/b/c-rijen delen dezelfde grondslag-scaling zodat een eerdere
+        # BTW-rij niet de grondslag van een latere ophoogt.
+        btw_anchor: float | None = None
 
         for i in range(staart_idx + 1, n):
             s   = (rows[i].get('s') or '').strip()
@@ -187,13 +230,23 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             elif s in ('a', 'b', 'c'):
                 hvh_raw = (rows[i].get('hvh') or '').strip()
                 if hvh == 0 or not hvh_raw:
-                    pct = BTW_DEFAULTS.get(s, 0.0)
+                    pct = btw_pcts.get(s, 0.0)
                     raw_warnings[i].append(
                         f'Default {pct:g}% gebruikt — geen percentage in Hvh'
                     )
                 else:
                     pct = hvh
-                delta = running * pct / 100.0
+                # Grondslag = directe-kosten-subset met dit BTW-kenmerk,
+                # proportioneel meegeschaald met de cumulatieve groei tot
+                # vóór de eerste BTW-rij (zodat Onvoorzien/AK/W&R doortikken
+                # maar a en b dezelfde "ex BTW"-grondslag delen).
+                if btw_anchor is None:
+                    btw_anchor = running
+                cat = ABC_NAAR_KENMERK[s]
+                kenmerk_subset = _btw_sub.get(cat, 0.0)
+                scale = (btw_anchor / directe_kosten) if directe_kosten else 1.0
+                grondslag = kenmerk_subset * scale
+                delta = grondslag * pct / 100.0
                 raw_totaal[i] = delta
                 running += delta
             elif s in ('S', 'V', 'G'):
