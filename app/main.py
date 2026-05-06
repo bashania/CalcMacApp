@@ -307,12 +307,22 @@ class DnDTableWidget(QTableWidget):
 
 
 class _ReturnNextRowFilter(QObject):
-    """Numbers-stijl Return-navigatie.
+    """Numbers-stijl navigatie tijdens cel-bewerking.
 
-    Vangt zowel Return als Shift+Return op wanneer focus binnen de tabel
-    staat (ook tijdens cel-bewerking). Commit de actieve editor en zet
-    de cursor op de cel direct eronder (zelfde kolom).
+    Vangt Return / Shift+Return / pijltjestoetsen op wanneer focus
+    binnen de tabel of een cel-editor staat. Commit eerst eventuele
+    bewerking, en navigeert daarna naar de aangrenzende cel.
+
+    - Return / Shift+Return / ↓ : volgende rij (zelfde kolom)
+    - ↑                         : vorige rij (zelfde kolom)
+    - ← / →                     : vorige / volgende cel
     """
+
+    NAV_KEYS = {
+        Qt.Key.Key_Return, Qt.Key.Key_Enter,
+        Qt.Key.Key_Up, Qt.Key.Key_Down,
+        Qt.Key.Key_Left, Qt.Key.Key_Right,
+    }
 
     def __init__(self, table: QTableWidget) -> None:
         super().__init__(table)
@@ -321,7 +331,20 @@ class _ReturnNextRowFilter(QObject):
     def eventFilter(self, obj, event) -> bool:
         if event.type() != QEvent.Type.KeyPress:
             return False
-        if event.key() not in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
+        key = event.key()
+        if key not in self.NAV_KEYS:
+            return False
+        # Pijltjes alleen actief tijdens cel-bewerken — buiten edit-mode
+        # heeft Qt zelf al pijltjes-navigatie.
+        is_arrow = key in (
+            Qt.Key.Key_Up, Qt.Key.Key_Down,
+            Qt.Key.Key_Left, Qt.Key.Key_Right,
+        )
+        in_edit = (
+            self.table.state()
+            == QAbstractItemView.State.EditingState
+        )
+        if is_arrow and not in_edit:
             return False
 
         # Geldt alleen als de focus binnen de tabel staat (of in een editor
@@ -349,12 +372,33 @@ class _ReturnNextRowFilter(QObject):
             except Exception:
                 pass
 
-        # Cel direct eronder selecteren (zelfde kolom).
+        # Bepaal nieuwe positie op basis van de toets, zichtbare kolommen
+        # en rijen worden gerespecteerd.
         cur = self.table.currentIndex()
-        if cur.isValid():
-            new_row = cur.row() + 1
-            if new_row < self.table.rowCount():
-                self.table.setCurrentCell(new_row, cur.column())
+        if not cur.isValid():
+            return True
+        r, c = cur.row(), cur.column()
+        n_rows = self.table.rowCount()
+        n_cols = self.table.columnCount()
+        if key in (Qt.Key.Key_Return, Qt.Key.Key_Enter, Qt.Key.Key_Down):
+            r = min(r + 1, n_rows - 1)
+        elif key == Qt.Key.Key_Up:
+            r = max(r - 1, 0)
+        elif key == Qt.Key.Key_Right:
+            c = min(c + 1, n_cols - 1)
+            while c < n_cols - 1 and self.table.isColumnHidden(c):
+                c += 1
+        elif key == Qt.Key.Key_Left:
+            c = max(c - 1, 0)
+            while c > 0 and self.table.isColumnHidden(c):
+                c -= 1
+        # Ook rij-skip als hidden (wel zeldzaam)
+        while r > 0 and self.table.isRowHidden(r):
+            r -= 1 if key == Qt.Key.Key_Up else -1
+            r = max(0, min(n_rows - 1, r))
+            if not self.table.isRowHidden(r):
+                break
+        self.table.setCurrentCell(r, c)
         return True
 
 
@@ -765,12 +809,12 @@ class MainWindow(QMainWindow):
         hh = self.table.horizontalHeader()
         hh.setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
         hh.setStretchLastSection(False)
-        # Sleep om kolommen te herordenen — saveState() onthoudt de volgorde
+        # Sleep aan een kolomkop (klik op de label, NIET op de resize-rand)
+        # om de volgorde te wijzigen. saveState() onthoudt het.
         hh.setSectionsMovable(True)
         hh.setSectionsClickable(True)
-        hh.setDragEnabled(True)
-        hh.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
         hh.setFirstSectionMovable(True)
+        hh.sectionMoved.connect(self._on_section_moved)
         # Rechtermuisklik op een kolomkop → snel-menu
         hh.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         hh.customContextMenuRequested.connect(self._on_header_context_menu)
@@ -887,6 +931,16 @@ class MainWindow(QMainWindow):
 
     def on_toggle_inspector(self) -> None:
         self.inspector.setVisible(not self.inspector.isVisible())
+
+    def _on_section_moved(self, _logical_idx, _old_visual, new_visual) -> None:
+        """Feedback wanneer kolom is versleept (sectionMoved signal)."""
+        if 0 <= new_visual < len(COLUMNS):
+            label = COLUMNS[new_visual][1]
+            self.statusBar().showMessage(
+                f'Kolom "{label}" verplaatst', 2000,
+            )
+        # Direct opslaan zodat herstart de nieuwe volgorde behoudt
+        self._save_settings()
 
     # ── Persistente instellingen ─────────────────────────────────────────────
     def _settings(self) -> QSettings:

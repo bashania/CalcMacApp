@@ -83,6 +83,7 @@ slepen.
 | Tab / ⇧Tab | Volgende / vorige cel |
 | ⌅ Return | Volgende rij in dezelfde kolom (commit + omlaag) |
 | ⇧⌅ Return | Hetzelfde als ↩ |
+| Pijltjes ↑↓←→ | Werkt ook tijdens cel-bewerken: commit + navigeer |
 | F2 | Cel bewerken zonder overschrijven |
 | typen | Direct beginnen te typen overschrijft cel |
 
