@@ -182,8 +182,18 @@ wijzigingen ineens terug.
 De statusbalk toont twee bedragen:
 
 - **Bouwkosten**: som van alle hoofdstukken (S=1)
-- **Eindtotaal**: het laatste `=` in de staart, dus inclusief BTW en
-  alle staart-opslagen. Verschijnt alleen als er een staart is.
+- **Eindtotaal**: de laatste `=`-rij op of ná de laatste BTW-rij (`a`/`b`/
+  `c`) in de staart, dus inclusief BTW en alle staart-opslagen. Calc4You
+  herhaalt vaak het eindtotaal nog eens na S/V/G — die extra `=` wordt
+  herkend en de echte eindrij blijft het label leveren.
+
+Het label is altijd zichtbaar zodra een bestand open is:
+
+- Compleet → `Eindtotaal: € …`
+- Compleet, met waarschuwingen → idem; tooltip noemt de waarschuwingen
+- Errors → `Eindtotaal: € … ⚠` (oranje); tooltip noemt de errors
+- Onvolledige staart → `Eindtotaal: — (staart onvolledig)` in grijs;
+  tooltip legt uit wat er ontbreekt.
 
 ## Stuurcodes (S-kolom)
 
@@ -203,15 +213,85 @@ De statusbalk toont twee bedragen:
 
 | Code | Werking |
 |------|---------|
-| `/` | Start staart — toont som directe kosten |
+| `/` | Start staart — toont som directe kosten (X-posten zitten erbuiten) |
 | `%` | Procentuele opslag op lopend totaal |
 | `&` | Opslag (vereenvoudigd: zoals %) |
-| `=` | Tussentotaal (toont lopend totaal) |
+| `=` | Tussentotaal (toont lopend totaal, geen reset) |
 | `+` / `-` | Handmatig bedrag erbij / eraf |
-| `a` | BTW hoog (default 21 %, of vul percentage in Hvh) |
-| `b` | BTW laag (default 9 %) |
-| `c` | BTW verlegd (default 0 %) |
-| `S`/`V`/`G`/`X` | Doorgetelde subtotalen van post-type |
+| `a` | BTW hoog — over de subset begrotingsregels met `btw='h'` (of leeg). Bij invoer worden oms en Hvh automatisch ingevuld; pas Hvh aan om te overschrijven. |
+| `b` | BTW laag — over de subset met `btw='l'`. Auto-vulling idem. |
+| `c` | BTW verlegd — over de subset met `btw='v'`. Auto-vulling idem. |
+| `S` / `V` / `G` | Subtotaal stelposten / verrekenposten / geschatte posten — **alleen tonen**, telt niet (nogmaals) bij het lopend totaal |
+| `X` | Subtotaal X-posten — telt **wel** bij het lopend totaal omdat X-posten buiten directe kosten vallen |
+
+#### Conventionele staart-volgorde
+
+Een typische Calc4You-staart ziet er zo uit:
+
+```
+/   Totaal directe kosten
+%   Onvoorzien
+=   Subtotaal 1
+%   Algemene kosten (AK)
+%   Winst & Risico (W&R)
+=   Subtotaal 2
+X   X-posten (optioneel)
+=   Totaal exclusief BTW
+a   BTW hoog (21 %)
+b   BTW laag (9 %)
+=   Totaal inclusief BTW          ← Eindtotaal
+S   Stelposten (informatief)
+V   Verrekenbare posten (informatief)
+G   Geschatte posten (informatief)
+=   Eindtotaal herhaald (Calc4You-conventie)
+```
+
+#### BTW-kenmerk per begrotingsregel
+
+De `btw`-kolom op begrotingsregels stuurt onder welk BTW-tarief de regel
+valt:
+
+- `h` of leeg → hoog tarief (a-rij)
+- `l` → laag tarief (b-rij)
+- `v` → verlegd (c-rij)
+
+Hoofdletters `H`/`L`/`V` worden óók geaccepteerd. De grondslag voor de
+a-rij is de som van de h-regels, voor de b-rij de l-regels, enzovoort.
+Eventuele %-opslagen tussen `/` en de eerste a/b/c-rij (Onvoorzien, AK,
+W&R) schalen alle grondslagen proportioneel mee — de a- en b-rij delen
+dezelfde "ex BTW"-grondslag.
+
+#### Auto-vulling op a/b/c
+
+Typ je `a`, `b` of `c` in de S-kolom van een staart-rij, dan vult
+CalcMacApp automatisch de oms ("BTW hoog/laag tarief" / "BTW verlegd")
+en de Hvh met het huidige percentage. Bestaande waarden worden niet
+overschreven. Eén ⌘Z herstelt de hele rij in één stap.
+
+De percentages zelf zijn instelbaar via **Bewerken → Voorkeuren…**
+(⌘,) — handig wanneer de overheid de tarieven wijzigt.
+
+#### Lege Hvh op BTW-rijen
+
+Vul je geen Hvh op een `a`/`b`/`c`-rij, dan past CalcMacApp het standaard
+percentage toe (uit voorkeuren, default 21 / 9 / 0 %). De Hvh-cel staat
+dan cursief en een tooltip op de S-cel meldt _"Default … % gebruikt"_.
+Vul een waarde in om dat te overschrijven.
+
+#### Waarschuwingen op staart-rijen
+
+Beweeg over de S-cel van een staart-rij om uitleg te zien als CalcMacApp
+iets verdacht vindt:
+
+- `%` of `&` met Hvh = 0 → "Percentage 0 — geen opslag"
+- `+` / `-` met bedrag 0 → "Bedrag is 0 — rij heeft geen effect"
+- `X`-rij in staart maar geen X-posten in begroting → rij heeft geen effect
+
+Errors (rood/oranje eindtotaal) verschijnen bij:
+
+- Staart-codes zonder `/`-startrij
+- Twee `/`-rijen
+
 
 ## Drag & drop
 
@@ -277,3 +357,12 @@ bewaren en weer in CalcMacApp openen — geen formaat-verlies.
 **Bestand sluit met onopgeslagen wijzigingen**
 > Je krijgt een sheet met "Bewaren / Niet bewaren / Annuleren". De
 > close-knop toont een puntje wanneer er wijzigingen zijn.
+
+**Eindtotaal toont een streepje (`Eindtotaal: —`)**
+> De staart is onvolledig. Tooltip op het label legt uit wat er ontbreekt:
+> meestal een ontbrekende `/`-startrij of geen enkele `=`-rij. Voeg een `/`
+> toe als eerste staart-rij en sluit met een `=` na de BTW.
+
+**Onvoorzien of opslag telt niet mee**
+> Controleer dat de `%`-rij een Hvh-percentage heeft. Hvh = 0 of leeg
+> betekent geen opslag — een tooltip op de S-cel bevestigt dat.
