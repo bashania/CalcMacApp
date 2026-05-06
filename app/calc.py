@@ -11,6 +11,7 @@ vult die zelf in bij het openen. Deze module dient uitsluitend de viewer-UI.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Iterable
 
 from app.c4y_io import format_nl, format_nl_hvh, parse_nl_number  # noqa: F401
@@ -95,6 +96,7 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
     raw_ond     = [0.0] * n   # totaal onderaanneming €
     is_titel    = [False] * n
     is_staart   = [False] * n
+    raw_warnings: list[list[str]] = [[] for _ in range(n)]
 
     # Zoek de staartscheiding ('/')
     staart_idx: int | None = None
@@ -169,6 +171,8 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             hvh = _num(rows[i].get('hvh'))
 
             if s == '%':
+                if hvh == 0:
+                    raw_warnings[i].append('Percentage 0 — geen opslag')
                 delta = running * hvh / 100.0
                 raw_totaal[i] = delta
                 running += delta
@@ -181,7 +185,14 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             elif s == '=':
                 raw_totaal[i] = running   # toont lopend totaal, reset niet
             elif s in ('a', 'b', 'c'):
-                pct = hvh if hvh != 0 else BTW_DEFAULTS.get(s, 0.0)
+                hvh_raw = (rows[i].get('hvh') or '').strip()
+                if hvh == 0 or not hvh_raw:
+                    pct = BTW_DEFAULTS.get(s, 0.0)
+                    raw_warnings[i].append(
+                        f'Default {pct:g}% gebruikt — geen percentage in Hvh'
+                    )
+                else:
+                    pct = hvh
                 delta = running * pct / 100.0
                 raw_totaal[i] = delta
                 running += delta
@@ -192,10 +203,16 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
             elif s == 'X':
                 # X-posten zijn juist BUITEN directe kosten — nu wel optellen.
                 delta = _sub.get('X', 0.0)
+                if delta == 0:
+                    raw_warnings[i].append(
+                        'Geen X-posten in begroting — rij heeft geen effect'
+                    )
                 raw_totaal[i] = delta
                 running += delta
             elif s == '&':
                 # Vereenvoudigd: behandel als %-opslag
+                if hvh == 0:
+                    raw_warnings[i].append('Percentage 0 — geen opslag')
                 delta = running * hvh / 100.0
                 raw_totaal[i] = delta
                 running += delta
@@ -223,6 +240,7 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 'tot_mee':  format_nl(me) if me else '',
                 'tot_ond':  format_nl(on) if on else '',
                 'is_staart': False,
+                'warnings': list(raw_warnings[i]),
             })
         elif st:
             out.append({
@@ -234,6 +252,7 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 'tot_mee':  '',
                 'tot_ond':  '',
                 'is_staart': True,
+                'warnings': list(raw_warnings[i]),
             })
         else:
             out.append({
@@ -245,6 +264,7 @@ def recompute(rows: Iterable[dict]) -> list[dict]:
                 'tot_mee':  format_nl(me) if me else '',
                 'tot_ond':  format_nl(on) if on else '',
                 'is_staart': False,
+                'warnings': list(raw_warnings[i]),
             })
     return out
 
@@ -261,15 +281,137 @@ def totaal_begroting(calc_rows: list[dict], rows: list[dict]) -> float:
 def eindtotaal_begroting(
     calc_rows: list[dict], rows: list[dict],
 ) -> float | None:
-    """Eindbedrag = laatste '=' in de staart, of None als er geen staart is.
+    """Eindbedrag van de begroting incl. BTW.
 
-    Een '=' rij toont het lopend totaal, dus de laatste '=' is het
-    eindtotaal van de begroting incl. BTW.
+    Convention: de laatste '=' rij die op of NA de laatste BTW-rij (a/b/c)
+    voorkomt. Vallen we terug op de laatste '=' als er geen BTW-rij is.
+    Geeft None als er geen '=' in de staart staat.
+
+    Reden: Calc4You-bestanden herhalen na S/V/G-tonen vaak nog een '=' met
+    hetzelfde eindbedrag; "laatste =" zou dan toevallig kloppen, maar als een
+    gebruiker per ongeluk een tussentotaal toevoegt na de echte eindrij,
+    veranderde het label onbedoeld. Door 'na BTW' als anker te nemen blijven
+    we robuust zonder van Calc4You's gedrag af te wijken.
     """
-    last: float | None = None
-    for c, r in zip(calc_rows, rows):
-        if (r.get('s') or '').strip() == '=':
-            v = parse_nl_number(c['totaal'])
-            if v is not None:
-                last = v
-    return last
+    last_btw_idx = -1
+    last_eq_idx = -1
+    last_eq_after_btw_idx = -1
+    for i, r in enumerate(rows):
+        s = (r.get('s') or '').strip()
+        if s in ('a', 'b', 'c'):
+            last_btw_idx = i
+        elif s == '=':
+            last_eq_idx = i
+            if i >= last_btw_idx:
+                last_eq_after_btw_idx = i
+    chosen = last_eq_after_btw_idx if last_eq_after_btw_idx >= 0 else last_eq_idx
+    if chosen < 0:
+        return None
+    return parse_nl_number(calc_rows[chosen]['totaal'])
+
+
+# ── Staart-validatie ──────────────────────────────────────────────────────────
+@dataclass(frozen=True)
+class StaartIssue:
+    """Een gedetecteerde inconsistentie of waarschuwing in de staart.
+
+    row      : index in `rows` waar het issue zit, of None voor staart-niveau.
+    severity : 'error' (eindtotaal niet betrouwbaar), 'warning' (uitkomst kan
+               afwijken van bedoeling), 'info' (puur observatie).
+    code     : machine-leesbare identifier, voor UI-styling/i18n.
+    message  : Nederlandse tekst, geschikt om in tooltip/dialoog te tonen.
+    """
+    row: int | None
+    severity: str
+    code: str
+    message: str
+
+
+def validate_staart(rows: list[dict]) -> list[StaartIssue]:
+    """Detecteer problemen in de staart-structuur.
+
+    Geeft een lege lijst terug als er geen staart is en ook geen losstaande
+    staart-codes voorkomen — een begroting zonder staart is geldig.
+    """
+    issues: list[StaartIssue] = []
+
+    staart_idx = next(
+        (i for i, r in enumerate(rows)
+         if (r.get('s') or '').strip() == '/'),
+        None,
+    )
+
+    # E1: staart-codes zonder /-rij
+    if staart_idx is None:
+        if any((r.get('s') or '').strip() in (STAART_S_CODES - {'/'})
+               for r in rows):
+            issues.append(StaartIssue(
+                None, 'error', 'orphan_staart',
+                'Staart-rijen aanwezig zonder /-startrij',
+            ))
+        return issues
+
+    # E5: dubbele /-rij
+    second_slash = next(
+        (i for i in range(staart_idx + 1, len(rows))
+         if (rows[i].get('s') or '').strip() == '/'),
+        None,
+    )
+    if second_slash is not None:
+        issues.append(StaartIssue(
+            second_slash, 'error', 'duplicate_slash',
+            'Tweede /-rij — alleen één staartstart toegestaan',
+        ))
+
+    # E2: X-rij in staart maar geen X-posten in begroting boven /
+    has_x_above = any(
+        (r.get('s') or '').strip() == 'X'
+        for r in rows[:staart_idx]
+    )
+    has_x_in_staart = any(
+        (rows[i].get('s') or '').strip() == 'X'
+        for i in range(staart_idx + 1, len(rows))
+    )
+    if has_x_in_staart and not has_x_above:
+        issues.append(StaartIssue(
+            None, 'warning', 'x_in_staart_no_source',
+            'X-rij in staart maar geen X-posten in de begroting',
+        ))
+
+    # E3: per-rij waarschuwingen voor lege/0 hvh
+    for i in range(staart_idx + 1, len(rows)):
+        s = (rows[i].get('s') or '').strip()
+        hvh_raw = (rows[i].get('hvh') or '').strip()
+        hvh_num = parse_nl_number(hvh_raw)
+        if s in ('a', 'b', 'c'):
+            if not hvh_raw or hvh_num in (None, 0):
+                pct = BTW_DEFAULTS.get(s, 0.0)
+                issues.append(StaartIssue(
+                    i, 'warning', 'btw_default',
+                    f'Default {pct:g}% gebruikt — vul Hvh om te overschrijven',
+                ))
+        elif s in ('%', '&'):
+            if hvh_num is None or hvh_num == 0:
+                issues.append(StaartIssue(
+                    i, 'warning', 'pct_zero',
+                    'Percentage 0 — geen opslag',
+                ))
+        elif s in ('+', '-'):
+            if hvh_num is None or hvh_num == 0:
+                issues.append(StaartIssue(
+                    i, 'info', 'plusminus_zero',
+                    'Bedrag is 0 — rij heeft geen effect',
+                ))
+
+    # E4: geen '=' in staart -> geen eindtotaal bepaalbaar
+    has_eq = any(
+        (rows[i].get('s') or '').strip() == '='
+        for i in range(staart_idx + 1, len(rows))
+    )
+    if not has_eq:
+        issues.append(StaartIssue(
+            staart_idx, 'warning', 'no_total',
+            'Geen =-rij in staart — eindtotaal niet bepaalbaar',
+        ))
+
+    return issues

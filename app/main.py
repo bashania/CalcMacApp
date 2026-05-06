@@ -53,7 +53,12 @@ from PyQt6.QtWidgets import (
 from app.c4y_io import (
     C4YDocument, TITEL_NIVEAUS, format_nl, format_nl_hvh, parse_nl_number,
 )
-from app.calc import eindtotaal_begroting, recompute, totaal_begroting
+from app.calc import (
+    eindtotaal_begroting,
+    recompute,
+    totaal_begroting,
+    validate_staart,
+)
 from app.commands import (
     DeleteRowCommand,
     DuplicateRowCommand,
@@ -1370,15 +1375,96 @@ class MainWindow(QMainWindow):
         self._lbl_bouwkosten.setText(
             f'Bouwkosten: € {format_nl(bouwkosten)}'
         )
+
         eindtotaal = eindtotaal_begroting(results, rows_in)
-        if eindtotaal is not None:
+        issues = validate_staart(rows_in)
+        errors = [i for i in issues if i.severity == 'error']
+        warnings_ = [i for i in issues if i.severity == 'warning']
+
+        self._lbl_eindtotaal.setVisible(True)
+        if eindtotaal is not None and not errors:
             self._lbl_eindtotaal.setText(
                 f'Eindtotaal: € {format_nl(eindtotaal)}'
             )
-            self._lbl_eindtotaal.setVisible(True)
+            self._lbl_eindtotaal.setStyleSheet('')
+            tip = (
+                '\n'.join(f'• {w.message}' for w in warnings_)
+                if warnings_ else ''
+            )
+        elif eindtotaal is not None and errors:
+            self._lbl_eindtotaal.setText(
+                f'Eindtotaal: € {format_nl(eindtotaal)}  ⚠'
+            )
+            self._lbl_eindtotaal.setStyleSheet('color: #b15500;')
+            tip = '\n'.join(
+                f'• {i.message}' for i in errors + warnings_
+            )
         else:
-            self._lbl_eindtotaal.setText('')
-            self._lbl_eindtotaal.setVisible(False)
+            self._lbl_eindtotaal.setText(
+                'Eindtotaal: — (staart onvolledig)'
+            )
+            self._lbl_eindtotaal.setStyleSheet('color: #888;')
+            tip = (
+                '\n'.join(f'• {i.message}' for i in issues)
+                or 'Geen /-rij of geen =-rij in de staart.'
+            )
+        self._lbl_eindtotaal.setToolTip(tip)
+
+        self._apply_staart_warnings(issues)
+
+        if warnings_ and not errors:
+            self.statusBar().showMessage(
+                f'Staart: {len(warnings_)} waarschuwing(en) — '
+                'beweeg over de S-cel voor uitleg.', 4000,
+            )
+
+    def _apply_staart_warnings(self, issues) -> None:
+        """Visuele cues per staart-rij: tooltip op S-cel, cursief op hvh
+        bij btw_default. Reset eerst bestaande tooltips/cursief om stale
+        markeringen te verwijderen."""
+        col_idx = {tag: i for i, (tag, _, _, _) in enumerate(COLUMNS)}
+        col_s = col_idx.get('s', COL_S)
+        col_hvh = col_idx.get('hvh')
+
+        # Reset: alleen rijen die we vorige keer markeerden — bewaar in een
+        # set op self om O(N*M) loops over alle cellen te vermijden.
+        prev = getattr(self, '_staart_marked_rows', set())
+        for r in prev:
+            if r >= self.table.rowCount():
+                continue
+            s_item = self.table.item(r, col_s)
+            if s_item is not None:
+                s_item.setToolTip('')
+            if col_hvh is not None:
+                hvh_item = self.table.item(r, col_hvh)
+                if hvh_item is not None:
+                    f = hvh_item.font()
+                    if f.italic():
+                        f.setItalic(False)
+                        hvh_item.setFont(f)
+
+        # Groepeer per rij
+        per_row: dict[int, list] = {}
+        for iss in issues:
+            if iss.row is None:
+                continue
+            per_row.setdefault(iss.row, []).append(iss)
+
+        for row, lst in per_row.items():
+            text = '\n'.join(f'• {i.message}' for i in lst)
+            s_item = self.table.item(row, col_s)
+            if s_item is not None:
+                s_item.setToolTip(text)
+            if col_hvh is not None and any(i.code == 'btw_default' for i in lst):
+                hvh_item = self.table.item(row, col_hvh)
+                if hvh_item is not None:
+                    f = hvh_item.font()
+                    f.setItalic(True)
+                    hvh_item.setFont(f)
+                    hvh_item.setToolTip(
+                        'Default BTW% gebruikt — vul Hvh om te overschrijven'
+                    )
+        self._staart_marked_rows = set(per_row.keys())
 
     # ── Celwijzigingen ───────────────────────────────────────────────────────
     def _on_project_edit(self) -> None:
