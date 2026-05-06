@@ -27,6 +27,7 @@ from PyQt6.QtWidgets import (
     QApplication,
     QButtonGroup,
     QComboBox,
+    QCompleter,
     QDialog,
     QDialogButtonBox,
     QDockWidget,
@@ -462,6 +463,36 @@ class CellFocusDelegate(QStyledItemDelegate):
             (i for i, c in enumerate(COLUMNS) if c[0] == 'nr'), 0,
         )
 
+    def createEditor(self, parent, option, index):
+        editor = super().createEditor(parent, option, index)
+        # Autocomplete op de Omschrijving-kolom
+        col_oms = next(
+            (i for i, c in enumerate(COLUMNS) if c[0] == 'oms'), -1,
+        )
+        if index.column() == col_oms and isinstance(editor, QLineEdit):
+            doc = getattr(self.host, 'doc', None)
+            if doc is not None:
+                seen: set[str] = set()
+                items: list[str] = []
+                for i in range(doc.row_count()):
+                    text = doc.get_row_field(i, 'oms').strip()
+                    if text and text not in seen:
+                        seen.add(text)
+                        items.append(text)
+                if items:
+                    completer = QCompleter(items, editor)
+                    completer.setCaseSensitivity(
+                        Qt.CaseSensitivity.CaseInsensitive
+                    )
+                    completer.setFilterMode(
+                        Qt.MatchFlag.MatchContains
+                    )
+                    completer.setCompletionMode(
+                        QCompleter.CompletionMode.PopupCompletion
+                    )
+                    editor.setCompleter(completer)
+        return editor
+
     def paint(self, painter, option, index) -> None:
         if option.state & QStyle.StateFlag.State_HasFocus:
             # Standaard cel paint (bg, evt. selection-overlay, tekst)
@@ -595,6 +626,75 @@ class FillColumnDialog(QDialog):
     @property
     def use_selection(self) -> bool:
         return self.rb_sel.isChecked()
+
+
+class PreferencesDialog(QDialog):
+    """Voorkeuren — defaults voor nieuwe rijen.
+
+    Waarden worden opgeslagen in QSettings ('prefs/*') en gebruikt door
+    MainWindow._new_row_defaults() bij het invoegen van rijen.
+    """
+
+    def __init__(self, parent: QWidget) -> None:
+        super().__init__(parent)
+        self.setWindowTitle('Voorkeuren')
+        self.setWindowModality(Qt.WindowModality.WindowModal)
+        self.resize(360, 220)
+
+        s = QSettings('CalcMacApp', 'CalcMacApp')
+
+        layout = QVBoxLayout(self)
+        form = QFormLayout()
+
+        self.le_uurloon = QLineEdit(
+            s.value('prefs/uurloon', '45,00', type=str)
+        )
+        self.le_factor = QLineEdit(
+            s.value('prefs/productie', '25,00', type=str)
+        )
+        self.cb_btw = QComboBox()
+        for code, label in (
+            ('',  'Geen / hoog (default)'),
+            ('l', 'Laag (9%)'),
+            ('v', 'Verlegd (0%)'),
+        ):
+            self.cb_btw.addItem(label, code)
+        cur = s.value('prefs/btw', '', type=str)
+        for i in range(self.cb_btw.count()):
+            if self.cb_btw.itemData(i) == cur:
+                self.cb_btw.setCurrentIndex(i)
+                break
+
+        form.addRow('Uurloon (€/u):', self.le_uurloon)
+        form.addRow('Productie (factor %):', self.le_factor)
+        form.addRow('BTW:', self.cb_btw)
+        layout.addLayout(form)
+
+        info = QLabel(
+            'Deze waarden worden gebruikt als startwaarden voor nieuwe '
+            'begrotingsregels. Bestaande rijen blijven ongewijzigd.'
+        )
+        info.setWordWrap(True)
+        info.setStyleSheet('color: palette(mid);')
+        layout.addWidget(info)
+
+        bb = QDialogButtonBox()
+        btn_save = bb.addButton('Bewaren',
+                                QDialogButtonBox.ButtonRole.AcceptRole)
+        bb.addButton('Annuleren',
+                     QDialogButtonBox.ButtonRole.RejectRole)
+        btn_save.setDefault(True)
+        bb.accepted.connect(self._save_and_accept)
+        bb.rejected.connect(self.reject)
+        layout.addStretch(1)
+        layout.addWidget(bb)
+
+    def _save_and_accept(self) -> None:
+        s = QSettings('CalcMacApp', 'CalcMacApp')
+        s.setValue('prefs/uurloon',   self.le_uurloon.text())
+        s.setValue('prefs/productie', self.le_factor.text())
+        s.setValue('prefs/btw',       self.cb_btw.currentData())
+        self.accept()
 
 
 class IndexColumnDialog(QDialog):
@@ -951,6 +1051,17 @@ class MainWindow(QMainWindow):
             'Vorige', self, shortcut=QKeySequence.StandardKey.FindPrevious,
         )
         self.act_find_prev.triggered.connect(self.on_find_prev)
+        self.act_find_replace = QAction(
+            'Zoeken en vervangen…', self, shortcut='Ctrl+Alt+F',
+        )
+        self.act_find_replace.triggered.connect(self.on_find_replace_open)
+
+        # Voorkeuren (⌘,)
+        self.act_preferences = QAction(
+            'Voorkeuren…', self, shortcut='Ctrl+,',
+        )
+        self.act_preferences.setMenuRole(QAction.MenuRole.PreferencesRole)
+        self.act_preferences.triggered.connect(self.on_preferences)
 
         # In/uitklap
         self.act_collapse = QAction('Niveau in/uitklappen', self,
@@ -984,6 +1095,10 @@ class MainWindow(QMainWindow):
         self.find_bar.queryChanged.connect(self._on_find_query)
         self.find_bar.nextRequested.connect(self._find_advance)
         self.find_bar.previousRequested.connect(self._find_back)
+        self.find_bar.replaceCurrentRequested.connect(
+            self._on_replace_current
+        )
+        self.find_bar.replaceAllRequested.connect(self._on_replace_all)
         self.find_bar.closed.connect(self._on_find_closed)
         root.addWidget(self.find_bar)
 
@@ -1207,6 +1322,83 @@ class MainWindow(QMainWindow):
     def on_find_prev(self) -> None:
         self.find_bar.go_previous()
 
+    def on_find_replace_open(self) -> None:
+        self.find_bar.show_bar(replace=True)
+
+    def _on_replace_current(self, new_text: str) -> None:
+        """Vervang in de actieve match de zoekterm door new_text."""
+        if not self.doc or self._find_active < 0:
+            return
+        if self._find_active >= len(self._find_matches):
+            return
+        r, c = self._find_matches[self._find_active]
+        tag = COLUMNS[c][0]
+        if tag.startswith('_'):
+            return
+        old = self.doc.get_row_field(r, tag)
+        if not self._find_query:
+            return
+        # Case-insensitive substring vervanging
+        idx = old.lower().find(self._find_query.lower())
+        if idx < 0:
+            return
+        new = old[:idx] + new_text + old[idx + len(self._find_query):]
+        self.undo_stack.push(SetCellCommand(self, r, tag, old, new))
+        # Hercompute matches en ga naar volgende
+        self._compute_find_matches()
+        if self._find_matches:
+            self._find_active %= len(self._find_matches)
+        else:
+            self._find_active = -1
+        self._update_find_count()
+        self._apply_find_highlights()
+
+    def _on_replace_all(self, query: str, new_text: str) -> None:
+        if not self.doc or not query:
+            return
+        # Hercompute met huidige query
+        self._find_query = query
+        self._compute_find_matches()
+        if not self._find_matches:
+            return
+        ql = query.lower()
+        self.undo_stack.beginMacro(
+            f"Vervang alle '{query}' → '{new_text}'"
+        )
+        try:
+            n_done = 0
+            for (r, c) in self._find_matches:
+                tag = COLUMNS[c][0]
+                if tag.startswith('_'):
+                    continue
+                old = self.doc.get_row_field(r, tag)
+                if ql not in old.lower():
+                    continue
+                # Vervang ALLE voorkomens in deze cel (case-insensitive)
+                new = ''
+                cursor = 0
+                while True:
+                    idx = old.lower().find(ql, cursor)
+                    if idx < 0:
+                        new += old[cursor:]
+                        break
+                    new += old[cursor:idx] + new_text
+                    cursor = idx + len(query)
+                if new != old:
+                    self.undo_stack.push(
+                        SetCellCommand(self, r, tag, old, new)
+                    )
+                    n_done += 1
+        finally:
+            self.undo_stack.endMacro()
+        self._compute_find_matches()
+        self._find_active = 0 if self._find_matches else -1
+        self._update_find_count()
+        self._apply_find_highlights()
+        self.statusBar().showMessage(
+            f'{n_done} cellen aangepast.', 4000,
+        )
+
     def _on_find_query(self, query: str) -> None:
         self._find_query = query
         self._compute_find_matches()
@@ -1314,6 +1506,8 @@ class MainWindow(QMainWindow):
         f.addAction(self.act_save)
         f.addAction(self.act_save_as)
         f.addSeparator()
+        f.addAction(self.act_preferences)
+        f.addSeparator()
         f.addAction(self.act_quit)
 
         b = m.addMenu('Be&werken')
@@ -1337,6 +1531,7 @@ class MainWindow(QMainWindow):
         b.addAction(self.act_find)
         b.addAction(self.act_find_next)
         b.addAction(self.act_find_prev)
+        b.addAction(self.act_find_replace)
         b.addSeparator()
         b.addAction(self.act_collapse)
         b.addAction(self.act_collapse_level)
@@ -1932,13 +2127,28 @@ class MainWindow(QMainWindow):
     def _new_row_defaults(self) -> dict[str, str]:
         if not self.doc:
             return {}
-        # Uurloon overnemen uit alginfo/<ul> als die bestaat
-        ul = self.doc.get_project_field('ul').strip()
+        # Voorkeuren uit Voorkeuren-venster (QSettings) hebben voorrang;
+        # daarna alginfo/<ul> uit het document; daarna 'fabrieks'-defaults.
+        s = self._settings()
         defaults: dict[str, str] = {}
-        if ul:
-            defaults['uurloon'] = ul
-        defaults.setdefault('productie', '25,00')
+        ul_pref = s.value('prefs/uurloon', '', type=str).strip()
+        if ul_pref:
+            defaults['uurloon'] = ul_pref
+        else:
+            ul = self.doc.get_project_field('ul').strip()
+            if ul:
+                defaults['uurloon'] = ul
+        defaults['productie'] = s.value(
+            'prefs/productie', '25,00', type=str,
+        )
+        btw = s.value('prefs/btw', '', type=str)
+        if btw:
+            defaults['btw'] = btw
         return defaults
+
+    def on_preferences(self) -> None:
+        dlg = PreferencesDialog(self)
+        dlg.exec()
 
     def on_row_add_below(self) -> None:
         if not self.doc:

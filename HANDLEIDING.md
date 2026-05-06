@@ -122,7 +122,25 @@ slepen.
 | ⌘F | Zoekbalk openen |
 | ⌘G | Volgende match |
 | ⇧⌘G | Vorige match |
+| ⌥⌘F | Zoeken én vervangen (extra Replace-veld) |
 | Esc | Zoekbalk sluiten |
+
+### Voorkeuren (⌘,)
+
+**Bestand → Voorkeuren…** (of ⌘,) opent een venster waar je defaults
+voor nieuwe rijen kunt instellen:
+- Uurloon (€/u)
+- Productie (factor %)
+- BTW (default leeg, laag of verlegd)
+
+Bij elke nieuwe rij worden deze waarden automatisch ingevuld. Bestaande
+rijen blijven ongewijzigd.
+
+### Autocomplete in Omschrijving
+
+Tijdens het bewerken van een Omschrijving-cel worden eerder gebruikte
+omschrijvingen uit dit bestand aangeboden in een dropdown — zodat je
+niet steeds dezelfde tekst hoeft over te typen.
 
 ## Cel-bewerking
 
