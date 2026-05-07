@@ -31,6 +31,13 @@ BTW_DEFAULTS: dict[str, float] = {'a': 21.0, 'b': 9.0, 'c': 0.0}
 BTW_KENMERKEN = ('h', 'l', 'v')
 ABC_NAAR_KENMERK: dict[str, str] = {'a': 'h', 'b': 'l', 'c': 'v'}
 
+# Velden die `recompute` uit elke rij leest. Centraal hier zodat main.py
+# (die rows uit het XML-document opbouwt) niet stilletjes kan vergeten een
+# veld door te geven — wat tot subtiele bugs leidt zoals btw=leeg-default.
+RECOMPUTE_INPUT_TAGS: tuple[str, ...] = (
+    's', 'hvh', 'arb', 'maa', 'mee', 'ond', 'uurloon', 'productie', 'btw',
+)
+
 
 def _btw_kenmerk(row: dict) -> str:
     """Geef het BTW-kenmerk van een begrotingsregel terug ('h'|'l'|'v').

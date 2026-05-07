@@ -55,6 +55,7 @@ from app.c4y_io import (
     C4YDocument, TITEL_NIVEAUS, format_nl, format_nl_hvh, parse_nl_number,
 )
 from app.calc import (
+    RECOMPUTE_INPUT_TAGS,
     eindtotaal_begroting,
     recompute,
     totaal_begroting,
@@ -1433,9 +1434,8 @@ class MainWindow(QMainWindow):
             return
 
         n = self.doc.row_count()
-        input_tags = ('s', 'hvh', 'arb', 'maa', 'mee', 'ond', 'uurloon', 'productie')
         rows_in = [
-            {t: self.doc.get_row_field(i, t) for t in input_tags}
+            {t: self.doc.get_row_field(i, t) for t in RECOMPUTE_INPUT_TAGS}
             for i in range(n)
         ]
         results = recompute(rows_in, btw_defaults=self._btw_defaults_dict())
@@ -1600,23 +1600,20 @@ class MainWindow(QMainWindow):
         if old_value == new_value:
             return  # geen echte wijziging — geen undo-entry
 
-        # Auto-vulling op a/b/c-staartrijen: oms + hvh als de gebruiker net
+        # Auto-vulling op a/b/c-staartrijen: oms + hvh + eh als de gebruiker
         # 'a', 'b' of 'c' in de S-kolom typt en die velden nog leeg zijn.
-        # Alle drie wijzigingen in één undo-macro zodat ⌘Z ze samen herstelt.
-        auto_oms, auto_hvh = self._abc_autofill(row, tag, new_value)
-        if auto_oms is not None or auto_hvh is not None:
+        # Alle wijzigingen in één undo-macro zodat ⌘Z ze samen herstelt.
+        auto = self._abc_autofill(row, tag, new_value)
+        if any(v is not None for v in auto.values()):
             self.undo_stack.beginMacro(f'{tag} → {new_value}')
             self.undo_stack.push(SetCellCommand(
                 self, row, tag, old_value, new_value,
             ))
-            if auto_oms is not None:
-                self.undo_stack.push(SetCellCommand(
-                    self, row, 'oms', '', auto_oms,
-                ))
-            if auto_hvh is not None:
-                self.undo_stack.push(SetCellCommand(
-                    self, row, 'hvh', '', auto_hvh,
-                ))
+            for fill_tag, fill_value in auto.items():
+                if fill_value is not None:
+                    self.undo_stack.push(SetCellCommand(
+                        self, row, fill_tag, '', fill_value,
+                    ))
             self.undo_stack.endMacro()
         else:
             self.undo_stack.push(SetCellCommand(
@@ -1625,36 +1622,37 @@ class MainWindow(QMainWindow):
 
     def _abc_autofill(
         self, row: int, tag: str, new_value: str,
-    ) -> tuple[str | None, str | None]:
-        """Bepaal eventuele auto-vulling voor oms en hvh op a/b/c-staartrijen.
+    ) -> dict[str, str | None]:
+        """Bepaal auto-vulling voor oms / hvh / eh op a/b/c-staartrijen.
 
-        Geeft (oms, hvh) terug; elk None als die niet ingevuld moet worden.
         Vereisten: tag == 's', new_value ∈ {a,b,c}, rij staat in de staart
-        (ná een /-rij), en oms/hvh op die rij zijn momenteel leeg.
+        (ná een /-rij). Per veld wordt alleen gevuld wanneer dat veld
+        momenteel leeg is. Geeft een dict {tag: waarde-of-None} terug.
         """
+        empty: dict[str, str | None] = {'oms': None, 'hvh': None, 'eh': None}
         if tag != 's' or new_value not in ('a', 'b', 'c'):
-            return (None, None)
-        # Staat deze rij in de staart? Zoek een /-rij ergens vóór deze.
+            return empty
         in_staart = any(
             (self.doc.get_row_field(i, 's') or '').strip() == '/'
             for i in range(row)
         )
         if not in_staart:
-            return (None, None)
+            return empty
         oms_val = (self.doc.get_row_field(row, 'oms') or '').strip()
         hvh_val = (self.doc.get_row_field(row, 'hvh') or '').strip()
+        eh_val = (self.doc.get_row_field(row, 'eh') or '').strip()
         oms_default = {
             'a': 'BTW hoog tarief',
             'b': 'BTW laag tarief',
             'c': 'BTW verlegd',
         }[new_value]
         pct = self._get_btw_pct(new_value)
-        # Format zonder onnodige decimalen — 21 → "21", 9,5 → "9,5"
         hvh_default = format_nl_hvh(pct) if pct else '0'
-        return (
-            oms_default if not oms_val else None,
-            hvh_default if not hvh_val else None,
-        )
+        return {
+            'oms': oms_default if not oms_val else None,
+            'hvh': hvh_default if not hvh_val else None,
+            'eh': '%' if not eh_val else None,
+        }
 
     # ── Helpers voor commando's en DnDTableWidget ────────────────────────────
     def _safe_block_size(self, idx: int) -> int:
